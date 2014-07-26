@@ -135,4 +135,13 @@ function testContains() {
   console.log(contains([1,2,4],1));
   console.log(contains({step1:1,step2:2},1));
 }
+/*
 testContains()
+*/
+function testInvoke() {
+  console.log(invoke([[5, 1, 7], [3, 2, 1]], 'sort'));
+  console.log(invoke({name: '22px',year:'45px'}, 'toString'));
+}
+/*
+testInvoke();
+*/

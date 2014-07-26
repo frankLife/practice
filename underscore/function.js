@@ -396,6 +396,22 @@ function contains(list,value) {
     return false;
   }
 }
+function invoke(list, funcName, arg) {
+  var _results = [];
+  if(Type.isObj(list)) {
+    for(var item in list) {
+      _results.push(list[item][funcName](arg));
+    }
+  }else if(Type.isArray(list)) {
+    for(var i = 0, len = list.length;i<len;i++) {
+      _results.push(list[i][funcName](arg));
+    }
+  }else {
+    throw 'list' + list + '类型出错';
+  }
+  return _results;
+}
+
 function has(obj, key) {
   if(Type.isObj(obj)) {
     for(var item in obj) {
