@@ -667,6 +667,50 @@ function shuffle(list) {
     throw 'list' + list + '类型出错';
   }
 }
+function sample(list, n) {
+  if(n == undefined || Number.isNaN(parseInt(n))) {
+    n = 1;
+  }
+  list = clone(list);
+  var _results = [];
+  if(Type.isObj(list)) {
+    var _tempArray = [];
+    for(var item in list) {
+      _tempArray[_tempArray.length] = list[item];
+    }
+    for(var i = 0 ;i<n;i++) {
+      var _index = _getRandomInt(0,_tempArray.length);
+      _results[_results.length] = _tempArray[_index];
+      _tempArray.splice(_index, 1);
+    }
+    return _results;
+  }else if(Type.isArray(list)) {
+    for(var i = 0;i<n;i++) {
+      var _index = _getRandomInt(0,list.length);
+      _results[_results.length] = list[_index];
+      list.splice(_index, 1);
+    }
+    return _results;
+  }else{
+    throw 'list: ' + list + '类型出错';
+  }
+}
+function toArray(list) {
+  return Array.prototype.slice(list);
+}
+function size(list) {
+  if(Type.isObj(list)) {
+    var _count = 0;
+    for(var item in list) {
+      _count ++;
+    }
+    return _count;
+  }else if(Type.isArray(list)) {
+    return list.length;
+  }else {
+    throw 'list ' + list + '类型出错';
+  }
+}
 function clone(obj, isDeep) {
   var _results = null;
   if(Type.isObj(obj)) {

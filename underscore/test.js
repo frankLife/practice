@@ -247,3 +247,37 @@ function testShuffle() {
 /*
 testShuffle();
 */
+function testSample() {
+  console.log(sample([1, 2, 3, 4, 5, 6]));
+  console.log(sample([1, 2, 3, 4, 5, 6],3));
+  console.log(sample({
+    s1: 1,
+    s2: 2,
+    s3: 3,
+    s4: 4,
+    s5: 5,
+    s6: 6
+  },3));
+}
+/*
+testSample();
+*/
+function testToArray() {
+  console.log('type: ' + Object.prototype.toString.call(arguments));
+  console.log('arguments: ');
+  console.log(arguments);
+  console.log('type: ' + Object.prototype.toString.call(toArray(arguments)));
+  console.log(arguments);
+}
+/*
+testToArray(1,2,3,4,5);
+*/
+function testSize() {
+  console.log(size([1,2,3,7]));
+  console.log(size({
+    s1: 1,
+    s2: 2,
+    s3: 7
+  }));
+}
+testSize();
