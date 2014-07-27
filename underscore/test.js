@@ -280,4 +280,11 @@ function testSize() {
     s3: 7
   }));
 }
+/*
 testSize();
+*/
+function testFirst() {
+  console.log(first([5, 4, 3, 2, 1]));
+  console.log(first([5, 4, 3, 2, 1],2));
+}
+testFirst();

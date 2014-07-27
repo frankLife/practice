@@ -33,6 +33,7 @@ var Tool = {
     return Array.prototype.slice.call(obj);
   }
 }
+//Collections
 //TODO:兼容原生
 function each(list,iterator,context) {
   if(!list || !iterator) {
@@ -711,6 +712,22 @@ function size(list) {
     throw 'list ' + list + '类型出错';
   }
 }
+//Arrays
+function first(list, n) {
+  if(!Type.isArray(list)) {
+    throw 'list' + list + '类型不为Array';
+  }
+  list = clone(list);
+  if(n == undefined || Number.isNaN(parseInt(n))) {
+    n = 1;
+  }
+  var _results = [];
+  for(var i = 0;i<n;i++) {
+    _results.push(list[0]);
+    list.splice(0,1);
+  }
+  return _results;
+}
 function clone(obj, isDeep) {
   var _results = null;
   if(Type.isObj(obj)) {
@@ -745,6 +762,7 @@ function clone(obj, isDeep) {
 
   return _results;
 }
+
 function _getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -791,4 +809,5 @@ function bind(func, obj, arg) {
     func.apply(obj,arg);
   }
 }
+
 
