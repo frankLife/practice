@@ -411,7 +411,18 @@ function invoke(list, funcName, arg) {
   }
   return _results;
 }
+function pluck(list,prop) {
+  var _results = [];
+  if(Type.isArray(list)) {
+    for(var i = 0, len = list.length;i<len;i++) {
+      _results.push(list[i][prop]);
+    }
+  }else {
+    throw 'list ' + list + '类型出错';
+  }
 
+  return _results
+}
 function has(obj, key) {
   if(Type.isObj(obj)) {
     for(var item in obj) {

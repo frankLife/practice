@@ -145,3 +145,9 @@ function testInvoke() {
 /*
 testInvoke();
 */
+function testPluck() {
+  console.log(pluck([{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60},'xxx'],'name'));
+}
+/*
+testPluck();
+*/
