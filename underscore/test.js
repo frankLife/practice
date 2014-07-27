@@ -151,3 +151,99 @@ function testPluck() {
 /*
 testPluck();
 */
+
+function testMax() {
+  var stooges = [{name: 'moe', age: 80}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+  console.log(max(stooges, function(stooge){ return stooge.age; }));
+  console.log(max([2,3,5,1]));
+  console.log(max([2,3,'4',1],function(val){ return parseInt(val)}));
+}
+/*
+testMax();
+*/
+function testMin() {
+  var stooges = [{name: 'moe', age: 80}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+  console.log(min(stooges, function(stooge){ return stooge.age; }));
+  console.log(min([2,3,5,1]));
+  console.log(min([2,3,'4',1],function(val){ return parseInt(val)}));
+}
+/*
+testMin();
+*/
+function testSortBy() {
+  console.log(sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); }));
+  console.log(sortBy([3, 2, 1]));
+}
+/*
+testSortBy();
+*/
+
+function testGroupBy() {
+  console.log(groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); }));
+  console.log(groupBy(['one', 'two', 'three'], 'length'));
+  console.log(groupBy({step1: 1, step2: 2}, function(val) { return val%2}));
+  console.log(groupBy({step1: 'one', step2: 'two', step3: 'three'},'length'));
+}
+/*
+testGroupBy();
+*/
+function testIndexBy() {
+  var stooges = [{name: 'moe', age: 70}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+  console.log(indexBy(stooges, 'age'));
+  console.log(indexBy(stooges, 'name'));
+}
+/*
+testIndexBy();
+*/
+function testCountBy() {
+  console.log(countBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); }));
+  console.log(countBy(['one', 'two', 'three'], 'length'));
+  console.log(countBy({step1: 1, step2: 2}, function(val) { return val%2}));
+  console.log(countBy({step1: 'one', step2: 'two', step3: 'three'},'length'));
+  console.log(countBy([1, 2, 3, 4, 5], function(num) {
+  return num % 2 == 0 ? 'even': 'odd';
+}));
+}
+/*
+testCountBy();
+*/
+function testClone(deep) {
+  var obj = {name: ['name']}
+  var cloneObj = clone(obj,deep);
+  console.log('obj: ' + obj.name);
+  cloneObj.name.push('life');
+  console.log('cloneObj: ' + cloneObj.name);
+  console.log('obj: ' + obj.name);
+
+
+  var array = ['name',{name: 'frank'}];
+  var cloneArray = clone(array,deep);
+  console.log('array:' + array[1].name);
+  //这里要打断点且单步调试的时候点开看name属性
+  //否则等浏览器把结果都输出之后再点看array的话，属性才开始计算，则结果错误
+  //或者直接把name的值打印出来
+  console.log(array);
+  cloneArray[1].name = 'life';
+  console.log('array:');
+  console.log(array);
+  console.log('cloneArray: ');
+  console.log(cloneArray);
+}
+/*
+testClone(false);
+testClone(true);
+*/
+function testShuffle() {
+  console.log(shuffle([1, 2, 3, 4, 5, 6]));
+  console.log(shuffle({
+    'x1': 1,
+    'x2': 2,
+    'x3': 3,
+    'x4': 4,
+    'x5': 5,
+    'x6': 6
+  }));
+}
+/*
+testShuffle();
+*/
