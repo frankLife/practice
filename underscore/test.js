@@ -287,4 +287,18 @@ function testFirst() {
   console.log(first([5, 4, 3, 2, 1]));
   console.log(first([5, 4, 3, 2, 1],2));
 }
+/*
 testFirst();
+*/
+function testInitial() {
+  console.log(initial([5, 4, 3, 2, 1]));
+  console.log(initial([5, 4, 3, 2, 1],2));
+}
+/*
+testInitial();
+*/
+function testLast() {
+  console.log(last([5, 4, 3, 2, 1]));
+  console.log(last([5, 4, 3, 2, 1],2));
+}
+testLast();

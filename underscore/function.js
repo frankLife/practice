@@ -713,20 +713,53 @@ function size(list) {
   }
 }
 //Arrays
-function first(list, n) {
-  if(!Type.isArray(list)) {
-    throw 'list' + list + '类型不为Array';
+function first(array, n) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
   }
-  list = clone(list);
-  if(n == undefined || Number.isNaN(parseInt(n))) {
+  array = clone(array);
+  if(n == undefined || Number.isNaN(parseInt(n)) || parseInt(n) <= 0 ) {
     n = 1;
   }
   var _results = [];
   for(var i = 0;i<n;i++) {
-    _results.push(list[0]);
-    list.splice(0,1);
+    _results.push(array[0]);
+    array.splice(0,1);
   }
   return _results;
+}
+function initial(array, n) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  if(n == undefined || Number.isNaN(parseInt(n)) || parseInt(n) <= 0) {
+    n = 1;
+  }
+  var _results = [];
+  for(var i = 0,len = array.length - n;i<len;i++) {
+    _results.push(array[i]);
+  }
+  return _results;
+}
+function last(array, n) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  if(n == undefined || Number.isNaN(parseInt(n)) || parseInt(n) <= 0) {
+    n = 1;
+  }
+  var _results = [];
+  while( n > 0 ) {
+    _results.unshift(array[array.length-1]);
+    array.splice(array.length-1,1);
+    n--;
+  }
+  return _results;
+}
+function rest() {
+  
 }
 function clone(obj, isDeep) {
   var _results = null;
