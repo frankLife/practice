@@ -758,9 +758,50 @@ function last(array, n) {
   }
   return _results;
 }
-function rest() {
-  
+function rest(array, n) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  var index = 1;
+  var _results = [];
+  if(n<0) {
+    index = array.length + n;
+  }else if(n != undefined && Type.isNumber(parseInt(n))) {
+    index = n;
+  }else if(n != undefined && !Type.isNumber(parseInt(n))) {
+    index = 0;
+  }
+
+  _results = array.slice(index);
+  return _results;
 }
+function compact(array) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  for(var i = 0,len=array.length;i<len;i++) {
+    if(!array[i]) {
+      array.splice(i,1);
+    }
+  }
+  return array;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function clone(obj, isDeep) {
   var _results = null;
   if(Type.isObj(obj)) {

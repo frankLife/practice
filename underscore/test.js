@@ -301,4 +301,19 @@ function testLast() {
   console.log(last([5, 4, 3, 2, 1]));
   console.log(last([5, 4, 3, 2, 1],2));
 }
+/*
 testLast();
+*/
+function testRest() {
+  console.log(rest([5,4,3,2,1]));
+  console.log(rest([5,4,3,2,1],2));
+  console.log(rest([5,4,3,2,1],-2));
+  console.log(rest([5,4,3,2,1],'xxx'));
+}
+/*
+testRest();
+*/
+function testCompact() {
+  console.log(compact([0, 1, false, 2, '', 3]));
+}
+testCompact();
