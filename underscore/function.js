@@ -788,7 +788,33 @@ function compact(array) {
   }
   return array;
 }
+function flatten(array, shallow) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  var _result = [];
+  var isEnd = true;
+  _result = reduce(array,function(memo, val){
+    if(!Type.isArray(memo)) {
+      memo = [memo];
+    }
+    return memo.concat(val);
+  });
 
+  for(var i = 0, len = _result.length;i<len;i++) {
+    if(Type.isArray(_result[i])) {
+      isEnd = false;
+      break;
+    }
+  }
+
+  if(!isEnd) {
+    return flatten(_result);
+  }
+
+  return _result;
+}
 
 
 

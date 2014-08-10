@@ -316,4 +316,8 @@ testRest();
 function testCompact() {
   console.log(compact([0, 1, false, 2, '', 3]));
 }
-testCompact();
+// testCompact();
+function testFlatten() {
+  console.log(flatten([1, [2], [3, [[[4]]]]]));
+}
+testFlatten();
