@@ -320,4 +320,21 @@ function testCompact() {
 function testFlatten() {
   console.log(flatten([1, [2], [3, [[[4]]]]]));
 }
-testFlatten();
+//testFlatten();
+function testWithout() {
+  console.log(without([1, 2, 1, 0, 3, 1, 4], 0, 1));
+}
+// testWithout();
+function testPartition() {
+  function _isOdd(val) {
+    return val % 2 != 0;
+  }
+  console.log(partition([0, 1, 2, 3, 4, 5], _isOdd));
+}
+/*
+testPartition();
+*/
+function testUnion() {
+  console.log(union([1, 2, 3], [101, 2, 1, 10], [2, 1]));
+}
+testUnion();

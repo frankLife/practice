@@ -697,7 +697,7 @@ function sample(list, n) {
   }
 }
 function toArray(list) {
-  return Array.prototype.slice(list);
+  return Array.prototype.slice.call(list);
 }
 function size(list) {
   if(Type.isObj(list)) {
@@ -809,12 +809,117 @@ function flatten(array, shallow) {
     }
   }
 
-  if(!isEnd) {
+  if(!isEnd && shallow != true) {
     return flatten(_result);
   }
 
   return _result;
 }
+function without(array) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  var args = Array.prototype.slice.call(arguments,1);
+  var _results = [];
+  for(var i=0, len=array.length;i<len;i++) {
+    var isWith = true
+    for(var j = 0, jLen = args.length;j<jLen;j++) {
+      if(array[i] == args[j]) {
+        isWith = false;
+        break;
+      }
+    }
+    if(isWith) {
+      _results.push(array[i]);
+    }
+  }
+
+  return _results;
+}
+function partition(array, predicate) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  return [filter(array,predicate),reject(array,predicate)]
+}
+function union() {
+  var args = Tool.makeArray(arguments);
+  var temp = flatten(args);
+  var _results = []
+  for(var i = 0, len = temp.length;i<len;i++) {
+    for(j = i+1;j<len;j++) {
+      if(temp[i] == temp[j]) {
+        temp[j] = undefined;
+      }
+    }
+  }
+
+  for(var i = 0;i<len;i++) {
+    if(temp[i] != undefined) {
+      _results.push(temp[i]);
+    }
+  }
+
+  return _results;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
