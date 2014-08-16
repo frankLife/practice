@@ -863,8 +863,100 @@ function union() {
 
   return _results;
 }
+function intersection() {
+  var args = Tool.makeArray(arguments);
+
+  for(var i = 0, len = args.length;i<len;i++) {
+    if(!Type.isArray(args[i])) {
+        throw 'agrs['+i+']' + args[i] + '类型不为Array';
+    }
+  }
+  var result = [];
+  result = reduce(args, function(array1, array2){
+    var _result = []
+    for(var i = 0, len = array1.length;i<len;i++) {
+      for(var j = 0, jLen = array2.length;j<jLen;j++) {
+        if(array1[i] === array2[j]) {
+          _result.push(array1[i]);
+        }
+      }
+    }
+    _result = singleArray(_result);
+    return _result;
+  })
+
+  return result;
+}
+function difference(array) {
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  array = clone(array);
+  var args = Tool.makeArray(arguments).slice(1);
+  for(var i = 0;i<array.length;i++) {
+    for(var j = 0,jLen = args.length;j<jLen;j++) {
+      if(Type.isArray(args[j])) {
+        var tempArray = args[j];
+        for(var k = 0,kLen = tempArray.length;k<kLen;k++) {
+          if(array[i] === tempArray[k]) {
+            array.splice(i, 1);
+          }
+        }
+      }else {
+        if(args[j] === array[i]) {
+          array.splice(i, 1);
+          i--;
+        }
+      }
+    }
+  }
+
+  return array;
+}
+
+var uniq = singleArray;
+
+function zip() {
+  var args = Tool.makeArray(arguments);
+  for(var i = 0,len = args.length;i<len;i++) {
+    if(!Type.isArray(args[i])) {
+      throw 'args['+i+']' + args[i] +'的类型不为array';
+    }
+  }
+  var result = [];
+  var _tempArray = [];
+  var _index = 0
+  for(var i = 0,colLength = args[1].length;i<colLength;i++) {
+    for(var j = 0,rowLength = args.length;j<rowLength;j++) {
+      _tempArray[_index ++] = args[j][i];
+    }
+    result.push(_tempArray);
+    _tempArray = [];
+    _index = 0;
+  }
+
+  return result;
+}
+function object(){
+  
+}
 
 
+function singleArray (array){
+  if(!Type.isArray(array)) {
+     throw 'array' + array + '类型不为Array';
+  }
+  for(var i = 0;i<array.length;i++) {
+    for(var j = i+1;j<array.length;j++) {
+      if(array[i] === array[j]) {
+        array.splice(j,1);
+        j--;
+      }
+    }
+  }
+
+  return array;
+}
 
 
 

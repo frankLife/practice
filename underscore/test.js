@@ -320,7 +320,7 @@ function testCompact() {
 function testFlatten() {
   console.log(flatten([1, [2], [3, [[[4]]]]]));
 }
-//testFlatten();
+// testFlatten();
 function testWithout() {
   console.log(without([1, 2, 1, 0, 3, 1, 4], 0, 1));
 }
@@ -337,4 +337,22 @@ testPartition();
 function testUnion() {
   console.log(union([1, 2, 3], [101, 2, 1, 10], [2, 1]));
 }
+/*
 testUnion();
+*/
+function testSingleArray() {
+  console.log(singleArray([1,1,1,1,3,2]));
+}
+// testSingleArray();
+function testIntersection (){
+  console.log(intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]));
+}
+// testIntersection();
+function testDifference(){
+  console.log(difference([1, 2, 3, 4, 5], [5, 2, 10],1));
+}
+// testDifference();
+function testZip() {
+  console.log(zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]));
+}
+testZip();
