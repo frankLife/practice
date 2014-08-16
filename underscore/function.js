@@ -938,10 +938,125 @@ function zip() {
   return result;
 }
 function object(){
-  
+  if(arguments.length == 2) {
+    var keys = arguments[0];
+    var vals = arguments[1];
+    if(Type.isArray(keys)&&Type.isArray(vals)) {
+      var result = {};
+      for(var i = 0,len = arguments[0].length;i<len;i++) {
+        result[keys[i]] = vals[i];
+      }
+    }
+  }else if(arguments.length == 1) {
+    var objects = arguments[0];
+    var result = {};
+    for(var i = 0, len = objects.length;i<len;i++) {
+      if(!Type.isArray(objects[i])){
+        throw '数组元素['+ i+']格式错误.';
+      }
+      result[objects[i][0]] = objects[i][1];
+    }
+  }
+
+  return result;
 }
+//TODO isSorted
+function indexOf(array, value){
+  if(!Type.isArray(array)) {
+    throw 'array' + array + '类型不为Array';
+  }
+  if(Type.isFunction(value)) {
+    for(var i = 0, len= array.length;i<len;i++) {
+      if(value(array[i])) {
+        return i;
+      }
+    }
+  }else {
+    for(var i = 0, len = array.length;i<len;i++) {
+      if(array[i] === value) {
+        return i;
+      }
+    }
+  }
+  return -1;
+}
+function lastIndexOf(array,value,formIndex) {
+  if(!Type.isArray(array)) {
+    throw 'array ' + array + '类型不为Array';
+  }
+  formIndex = formIndex != undefined && !isNaN(parseInt(formIndex)) ? parseInt(formIndex) : '';
+  i = formIndex === '' ? array.length -1:formIndex;
+  for(;i>=0;i--) {
+    if(array[i] === value) {
+      return i;
+    }
+  }
+  return -1;
+}
+function sortedIndex(array, value, iterator, context) {
+  if(!Type.isArray(array)) {
+    throw 'array ' + array + '类型不为Array';
+  }
+  array = clone(array);
+  if(iterator !== undefined) {
+    var tempArray = [];
+    var tempValue = '';
+    if(Type.isFunction(iterator)) {
+      iterator = bindFactory(iterator, context);
+      for(var i = 0, len = array.length;i<len;i++) {
+        tempArray.push(iterator(array[i]));
+      }
 
+      tempArray.push( tempValue = iterator(value));
+      tempArray.sort();
+      for(var i = 0, len = array.length;i<len;i++) {
+        if(tempArray[i] === tempValue) {
+          return i;
+        }
+      }
+    }else if(Type.isString(iterator)) {
+      for(var i = 0,len = array.length;i<len;i++) {
+        tempArray.push(array[i][iterator]);
+      }
+      tempArray.push(value[iterator]);
+      tempArray.sort();
+      for(var i = 0, len = array.length;i<len;i++) {
+        if(tempArray[i] === value[iterator]) {
+          return i;
+        }
+      }
+    }
+  }else {
+    array.push(value);
+    array.sort();
+    for(var i = 0, len =array.length;i<len;i++) {
+      if(array[i] === value) {
+        return i;
+      }
+    }
+  }
 
+}
+function range(start,stop,step) {
+  var result = [];
+  if(arguments.length == 1) {
+    stop = start;
+    start = 0;
+  }
+  var step = step != undefined && !isNaN(parseInt(step)) ? step: 1;
+  var start = start != undefined && !isNaN(parseInt(start)) ? start: 0;
+  if(stop - start < 0) {
+    for(var i=stop-step;i<=start;i = i-step) {
+      result.unshift(i);
+    }
+  }else {
+    for(var i = stop - step;i>=start;i = i - step) {
+      result.unshift(i);
+    }
+  }
+
+  return result;
+}
 function singleArray (array){
   if(!Type.isArray(array)) {
      throw 'array' + array + '类型不为Array';
@@ -963,68 +1078,12 @@ function singleArray (array){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function bindFactory(func, context) {
+  if(Type.isObj(context)) {
+    return func.bind(context);
+  }
+  return func;
+}
 function clone(obj, isDeep) {
   var _results = null;
   if(Type.isObj(obj)) {

@@ -355,4 +355,34 @@ function testDifference(){
 function testZip() {
   console.log(zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]));
 }
-testZip();
+// testZip();
+function testObject(){
+  console.log(object(['moe', 'larry', 'curly'], [30, 40, 50]));
+  console.log(object([['moe', 30], ['larry', 40], ['curly', 50]]));
+}
+//testObject();
+function testIndexOf() {
+  console.log(indexOf([1, 2, 3], 2));
+  console.log(indexOf([1,2,3],function(val){ return val%2 == 0}));
+}
+// testIndexOf();
+function testLastIndexOf() {
+  console.log(lastIndexOf([1, 2, 3, 1, 2, 3], 2));
+  console.log(lastIndexOf([1, 2, 3, 1, 2, 3], 2, 0));
+  console.log(lastIndexOf([1, 2, 3, 1, 2, 3], 2, 1));
+}
+// testLastIndexOf();
+function testSortedIndex(){
+  console.log(sortedIndex([10, 20, 30, 40, 50], 35));
+  console.log(sortedIndex([{name: 'moe', age: 40}, {name: 'curly', age: 60}], {name: 'larry', age: 50}, 'age'))
+  console.log(sortedIndex([10, 20, 30, 40, 50], 5,function(val){ return +val})); //default sort => asccode
+}
+// testSortedIndex();
+function testRange(){
+  console.log(range(10));
+    console.log(range(1, 11));
+    console.log(range(0, 30, 5));
+    console.log(range(0, -10, -1));
+    console.log(range(0));
+}
+testRange();
