@@ -48,8 +48,9 @@ var moduleCache = Mloader.moduleCache = {};
 var URL = doc.URL;
 
 Module.prototype.load = function(){
+
   var deps = this.deps;
-  
+
   for(var i = deps.length;i--;) {
     var depUrl = Tool.resolve(id);
     if(!moduleCache[depUrl]['status']['isLoad']) {
@@ -108,7 +109,8 @@ Mloader.request = function(id) {
 Mloader.addOnload = function(uri,type){
   if(type == 'js') {
     uri.onload = function(){
-      head.removeChild(uri);
+	  moduleCache[uri.src]['status']['isLoad'] = true;
+	  head.removeChild(uri);
     }
   }
 }
