@@ -1,11 +1,12 @@
 function appendJs(name) {
   var script = document.createElement('script');
   script.src = './' + name + '.js';
-  document.head.appendChild(script);
-  
+ 
+  var head = document.head || document.getElementsByTagName('head')[0];
+  head.appendChild(script);
   script.onload = function(){
-    document.head.removeChild(script);
-    alert(a);
+	alert('ok');
+    head.removeChild(script);
   }
   
 }
