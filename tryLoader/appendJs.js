@@ -4,10 +4,20 @@ function appendJs(name) {
  
   var head = document.head || document.getElementsByTagName('head')[0];
   head.appendChild(script);
-  script.onload = function(){
-	alert('ok');
-    head.removeChild(script);
+  if('onload' in script) {
+		script.onload = function(){
+			alert('ok');
+			head.removeChild(script);
+		}
+  }else {
+		script.onreadystatechange = function(){
+			if (/loaded|complete/.test(script.readyState)) {
+				alert('ok');
+				head.removeChild(script);
+			}
+		}
   }
+
   
 }
 appendJs('a');
