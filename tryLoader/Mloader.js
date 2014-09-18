@@ -66,7 +66,7 @@ Module.prototype.exec = function(){
   }
   
 }
-Mloader.dir = URL.match(Reg['findDirReg'])[1];
+Mloader.dir = URL.match(Reg['findDirReg'])[0];
 Mloader.moduleInfoSave = function(url,module){
   moduleCache[url] = module;
 }
