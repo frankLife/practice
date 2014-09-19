@@ -14,7 +14,7 @@ Path.reg = {
 }
 Path.dir = document.URL.match(Path.reg.getDir)[1];
 
-//处理传入refId的情况
+//TODO:处理传入refId的情况
 Path.resolve = function(id,refId){
 	if(arguments.length == 1) {
 	   //相对路径判断
