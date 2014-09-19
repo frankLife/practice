@@ -7,7 +7,7 @@ Util.static = {
 	doc: document,
 	head: document.head || 
 		  document.getElementsByTagName('head')[0] || 
-	      document.documentElement;
+	      document.documentElement
 }
 Util.isType = function(value,type) {
   return Object.prototype.toString.call(value) === '[object '+type+']';
@@ -30,12 +30,24 @@ Util.request = function(url,charset,callback) {
 	
 
 	function _addOnload(){
-		Util.static.head.removeChild(scriptDom);
-		
 		if('onload' in scriptDom) {
-		
+			scriptDom.onload = function(){
+				Util.static.head.removeChild(scriptDom);
+				if(Util.isType(callback, 'Function')) {
+					callback();
+				}
+				
+			}
 		}else {
-		
+			scriptDom.onreadystatechange = function(){
+				if(/'loaded|complete'/.test(scriptDom.readyState)) {
+					Util.static.head.removeChild(scriptDom);
+					if(Util.isType(callback, 'Function')) {
+						callback();
+					}
+				}
+			}
 		}
 	}
 }
+

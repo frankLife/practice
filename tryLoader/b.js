@@ -1,1 +1,1 @@
-alert('i am b');
+console.log('i am b');
