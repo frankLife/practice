@@ -25,6 +25,7 @@ Util.request = function(url,charset,callback) {
 		scriptDom.charset = charset || 'utf-8';
 		scriptDom.src = url;
 		Util.static.head.appendChild(scriptDom);
+    console.log('after');
 		_addOnload();
 	}
 	
@@ -40,7 +41,7 @@ Util.request = function(url,charset,callback) {
 			}
 		}else {
 			scriptDom.onreadystatechange = function(){
-				if(/'loaded|complete'/.test(scriptDom.readyState)) {
+				if(/loaded|complete/.test(scriptDom.readyState)) {
 					Util.static.head.removeChild(scriptDom);
 					if(Util.isType(callback, 'Function')) {
 						callback();
@@ -50,4 +51,6 @@ Util.request = function(url,charset,callback) {
 		}
 	}
 }
+
+
 
