@@ -1,5 +1,5 @@
 define(function(require,exports,module){
-  var modB = require('./Moloader-modB');
+  var modB = require('./Mloader-modB');
 
   modB.believe();
   alert('Rome was not built ');

@@ -4,6 +4,7 @@ Path.reg = {
   relativeReg : /^(\.\/|\.\.\/)+(\w+\/)*\w+(\.js)?/,  //相对路径判断 ../a/c/./b.js
   nameReg: /^(\w+\/)+/,                               //toplevel 判断 abc/b/c.js
   dotBegin: /^\.\//,                                  // .开头判断
+  realName: /\.css|\.js/,                              //资源扩展符判断
   
   //reg for util
   removeDot: /\/\.\//g,                               //替换/./ -> /
@@ -28,16 +29,28 @@ Path.resolve = function(id,refId){
 			}else {
 				id = (Path.dir + id).replace(Path.reg.removeDoubleDot,'$1');
 			}
+      
+      id = _realName(id);
 			return id;
 		//toplevel判断
 		}else if(Path.reg.nameReg.test(id)) {
+      id = _realName(id);
+      
 			return Path.dir + id;
 		//绝对路径判断
 		}else if(/\/\//.test(id)) {
+      id = _realName(id);
+      
 			return id;
 		}
+    
+
 		throw  id +' 模块加载路径出错'; 
   }else if(arguments.length == 2) {
   
+  }
+  
+  function _realName(id){
+    return !Path.reg.realName.test(id)?id+'.js':id;
   }
 }
