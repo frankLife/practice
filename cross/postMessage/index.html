@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>postMessage</title>
+</head>
+<body>
+<iframe src="http://a.shang.com/cross/postMessage/child.html" id="xframe"></iframe>
+<script>
+var frame = document.getElementById('xframe');
+
+frame.onload = function(){
+	frame.contentWindow.postMessage('kill me','*');
+}
+// window.addEventListener('message',function(e){
+// 	console.log(e);
+// },false);
+</script>
+</body>
+</html>
