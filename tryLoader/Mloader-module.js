@@ -1,4 +1,4 @@
-ï»¿var Mloader = {};
+var Mloader = {};
 var Module = {};
 
 
@@ -9,22 +9,25 @@ Module.reg = {
 }
 
 Module.factory = function(){
-  //è¡¨ç¤ºæ¨¡å—id
+  //±íÊ¾Ä£¿éid
   this.id = '';
-  //æ¨¡å—ä¾èµ–
+  //Ä£¿éÒÀÀµ
   this.deps = [];
-  //ä¾èµ–è¯¥æ¨¡å—çš„æ¨¡å—
- // this.duties;
-  //æ¨¡å—å®šä¹‰
+  //Ä£¿é¶¨Òå
   this.factory = null;
-  //æ¨¡å—è¾“å‡º
+  //Ä£¿éÊä³ö
   this.exports = {};
+  //µ÷ÓÃ×ÔÉíµÄÄ£¿é£¬·½±ãÍê³É¼ÓÔØÊ±½øĞĞÍ¨ĞÅÍ¨Öª
+  this.dutyMod = null;
+
+  //º¯ÊıÒÀÀµÀ­È¡±êÖ¾
+  this._fectched = false;
 }
 Module.get = function(id){
   console.log('getId: ',id);
   var curCache = Module.cache;
   var isInMloader = false;
-  
+
   console.log('getCurCache: ',curCache);
   for(var i = curCache.length;i--;) {
     console.log('geti: ',i)
@@ -73,9 +76,17 @@ Module.save = function(url,modInfo){
 }
 
 Module._require = function(id){
-    Module.cache(Path.resolve(id)).exec();
+  console.log('Path.resolve(id)_require: ',Path.resolve(id))
+  var curCache = Module.cache;
+  for(var i=curCache.length;i--;) {
+    if(curCache[i].id == id) {
+      curCache[i].exec();
+    }
+  }
+ // Module.cache[Path.resolve(id)].exec();
+
 }
-//å…¬ç”¨useæ–¹æ³•
+//¹«ÓÃuse·½·¨
 Mloader.use = Module.use = function(id,charset){
   console.log('use Path.resolve: ', Path.resolve(id));
   var actionModule = Module.save('useMod',{
@@ -88,54 +99,81 @@ Mloader.use = Module.use = function(id,charset){
   console.log('actionModule: ',actionModule);
   actionModule.load(charset);
 }
-//æ¨¡å—å®ä¾‹æ–¹æ³•
+//Ä£¿éÊµÀı·½·¨
+
 Module.factory.prototype.load = function(charset){
-  var deps = this.deps;
   var self = this;
-  
-  console.log('loaddeps: ', this.deps);
-  //å…¥å£å‡½æ•°æ¨¡å—æ‰§è¡Œ
-  if(this.deps.length == 0) {
-    if(this.action != undefined) {
-      console.log('final use');
-      this.action();
-    }
+  var deps = self.deps;
+
+
+  console.log('loaddeps: ', self.deps);
+  //Èë¿Úº¯ÊıÄ£¿éÖ´ĞĞ
+  if(self.deps.length == 0) {
+    _onload();
   }
-  
-  
+
+  if(!self._fectched) {
+    self.fetchDeps(charset);
+    self._fectched = true;
+  }
+
+  //Í¨¹ıonloadº¯ÊıÀ´Í¨Öªµ÷ÓÃ×Ô¼ºµÄÄ£¿é×ÔÉíÒÑ¾­Íê³É¼ÓÔØ
+  function _onload(){
+    var dutyMod = self.dutyMod;
+    if(dutyMod!=null) {
+      console.log('dutyMod: ',dutyMod);
+
+      for(var i = dutyMod.deps.length;i--;) {
+        if(dutyMod.deps[i] == self.id) {
+      console.log('self.id: ', self.id);
+          dutyMod.deps.splice(i,1);
+        }
+      }
+      dutyMod.load();
+    }else {
+      //ËµÃ÷ÊÇuseµ÷ÓÃÉú³ÉµÄÄ£¿é
+      console.log('action')
+      self.action();
+    }
+
+  }
+
+}
+Module.factory.prototype.fetchDeps = function(charset){
+  var self = this;
+  var deps = this.deps;
 
   for(var i = deps.length;i--;) {
     if(!Module.cache[deps[i]]) {
       var requestDep = deps[i];
       Util.request(requestDep,charset,function(){
-        //å‡½æ•°æ‰§è¡Œå®ŒåŠ è½½æ¨¡å—ä¿¡æ¯
+        //º¯ÊıÖ´ĞĞÍê¼ÓÔØÄ£¿éĞÅÏ¢
         var modInfo = Module.tempMetaInfo;
         modInfo.id = requestDep;
-        console.log('requestCallbackInfo: ', modInfo);
+        modInfo.dutyMod = self;
         var loadMod = Module.save(modInfo.id,modInfo);
         loadMod.load();
-        
-        //æ›´æ–°è°ƒç”¨è¯¥æ¨¡å—çš„ä¾èµ–ä¿¡æ¯
-        var dutyMod = self;
-        for(var i = dutyMod.deps.length;i--;) {
-          if(dutyMod.deps[i].id == requestDep) {
-            dutyMod.deps.splice(i,1);
-          }
-        }
-        
-        dutyMod.load();
+
+        //¸üĞÂµ÷ÓÃ¸ÃÄ£¿éµÄÒÀÀµĞÅÏ¢
+        // var dutyMod = self;
+        // for(var i = dutyMod.deps.length;i--;) {
+        //   if(dutyMod.deps[i].id == requestDep) {
+        //     dutyMod.deps.splice(i,1);
+        //   }
+        // }
+
       })
     }
   }
+ // dutyMod.load();
 }
-
 Module.factory.prototype.exec = function(){
   if(this.factory != undefined) {
     return this.exports = this.factory(Module._require,this.exports,this) || this.exports;
   }
 }
 
-//å°†defineå‡½æ•°æš´éœ²ç»™ç”¨æˆ·
+//½«defineº¯Êı±©Â¶¸øÓÃ»§
 window.define = Module.define = function(factory){
   var deps = [];
   factory.toString().replace(Module.reg.parseDeps,function(m,m1) {
