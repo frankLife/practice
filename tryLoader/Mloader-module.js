@@ -78,9 +78,11 @@ Module.save = function(url,modInfo){
 Module._require = function(id){
   console.log('Path.resolve(id)_require: ',Path.resolve(id))
   var curCache = Module.cache;
+  id = Path.resolve(id);
   for(var i=curCache.length;i--;) {
     if(curCache[i].id == id) {
-      curCache[i].exec();
+      console.log('inyo');
+      return curCache[i].exec();
     }
   }
  // Module.cache[Path.resolve(id)].exec();
