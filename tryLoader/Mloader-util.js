@@ -5,8 +5,8 @@ Util.reg = {
 }
 Util.static = {
 	doc: document,
-	head: document.head || 
-		  document.getElementsByTagName('head')[0] || 
+	head: document.head ||
+		  document.getElementsByTagName('head')[0] ||
 	      document.documentElement
 }
 Util.isType = function(value,type) {
@@ -28,7 +28,7 @@ Util.request = function(url,charset,callback) {
     console.log('after');
 		_addOnload();
 	}
-	
+
 
 	function _addOnload(){
 		if('onload' in scriptDom) {
@@ -37,7 +37,7 @@ Util.request = function(url,charset,callback) {
 				if(Util.isType(callback, 'Function')) {
 					callback();
 				}
-				
+
 			}
 		}else {
 			scriptDom.onreadystatechange = function(){

@@ -5,22 +5,26 @@ var Module = {};
 Module.cache = [];
 Module.tempMetaInfo = {};
 Module.reg = {
+  //reg for judge
+  isCss: /\.css/,
+
+  //reg for util
   parseDeps: /require\(['"]([^;]+)['"]\)/g
 }
 
 Module.factory = function(){
-  //±íÊ¾Ä£¿éid
+  //è¡¨ç¤ºæ¨¡å—id
   this.id = '';
-  //Ä£¿éÒÀÀµ
+  //æ¨¡å—ä¾èµ–
   this.deps = [];
-  //Ä£¿é¶¨Òå
+  //æ¨¡å—å®šä¹‰
   this.factory = null;
-  //Ä£¿éÊä³ö
+  //æ¨¡å—è¾“å‡º
   this.exports = {};
-  //µ÷ÓÃ×ÔÉíµÄÄ£¿é£¬·½±ãÍê³É¼ÓÔØÊ±½øĞĞÍ¨ĞÅÍ¨Öª
+  //è°ƒç”¨è‡ªèº«çš„æ¨¡å—ï¼Œæ–¹ä¾¿å®ŒæˆåŠ è½½æ—¶è¿›è¡Œé€šä¿¡é€šçŸ¥
   this.dutyMod = null;
 
-  //º¯ÊıÒÀÀµÀ­È¡±êÖ¾
+  //å‡½æ•°ä¾èµ–æ‹‰å–æ ‡å¿—
   this._fectched = false;
 }
 Module.get = function(id){
@@ -88,20 +92,20 @@ Module._require = function(id){
  // Module.cache[Path.resolve(id)].exec();
 
 }
-//¹«ÓÃuse·½·¨
+//å…¬ç”¨useæ–¹æ³•
 Mloader.use = Module.use = function(id,charset){
   console.log('use Path.resolve: ', Path.resolve(id));
   var actionModule = Module.save('useMod',{
     deps: [Path.resolve(id)]
   });
-  
+
   actionModule.action = function(){
     Module.get(Path.resolve(id)).exec();
   }
   console.log('actionModule: ',actionModule);
   actionModule.load(charset);
 }
-//Ä£¿éÊµÀı·½·¨
+//æ¨¡å—å®ä¾‹æ–¹æ³•
 
 Module.factory.prototype.load = function(charset){
   var self = this;
@@ -109,7 +113,7 @@ Module.factory.prototype.load = function(charset){
 
 
   console.log('loaddeps: ', self.deps);
-  //Èë¿Úº¯ÊıÄ£¿éÖ´ĞĞ
+  //å…¥å£å‡½æ•°æ¨¡å—æ‰§è¡Œ
   if(self.deps.length == 0) {
     _onload();
   }
@@ -119,7 +123,7 @@ Module.factory.prototype.load = function(charset){
     self._fectched = true;
   }
 
-  //Í¨¹ıonloadº¯ÊıÀ´Í¨Öªµ÷ÓÃ×Ô¼ºµÄÄ£¿é×ÔÉíÒÑ¾­Íê³É¼ÓÔØ
+  //é€šè¿‡onloadå‡½æ•°æ¥é€šçŸ¥è°ƒç”¨è‡ªå·±çš„æ¨¡å—è‡ªèº«å·²ç»å®ŒæˆåŠ è½½
   function _onload(){
     var dutyMod = self.dutyMod;
     if(dutyMod!=null) {
@@ -133,7 +137,7 @@ Module.factory.prototype.load = function(charset){
       }
       dutyMod.load();
     }else {
-      //ËµÃ÷ÊÇuseµ÷ÓÃÉú³ÉµÄÄ£¿é
+      //è¯´æ˜æ˜¯useè°ƒç”¨ç”Ÿæˆçš„æ¨¡å—
       console.log('action')
       self.action();
     }
@@ -148,22 +152,17 @@ Module.factory.prototype.fetchDeps = function(charset){
   for(var i = deps.length;i--;) {
     if(!Module.cache[deps[i]]) {
       var requestDep = deps[i];
+      //æ‰‹åŠ¨åˆ é™¤è¢«å½“ä½œä¾èµ–æ¨¡å—çš„cssæ–‡ä»¶
+      if(Module.reg.isCss.test(deps[i])) {
+        deps.splice(i,1);
+      }
       Util.request(requestDep,charset,function(){
-        //º¯ÊıÖ´ĞĞÍê¼ÓÔØÄ£¿éĞÅÏ¢
+        //å‡½æ•°æ‰§è¡Œå®ŒåŠ è½½æ¨¡å—ä¿¡æ¯
         var modInfo = Module.tempMetaInfo;
         modInfo.id = requestDep;
         modInfo.dutyMod = self;
         var loadMod = Module.save(modInfo.id,modInfo);
         loadMod.load();
-
-        //¸üĞÂµ÷ÓÃ¸ÃÄ£¿éµÄÒÀÀµĞÅÏ¢
-        // var dutyMod = self;
-        // for(var i = dutyMod.deps.length;i--;) {
-        //   if(dutyMod.deps[i].id == requestDep) {
-        //     dutyMod.deps.splice(i,1);
-        //   }
-        // }
-
       })
     }
   }
@@ -175,7 +174,7 @@ Module.factory.prototype.exec = function(){
   }
 }
 
-//½«defineº¯Êı±©Â¶¸øÓÃ»§
+//å°†defineå‡½æ•°æš´éœ²ç»™ç”¨æˆ·
 window.define = Module.define = function(factory){
   var deps = [];
   factory.toString().replace(Module.reg.parseDeps,function(m,m1) {
