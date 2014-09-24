@@ -9,7 +9,7 @@ function crosser(opt){
       error: opt.error
   }
 
-  this._curName = '';
+  // this._curName = '';
   this._orginName = window.name;
   this._domain = location.host.match(/\.(.*\.\w+)/)[1];
   this._dataForm = null;
@@ -33,7 +33,7 @@ crosser.prototype.prepare = function(){
     var param = self.param;
     var body = document.getElementsByTagName('body')[0]
     var dataForm = this._dataForm  = document.createElement('form');
-    var msgIframe = this._msgIframe =  document.createElement('iframe');
+    var msgIframe = this._msgIframe =  document.createElement('<iframe name="crossIfr">');
 
     var isPostMessage = self._isPostMessage = 'postMessage' in window;
 
@@ -46,6 +46,7 @@ crosser.prototype.prepare = function(){
 
     msgIframe.style.display = 'none';
     msgIframe.name = 'crossIfr';
+   //msgIframe.setAttribute('name', 'crossIfr');
     msgIframe.src = '';
     msgIframe.id = 'crossIfr';
     body.appendChild(msgIframe);
@@ -66,10 +67,6 @@ crosser.prototype.prepare = function(){
     }
 
   }
-
-
-
-
 }
 
 crosser.prototype.send = function(){
@@ -87,22 +84,32 @@ crosser.prototype.send = function(){
   
 
   //ie6、7兼容
-  self.ieReceive();
+  if(!self._isPostMessage) {
+      self.ieReceive();
+  }
+
   dataForm.submit();
 }
 crosser.prototype.ieReceive = function(){
   var self = this;
+  listenName();
+
   function listenName(){
+    var curName = '';
     setTimeout(function(){
-      self.curName = window.name;
-      if(self.curName != self.originName) {
-      this.callback[self.curName]();
-      window.name = self.originName;
+      curName = window.name;
+      if(curName != self._originName) {
+        self.param[curName]();
+        window.name = self._originName;
+
+        //避免轮询造成内存过渡消耗
+        return;
       }else {
         setTimeout(arguments.callee,100)
       }
     },100);
   }
+
 }
 
 document.getElementById('btn').onclick = function(){
