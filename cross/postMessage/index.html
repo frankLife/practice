@@ -4,16 +4,23 @@
 <title>postMessage</title>
 </head>
 <body>
-<iframe src="http://a.shang.com/cross/postMessage/child.html" id="xframe"></iframe>
+<iframe src="http://a.shang.com/mine/practice/cross/postMessage/child.html" id="xframe"></iframe>
 <script>
 var frame = document.getElementById('xframe');
 
-frame.onload = function(){
-	frame.contentWindow.postMessage('kill me','*');
+// frame.onload = function(){
+// 	frame.contentWindow.postMessage(JSON.stringify({"name":"franklife"}),'*');
+// }
+
+if(window.addEventListener) {
+	window.addEventListener('message',function(e){
+console.log(e['data']);
+	},false);
+}else {
+	window.attachEvent('onmessage', function(e){
+		console.log(e['data']);
+	});
 }
-// window.addEventListener('message',function(e){
-// 	console.log(e);
-// },false);
 </script>
 </body>
 </html>

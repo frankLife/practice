@@ -65,18 +65,18 @@ KISSY.ready(function(S) {
 
     }
 
-    $('#btn').on('click', function(){
-      new boundlessReq({
-        url: 'http://b.shangpo.com/cross/data.php',
-        data: {
-          'name': 'shangpo'
-        },
-        success: function(){
-          alert('ok');
-        }
-      }
-    );
-    });
+    // $('#btn').on('click', function(){
+    //   new boundlessReq({
+    //     url: 'http://b.shangpo.com/cross/data.php',
+    //     data: {
+    //       'name': 'shangpo'
+    //     },
+    //     success: function(){
+    //       alert('ok');
+    //     }
+    //   }
+    // );
+    // });
 
 
 

@@ -5,11 +5,25 @@
 </head>
 <body>
 <script>
-//window.top.postMessage("hello", "*");
+window.top.postMessage("hello", "*");
 
-window.addEventListener('message',function(e){
-	console.log(e);
-},false);
+// if(window.addEventListener) {
+// 	window.addEventListener('message',function(e){
+// 		var data = JSON.parse(e['data']);
+// 		for(var prop in data) {
+// 			console.log(prop)
+// 		}
+// 	},false);
+// }else {
+// 	window.attachEvent('onmessage', function(e){
+// 		var data = JSON.parse(e['data']);
+// 		for(var prop in data) {
+// 			console.log(prop)
+// 		}
+// 		//console.log(e['data']);
+// 	});
+// }
+
 </script>
 </body>
 </html>
