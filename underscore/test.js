@@ -409,4 +409,16 @@ function testBindAll(){
 
   window.addEventListener('click',buttonView.talkThis);
 }
-testBindAll();
+//testBindAll();
+function testPartial(){
+  var add = function(a, b, c) {
+    console.log('a: ', a);
+    console.log('b: ', b);
+    console.log('c: ', c);
+    console.log( a*100 + b*10 + c);
+  };
+  var add5 = partial(add, 5);
+
+  add5(4,3);
+}
+testPartial();

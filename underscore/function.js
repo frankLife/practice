@@ -1089,13 +1089,20 @@ function bind(func, obj, arg) {
 }
 
 function bindAll(obj){
-  var funcNames = Tool.makeArray(arguments).splice(0,1);
+  var funcNames = Tool.makeArray(arguments).splice(1);
 
   each(funcNames, function(funcName, index, funcs) {
     obj[funcName] = bind(obj[funcName], obj);
   });
 }
+function partial(func){
+  var args = Tool.makeArray(arguments).splice(1);
 
+  return function(){
+    arguments = flatten(Tool.makeArray(arguments));
+    func.apply(null, args.concat(Tool.makeArray(arguments)));
+  }
+}
 
 
 
