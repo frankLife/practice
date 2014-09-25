@@ -385,4 +385,28 @@ function testRange(){
     console.log(range(0, -10, -1));
     console.log(range(0));
 }
-testRange();
+//testRange();
+function testBind(){
+  function demo(age){
+    console.log(this.name, age);
+  }
+  var age = 22;
+  var demoBind = bind(demo, {name:'franklife'}, age);
+
+  demoBind();
+}
+//testBind();
+function testBindAll(){
+  var buttonView = {
+    label  : 'underscore',
+    name  :'ud',
+    onClick: function(){ console.log('clicked: ' + this.label); },
+    onHover: function(){ console.log('hovering: ' + this.label); },
+    name: function(){ console.log('name: ', this.name) },
+    talkThis: function(){ console.log(this) }
+  };
+  bindAll(buttonView, 'onClick', 'onHover');
+
+  window.addEventListener('click',buttonView.talkThis);
+}
+testBindAll();

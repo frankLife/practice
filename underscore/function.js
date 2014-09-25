@@ -1072,8 +1072,29 @@ function singleArray (array){
 
   return array;
 }
+//function
+function bind(func, obj, arg) {
+  if(obj == undefined) {
+    throw 'obj' + obj + '不能为空';
+    return;
+  }
+  if(!Type.isArray(arg)) {
+    arg = [arg];
+  }
+  return function() {
+    //这里函数的调用参数是通过bind来传递的
+    //如果需要通过返回的绑定的函数来自己传递参数，这吧参数写在包裹函数上
+    func.apply(obj,arg);
+  }
+}
 
+function bindAll(obj){
+  var funcNames = Tool.makeArray(arguments).splice(0,1);
 
+  each(funcNames, function(funcName, index, funcs) {
+    obj[funcName] = bind(obj[funcName], obj);
+  });
+}
 
 
 
@@ -1154,16 +1175,6 @@ function has(obj, key) {
     throw 'obj ' + obj + '类型不为对象';
   }
 }
-function bind(func, obj, arg) {
-  if(obj == undefined) {
-    throw 'obj' + obj + '不能为空';
-    return;
-  }
-  return function() {
-    //这里函数的调用参数是通过bind来传递的
-    //如果需要通过返回的绑定的函数来自己传递参数，这吧参数写在包裹函数上
-    func.apply(obj,arg);
-  }
-}
+
 
 
