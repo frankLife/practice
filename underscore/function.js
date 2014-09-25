@@ -1104,6 +1104,18 @@ function partial(func){
   }
 }
 
+memoize.cache = {};
+_hasher =  0;
+function memoize(func){
+  return function(key){
+    var cache = memoize.cache;
+    index = _hasher ? _hasher(arguments) : key;
+    if(cache[index] == undefined) {
+      cache[index] = func.apply(null,arguments);
+    }
+    return cache[index];
+  }
+}
 
 
 function bindFactory(func, context) {

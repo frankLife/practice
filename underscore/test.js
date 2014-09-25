@@ -421,4 +421,16 @@ function testPartial(){
 
   add5(4,3);
 }
-testPartial();
+//testPartial();
+function testMemoize(){
+  var _hasher = function(codeA,codeB){
+    return parseInt(codeA + codeB )%2;
+  }
+  var memoFunc = memoize(function(paramA, paramB){
+    return paramA + paramB;
+  })
+
+  console.log(memoFunc(0,2));
+  console.log(memoFunc(0,2));
+}
+testMemoize();
