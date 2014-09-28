@@ -405,7 +405,7 @@ function testBindAll(){
     name: function(){ console.log('name: ', this.name) },
     talkThis: function(){ console.log(this) }
   };
-  bindAll(buttonView, 'onClick', 'onHover');
+  bindAll(buttonView, 'onClick', 'onHover','talkThis');
 
   window.addEventListener('click',buttonView.talkThis);
 }
@@ -433,4 +433,9 @@ function testMemoize(){
   console.log(memoFunc(0,2));
   console.log(memoFunc(0,2));
 }
-testMemoize();
+//testMemoize();
+function testDelay(){
+  var log = bind(console.log, console);
+  delay(console.log, 100, 'logged later');
+}
+testDelay();

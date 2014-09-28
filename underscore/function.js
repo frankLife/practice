@@ -1116,6 +1116,12 @@ function memoize(func){
     return cache[index];
   }
 }
+function delay(func,wait){
+  var args = arguments;
+  setTimeout(function(){
+    func.apply(null, Tool.makeArray(args).slice(2));
+  },wait)
+}
 
 
 function bindFactory(func, context) {
