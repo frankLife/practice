@@ -436,6 +436,7 @@ function testMemoize(){
 //testMemoize();
 function testDelay(){
   var log = bind(console.log, console);
+  log('xxxx');
   delay(console.log, 100, 'logged later');
 }
 testDelay();

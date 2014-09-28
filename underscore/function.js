@@ -30,6 +30,7 @@ var Type = {
 }
 var Tool = {
   makeArray: function(obj) {
+    if(obj)
     return Array.prototype.slice.call(obj);
   }
 }
@@ -1078,13 +1079,25 @@ function bind(func, obj, arg) {
     throw 'obj' + obj + '不能为空';
     return;
   }
-  if(!Type.isArray(arg)) {
-    arg = [arg];
+
+  if(arg == undefined) {
+    arg = [];
+  }else if(arg.length > 1 && !Type.isString(arg)) {
+     arg = Tool.makeArray(arg);
   }
-  return function() {
+
+  return function(arguments) {
+
+    if(arguments == undefined) {
+
+      arguments = [];
+    }else if(arguments.length > 1 && !Type.isString(arguments)) {
+       arguments = Tool.makeArray(arguments);
+    }
     //这里函数的调用参数是通过bind来传递的
-    //如果需要通过返回的绑定的函数来自己传递参数，这吧参数写在包裹函数上
-    func.apply(obj,arg);
+    //如果需要通过返回的绑定的函数来自己传递参数，这把参数写在包裹函数上
+   // console.log('return: ',func.apply(obj,arg.concat(arguments)));
+    return func.apply(obj,arg.concat(arguments));
   }
 }
 
