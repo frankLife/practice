@@ -1132,7 +1132,7 @@ function memoize(func){
 function delay(func,wait){
   var args = arguments;
   setTimeout(function(){
-    func.apply(null, Tool.makeArray(args).slice(2));
+    func(Tool.makeArray(args).slice(2));
   },wait)
 }
 

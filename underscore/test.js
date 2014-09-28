@@ -436,7 +436,8 @@ function testMemoize(){
 //testMemoize();
 function testDelay(){
   var log = bind(console.log, console);
-  log('xxxx');
-  delay(console.log, 100, 'logged later');
+  //这里如果直接传入console.log的话，会因为console.log函数中的this指向不正确报错
+  //所以会在传入之前绑定好作用域
+  delay(log, 100, 'logged later');
 }
 testDelay();
