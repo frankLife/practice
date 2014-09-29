@@ -440,4 +440,12 @@ function testDelay(){
   //所以会在传入之前绑定好作用域
   delay(log, 100, 'logged later');
 }
-testDelay();
+// testDelay();
+function testThrottle(){
+  var throttled = throttle(function(){console.log(window.scrollY)}, 1000);
+  window.addEventListener('scroll', function(){
+    throttled();
+    console.log('scroll');
+  })
+}
+testThrottle();

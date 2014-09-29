@@ -1135,7 +1135,37 @@ function delay(func,wait){
     func(Tool.makeArray(args).slice(2));
   },wait)
 }
+function defer(func){
 
+}
+
+throttle.cache = {};
+function throttle(func, wait){
+  var cache = throttle.cache;
+  var funcName = func.name;
+  cache[funcName] = {
+    wait: wait,
+    start: (new Date()).getTime(),
+    times: 0,
+    factory: function(){
+      var self = cache[funcName];
+      if(self.times == 0) {
+        func();
+        self.times++;
+      }else {
+        var now = (new Date()).getTime();
+        var invokeTime = self.start + (self.times)*wait;
+        if(now >=invokeTime) {
+          func();
+          self.times += parseInt((now - invokeTime)/wait) + 1;
+        }
+      }
+    }
+  }
+
+  return cache[funcName]['factory'];
+
+}
 
 function bindFactory(func, context) {
   if(Type.isObj(context)) {
