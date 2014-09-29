@@ -448,4 +448,16 @@ function testThrottle(){
     console.log('scroll');
   })
 }
-testThrottle();
+//testThrottle();
+function testDefer(){
+  var log = bind(console.log, console);
+  defer(log,1,2);
+}
+// testDefer();
+function testArgs(){
+  function _alert(x){
+    console.log(x);
+  }
+  defer(_alert,1,2);
+}
+testArgs();

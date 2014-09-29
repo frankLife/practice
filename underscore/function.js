@@ -1136,7 +1136,8 @@ function delay(func,wait){
   },wait)
 }
 function defer(func){
-
+  var args = Tool.makeArray(arguments).slice(1);
+  delay.apply(null,[func,1].concat(args));
 }
 
 throttle.cache = {};
