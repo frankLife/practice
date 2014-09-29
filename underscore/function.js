@@ -1143,6 +1143,8 @@ throttle.cache = {};
 function throttle(func, wait){
   var cache = throttle.cache;
   var funcName = func.name;
+  var args = Tool.makeArray(arguments).slice(2);
+
   cache[funcName] = {
     wait: wait,
     start: (new Date()).getTime(),
@@ -1150,13 +1152,13 @@ function throttle(func, wait){
     factory: function(){
       var self = cache[funcName];
       if(self.times == 0) {
-        func();
+        func(args.concat(Tool.makeArray(arguments)));
         self.times++;
       }else {
         var now = (new Date()).getTime();
         var invokeTime = self.start + (self.times)*wait;
         if(now >=invokeTime) {
-          func();
+          func(args.concat(Tool.makeArray(arguments)));
           self.times += parseInt((now - invokeTime)/wait) + 1;
         }
       }
