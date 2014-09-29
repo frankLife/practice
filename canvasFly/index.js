@@ -175,3 +175,47 @@ function radiusBox(){
   roundedRect(ctx, 25, 25, 30, 30, 10);
 }
 radiusBox();
+function basicImage(){
+  var ctx = getCanvas().getContext('2d');
+  var img = new Image();
+  img.src = 'https://mdn.mozillademos.org/files/5395/backdrop.png';
+  img.onload = function(){
+    ctx.drawImage(img, 0, 0);
+    ctx.beginPath();
+    ctx.moveTo(40, 50);
+    ctx.lineTo(50, 10);
+    ctx.lineTo(58, 45);
+    ctx.lineTo(70, 2);
+    ctx.lineTo(95, 10);
+    ctx.stroke();
+  }
+}
+basicImage();
+function tileImage(){
+  var ctx = getCanvas().getContext('2d');
+  var img = new Image();
+  img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+  img.onload = function(){
+    for(var i = 0;i<4;i++) {
+      for(var j = 0;j<3;j++) {
+        ctx.drawImage(img, i*50, j*38,50,38);
+      }
+    }
+  }
+}
+tileImage();
+function gallery(){
+  var ctx = getCanvas().getContext('2d');
+  var img1 = new Image();
+  var img2 = new Image();
+  img1.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+  
+  img1.onload = function(){
+    img2.src = 'https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png';
+  }
+  img2.onload = function(){
+    ctx.drawImage(img1, 33, 71, 104, 124, 21, 20, 87, 104);
+    ctx.drawImage(img2, 0, 0);
+  }
+}
+gallery();
