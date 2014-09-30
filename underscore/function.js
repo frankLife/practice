@@ -1148,13 +1148,14 @@ function throttle(func, wait){
 
   cache[funcName] = {
     wait: wait,
-    start: (new Date()).getTime(),
+    start: -1,
     times: 0,
     factory: function(){
       var self = cache[funcName];
       if(self.times == 0) {
         func(args.concat(Tool.makeArray(arguments)));
         self.times++;
+        self.statrt = (new Date()).getTime();
       }else {
         var now = (new Date()).getTime();
         var invokeTime = self.start + (self.times)*wait;
@@ -1168,6 +1169,11 @@ function throttle(func, wait){
 
   return cache[funcName]['factory'];
 
+}
+
+
+function debounce(func, wait, immediate){
+  return function(){}
 }
 
 function bindFactory(func, context) {
