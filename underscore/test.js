@@ -453,11 +453,11 @@ function testDefer(){
   var log = bind(console.log, console);
   defer(log,1,2);
 }
-// testDefer();
+ testDefer();
 function testArgs(){
   function _alert(x){
-    console.log(x);
+    alert(x);
   }
   defer(_alert,1,2);
 }
-testArgs();
+//testArgs();

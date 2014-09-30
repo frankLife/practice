@@ -1086,8 +1086,7 @@ function bind(func, obj, arg) {
      arg = Tool.makeArray(arg);
   }
 
-  return function(arguments) {
-
+  return function() {
     if(arguments == undefined) {
 
       arguments = [];
@@ -1097,6 +1096,7 @@ function bind(func, obj, arg) {
     //这里函数的调用参数是通过bind来传递的
     //如果需要通过返回的绑定的函数来自己传递参数，这把参数写在包裹函数上
    // console.log('return: ',func.apply(obj,arg.concat(arguments)));
+  
     return func.apply(obj,arg.concat(arguments));
   }
 }
@@ -1132,7 +1132,7 @@ function memoize(func){
 function delay(func,wait){
   var args = arguments;
   setTimeout(function(){
-    func(Tool.makeArray(args).slice(2));
+    func.apply(null,Tool.makeArray(args).slice(2));
   },wait)
 }
 function defer(func){
