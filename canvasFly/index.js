@@ -356,15 +356,73 @@ function lineStrokeBeginPath(){
   // ctx.lineTo(20,50);
   // ctx.stroke();
 
-  //2.在未调用beginPath时，两条线的宽度一样。说明style会以path为界且会类似放在最开头，影响全局
-  ctx.moveTo(10,10);
-  ctx.lineTo(20,50);
+  // //2.在未调用beginPath时，两条线的宽度一样。说明style会以path为界且会类似放在最开头，影响全局
+  // ctx.moveTo(10,10);
+  // ctx.lineTo(20,50);
+  // ctx.stroke();
+  // ctx.beginPath();
+  // ctx.moveTo(50,60);
+  // ctx.lineTo(40,100);
+  // ctx.lineWidth = 20;
+  // ctx.stroke();
+  
+  //3.在调用arc的时候，自动调用lineTo
+  ctx.moveTo(10, 10);
+  ctx.arc(50, 50, 10, 0, Math.PI);
+  ctx.arc(60, 60, 10, 0, Math.PI);
   ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(50,60);
-  ctx.lineTo(40,100);
-  ctx.lineWidth = 20;
-  ctx.stroke();
-
 }
 lineStrokeBeginPath();
+
+function lineCapStyle(){
+  var ctx = getCanvas().getContext('2d');
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#09f';
+  ctx.moveTo(10, 10);
+  ctx.lineTo(140, 10);
+
+  ctx.moveTo(10, 140);
+  ctx.lineTo(140, 140);
+  ctx.stroke();
+
+  var capStyle = ['butt', 'round', 'square'];
+  ctx.lineWidth = 20;
+  ctx.strokeStyle = '#000';
+  for(var i = 0, len = capStyle.length;i<len;i++) {
+    ctx.beginPath();
+    ctx.lineCap = capStyle[i];
+    ctx.moveTo(10 + 30*i, 10);
+    ctx.lineTo(10 + 30*i, 140);
+    ctx.stroke();
+  }
+}
+lineCapStyle();
+function lineJoinStyle(){
+  var ctx = getCanvas(300, 300).getContext('2d');
+  var joinStyle = ['round', 'bevel', 'miter'];
+  ctx.lineWidth = 10;
+  for(var i = 0, len = joinStyle.length;i<len;i++) {
+    ctx.beginPath();
+    ctx.lineJoin = joinStyle[i];
+    ctx.moveTo(50, 10 + 50*i);
+    ctx.lineTo(80, 30 + 50*i);
+    ctx.lineTo(110, 10 + 50*i);
+    ctx.stroke();
+  } 
+}
+lineJoinStyle();
+function linearGradient(){
+  var ctx = getCanvas().getContext('2d');
+
+  var lingrad = ctx.createLinearGradient(0, 50, 0, 100);
+  lingrad.addColorStop(0, '#00ABEB');
+  // lingrad.addColorStop(0.5, '#fff');
+  lingrad.addColorStop(1, '#26c000');
+  // lingrad.addColorStop(1, '#fff');
+
+  ctx.fillStyle = lingrad;
+  ctx.fillRect(0,0,130,130);
+
+}
+linearGradient();
