@@ -415,14 +415,65 @@ lineJoinStyle();
 function linearGradient(){
   var ctx = getCanvas().getContext('2d');
 
-  var lingrad = ctx.createLinearGradient(0, 50, 0, 100);
+  //1.渐变坐标是基于fill的实际图像
+  //2.两个point设置的是类似于在ps中渐变的基准点
+
+  var lingrad = ctx.createLinearGradient(0, 0, 130, 130);
   lingrad.addColorStop(0, '#00ABEB');
   // lingrad.addColorStop(0.5, '#fff');
   lingrad.addColorStop(1, '#26c000');
   // lingrad.addColorStop(1, '#fff');
 
   ctx.fillStyle = lingrad;
-  ctx.fillRect(0,0,130,130);
+  ctx.fillRect(10,10,130,130);
 
 }
 linearGradient();
+
+function radialGradient(){
+  //1.r2是radiel的总共半径，r1设置内部渐变的半径
+  //2.渐变的坐标是基于fill的坐标
+  //3.r1与r2的圆的基准都是fill的坐标，之间并无强关联
+
+  var ctx = getCanvas().getContext('2d');
+  var radgrad = ctx.createRadialGradient(45,45,30,50,50,50);
+  radgrad.addColorStop(0, '#A7D30C');
+  radgrad.addColorStop(0.9, '#019F62');
+  radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+
+  var radgrad2 = ctx.createRadialGradient(105,105,20,105,105,50);
+  radgrad2.addColorStop(0, '#fff');
+  radgrad2.addColorStop(0.75, '#FF0188');
+  radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
+
+  ctx.fillStyle = radgrad;
+  ctx.fillRect(0,0,150,150);
+  ctx.fillStyle = radgrad2;
+  ctx.fillRect(0,0,150,150);
+}
+
+radialGradient();
+
+function pattern(){
+  var ctx = getCanvas().getContext('2d');
+  var img = new Image();
+  img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+  img.onload = function(){
+    ctx.fillStyle = ctx.createPattern(img, 'repeat');
+    ctx.fillRect(0, 0, 150, 150);
+  }
+}
+pattern();
+function shadowText(){
+  var ctx = getCanvas().getContext('2d');
+
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.shadowBlur = 2;
+  ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+
+  ctx.font = '30px Monaco';
+  ctx.fillStyle = 'black';
+  ctx.fillText('GO GO GO', 10, 100);
+}
+shadowText();
