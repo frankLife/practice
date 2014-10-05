@@ -477,3 +477,274 @@ function shadowText(){
   ctx.fillText('GO GO GO', 10, 100);
 }
 shadowText();
+
+function stateSaveAndRestore(){
+  var ctx = getCanvas(300, 300).getContext('2d');
+  
+  ctx.fillRect(10, 10, 200, 200);
+  ctx.save();
+
+  ctx.fillStyle = '#09f';
+  ctx.fillRect(20,20,180,180);
+  ctx.save();
+
+  ctx.fillStyle = '#7FCCFF'
+  ctx.fillRect(50,50,120,120);
+
+  ctx.restore();
+  ctx.fillRect(85, 85, 50, 50);
+
+  ctx.restore();
+  ctx.fillRect(97.5, 97.5, 25, 25);
+}
+stateSaveAndRestore();
+
+function translateSpirograph(){
+  var ctx = getCanvas(300, 300).getContext('2d');
+  ctx.fillRect(0,0,300,300);
+  for (var i=0;i<3;i++) {
+    for (var j=0;j<3;j++) {
+      ctx.save();
+      ctx.strokeStyle = "#9CFF00";
+      ctx.translate(50+j*100,50+i*100);
+      _drawSpirograph(ctx,20*(j+2)/(j+1),-8*(i+3)/(i+1),10);
+      ctx.restore();
+    }
+  }
+
+  function _drawSpirograph(ctx,R,r,O){
+    var x1 = R-O;
+    var y1 = 0;
+    var i  = 1;
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    do {
+      if (i>20000) break;
+      var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72));
+      var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72));
+      ctx.lineTo(x2,y2);
+      x1 = x2;
+      y1 = y2;
+      i++;
+    } while (x2 != R-O && y2 != 0 );
+    ctx.stroke();
+  }
+}
+translateSpirograph();
+
+function rotate(){
+  var ctx = getCanvas(300,300).getContext('2d');
+  ctx.translate(100, 100);
+
+  for (var i=1;i<6;i++){ // Loop through rings (from inside to out)
+    ctx.save();
+    ctx.fillStyle = 'rgb('+(51*i)+','+(255-51*i)+',255)';
+
+    for (var j=0;j<i*6;j++){ // draw individual dots
+      ctx.rotate(Math.PI*2/(i*6));
+      ctx.beginPath();
+      ctx.arc(0,i*12.5,5,0,Math.PI*2,true);
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+  
+ // ctx.fillRect(0, 100, 10, 10);
+ //  ctx.rotate(Math.PI*2/10);
+ for(var i = 0;i<9;i++) {
+  ctx.rotate(Math.PI*2/10);
+  ctx.beginPath();
+  ctx.fillStyle = 'green';
+  ctx.rect(0, 70, 10, 10);
+  ctx.fill();
+ }
+
+}
+rotate();
+function scaleSpirograph(){
+  var ctx = getCanvas(null,500).getContext('2d');
+  ctx.strokeStyle = '#fc0';
+  ctx.lineWidth = 1.2;
+  ctx.fillRect(0, 0, 300, 300);
+  ctx.save();
+
+  //x,y
+  ctx.translate(50, 50);
+  ctx.scale(0.75, 0.75);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  ctx.translate(100, 0);
+  ctx.scale(0.75, 0.75)
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  ctx.translate(133.333, 0);
+  ctx.scale(0.75, 0.75);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  //y
+  ctx.restore();
+  ctx.strokeStyle = '#0cf';
+  ctx.save();
+  ctx.translate(50, 150);
+  ctx.scale(1, 0.75);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  ctx.translate(100, 0);
+  ctx.scale(1, 0.75);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  ctx.translate(100, 0);
+  ctx.scale(1, 0.75);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  //x
+  ctx.restore();
+  ctx.strokeStyle = '#cf0';
+  ctx.save();
+  ctx.translate(50, 250);
+  ctx.scale(0.75, 1);
+  _drawSpirograph(ctx, 22, 8, 6);
+
+  ctx.translate(133.333,0);
+  ctx.scale(0.75,1);
+  _drawSpirograph(ctx,22,6,5);
+
+  ctx.translate(177.777,0);
+  ctx.scale(0.75,1);
+  _drawSpirograph(ctx,22,6,5);
+  ctx.restore();
+
+  function _drawSpirograph(ctx,R,r,O){
+    var x1 = R-O;
+    var y1 = 0;
+    var i  = 1;
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    do {
+      if (i>20000) break;
+      var x2 = (R+r)*Math.cos(i*Math.PI/72) - (r+O)*Math.cos(((R+r)/r)*(i*Math.PI/72));
+      var y2 = (R+r)*Math.sin(i*Math.PI/72) - (r+O)*Math.sin(((R+r)/r)*(i*Math.PI/72));
+      ctx.lineTo(x2,y2);
+      x1 = x2;
+      y1 = y2;
+      i++;
+    } while (x2 != R-O && y2 != 0 );
+    ctx.stroke();
+  }
+}
+scaleSpirograph();
+function transform(){
+  var ctx = getCanvas(300, 300).getContext('2d');
+
+  var sin = Math.sin(Math.PI/6);
+  var cos = Math.cos(Math.PI/6);
+  ctx.translate(100, 100);
+  var c = 0;
+  for(var i = 0;i <= 12;i++) {
+    c = Math.floor(255/12*i);
+    ctx.fillStyle = 'rgb(' + c + ',' + c +',' + c + ')';
+    ctx.fillRect(0, 0, 100, 10);
+    ctx.transform(cos, sin, -sin, cos, 0, 0);
+  }
+
+  ctx.setTransform(-1, 0, 0, 1, 100, 100);
+  ctx.fillStyle = 'rgba(255, 128, 255, 0.5)';
+  ctx.fillRect(0, 50, 100, 100);
+}
+transform();
+function clip() {
+  var ctx = getCanvas().getContext('2d');
+  ctx.fillRect(0, 0, 150, 150);
+  ctx.translate(75, 75);
+
+  ctx.beginPath();
+  ctx.arc(0, 0, 60, 0,Math.PI*2, true);
+  ctx.clip();
+
+  var lingrad = ctx.createLinearGradient(0, -75, 0, 75);
+  lingrad.addColorStop(0, '#232256');
+  lingrad.addColorStop(1, '#143778');
+
+  ctx.fillStyle = lingrad;
+  ctx.fillRect(-75, -75, 150, 150);
+
+  ctx.fillStyle = '#fff';
+  for(var j = 0;j < 50;j++) {
+    ctx.save();
+    ctx.translate(75-Math.floor(Math.random()*150),
+                  75-Math.floor(Math.random()*150));
+    _drawStar(ctx, Math.floor(Math.random()*4) + 2);
+    ctx.restore();
+  }
+
+  function _drawStar(ctx, r){
+    ctx.save();
+    ctx.beginPath()
+    ctx.moveTo(r,0);
+    for (var i=0;i<9;i++){
+      ctx.rotate(Math.PI/5);
+      if(i%2 == 0) {
+        ctx.lineTo((r/0.525731)*0.200811,0);
+      } else {
+        ctx.lineTo(r,0);
+      }
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+}
+clip();
+getCanvas(300, 300);
+animation1();
+function animation1() {
+var sun = new Image();
+var moon = new Image();
+var earth = new Image();
+init();
+function init(){
+  sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+  moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+  earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+  setInterval(draw,100);
+}
+
+
+function draw() {
+  var ctx = document.getElementsByTagName('canvas');
+  ctx = ctx[ctx.length - 1].getContext('2d');
+
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.clearRect(0,0,300,300); // clear canvas
+
+  ctx.fillStyle = 'rgba(0,0,0,0.4)';
+  ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+  ctx.save();
+  ctx.translate(150,150);
+
+
+  var time = new Date();
+
+  // // Earth 
+   ctx.rotate( ((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() );
+   ctx.translate(105,0);
+  // ctx.fillRect(0,-12,50,24); // Shadow
+  // ctx.drawImage(earth,-12,-12);
+
+  // Moon
+  ctx.save();
+  ctx.rotate( ((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds() );
+  ctx.translate(0,28.5);
+  ctx.drawImage(moon,-3.5,-3.5);
+  ctx.restore();
+
+  ctx.restore();
+  
+  ctx.beginPath();
+  ctx.arc(150,150,105,0,Math.PI*2,false); // Earth orbit
+  ctx.stroke();
+ 
+  ctx.drawImage(sun,0,0,300,300);
+}
+}
