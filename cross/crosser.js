@@ -29,13 +29,14 @@ crosser.prototype.prepare = function(){
     var isPostMessage = self._isPostMessage = 'postMessage' in window;
     document.domain = self._domain;
   }else {
-
+    var isPostMessage = self._isPostMessage = 'postMessage' in window;
     var param = self.param;
     var body = document.getElementsByTagName('body')[0]
     var dataForm = this._dataForm  = document.createElement('form');
-    var msgIframe = this._msgIframe =  document.createElement('<iframe name="crossIfr">');
+    //ie7 设置name失效，在创建节点的时候加入name属性
+    var msgIframe = this._msgIframe =  document.createElement(isPostMessage?'iframe':'<iframe name="crossIfr">');
 
-    var isPostMessage = self._isPostMessage = 'postMessage' in window;
+    
 
     dataForm.style.display = 'none';
     dataForm.id = 'crossForm';
@@ -46,7 +47,6 @@ crosser.prototype.prepare = function(){
 
     msgIframe.style.display = 'none';
     msgIframe.name = 'crossIfr';
-   //msgIframe.setAttribute('name', 'crossIfr');
     msgIframe.src = '';
     msgIframe.id = 'crossIfr';
     body.appendChild(msgIframe);
