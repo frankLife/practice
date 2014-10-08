@@ -62,7 +62,7 @@ body {
   text-align: center;
   font: bold 100px/300px sans-serif;
   color: #fff;
-  opacity: 0.5;
+  opacity: 0.7;
   border: 2px solid #000;
   backface-visibility: hidden;
 }
@@ -74,9 +74,11 @@ body {
   background-color: blue;
   transform: translateZ(150px);
 }
+/*backface-visibility只能针对translate为正值的情况*/
 .cube .left {
   background-color: yellow;
-  transform: rotateY(90deg) translateZ(-150px);
+  /*transform: rotateY(90deg) translateZ(-150px);*/
+  transform: rotateY(-90deg) translateZ(150px);
 }
 .cube .right {
   background-color: green;
@@ -88,5 +90,6 @@ body {
 }
 .cube .bottom {
   background-color: pink;
-  transform: rotateX(90deg) translateZ(-150px);
+  /*transform: rotateX(90deg) translateZ(-150px);*/
+  transform: rotateX(-90deg) translateZ(150px);
 }
