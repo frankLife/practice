@@ -64,7 +64,7 @@ body {
   color: #fff;
   opacity: 0.7;
   border: 2px solid #000;
-  backface-visibility: hidden;
+  /*backface-visibility: hidden;*/
 }
 .cube .back {
   background-color: red;
