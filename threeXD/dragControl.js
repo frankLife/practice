@@ -69,7 +69,7 @@ dragControl.prototype.outEnd = function(){
       console.log('out');
       self.isStart = false;
     }
-  });
+  }, false);
 
 }
 dragControl.prototype.dragMove = function() {
@@ -115,9 +115,9 @@ dragControl.prototype.init = function(){
   var el = self.el;
   
   self.outEnd();
-  el.addEventListener('mousedown', self.dragStart());
-  el.addEventListener('mousemove', self.dragMove());
-  el.addEventListener('mouseup', self.dragEnd());
+  el.addEventListener('mousedown', self.dragStart(), false);
+  el.addEventListener('mousemove', self.dragMove(), false);
+  el.addEventListener('mouseup', self.dragEnd(), false);
 }
 
 })()
