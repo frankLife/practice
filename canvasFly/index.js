@@ -750,7 +750,8 @@ function animation1() {
   }
 }
 function canvasPlay() {
-  var ctx = getCanvas(500, 300).getContext('2d');
+  var canvas = getCanvas(500, 300);
+  var ctx = canvas.getContext('2d');
   var keysToGuess = ['q','w','e','r','t','y','u','i','o','p',
                         'a','s','d','f','g','h','j','k','l',
                         'z','x','c','v','b','n','m'];
@@ -760,6 +761,9 @@ function canvasPlay() {
   var tipText = ['Higher', 'Lower', 'You Got it!', 'That is not a letter'];
   var timeText = new Date();
   var introText = ['Guess The Letter From a (lower) to z (higher)','Guesses: ','Higher Or Lower: ','Letters Guessed: '];
+  canvas.addEventListener('click', function(){
+    window.open(canvas.toDataURL(),'canvasImage','toolbar=0,resizable=0,left=0,top=0,width='+canvas.width+',height='+canvas.height);
+  });
   document.body.addEventListener('keyup', function(e){
     timesText++;
     var isPressKey = false;
@@ -784,6 +788,7 @@ function canvasPlay() {
       _drawImage(tipText[2], true);
     }
   });
+
   function _drawImage(tip, isEnd) {
     ctx.fillStyle = 'yellow';
     ctx.fillRect(0,0,500,300);

@@ -6,9 +6,8 @@ function touchCube(){
   //绑定拖动事件
   var dragOpt = {
     el: wrap,
-    isSequence: true,
     moveAction: function(){
-      console.log('start: ', this.getCoord('start'));
+    //  console.log('start: ', this.getCoord('start'));
       console.log('dis: ', this.getCoord('dis'));
       var cube = $('.cube');
       var degs = {

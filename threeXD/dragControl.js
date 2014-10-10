@@ -2,7 +2,6 @@
 window.dragControl = dragControl;
 function dragControl(opt){
   this.el = opt.el;
-  this.isSequence = opt.isSequence || false;
   this.isOutEnd = opt.isOutEnd || true;
 
   this.action = {
@@ -24,6 +23,10 @@ function dragControl(opt){
   this.curDistance = {
     left: "",
     top: ""
+  }
+  this.lastDistance = {
+    left: '',
+    top: ''
   }
   this.init();
 }
@@ -47,9 +50,9 @@ dragControl.prototype.dragStart = function() {
   var self = this;
   return function(e){
     self.isStart = true;
-    if(self.startCoord.left != "") {
-      return;
-    }
+    // if(self.startCoord.left != "") {
+    //   return;
+    // }
     self.startCoord.left = e.clientX;
     self.startCoord.top = e.clientY; 
    
@@ -57,16 +60,14 @@ dragControl.prototype.dragStart = function() {
 }
 dragControl.prototype.outEnd = function(){
   var self = this;
-  function _pollJudge(){
-    if(self.isStart == true) {
-        setTimeout(_pollJudge,200);
-    }else {
-      self.isStart = false;
-    }
-  }
+
   self.el.addEventListener('mouseout', function(){
     if(self.isOutEnd) {
       console.log('out');
+      self.endCoord.left = self.curCoord.left;
+      self.endCoord.top = self.curCoord.top;
+      self.lastDistance.left = self.curDistance.left;
+      self.lastDistance.top = self.curDistance.top;
       self.isStart = false;
     }
   }, false);
@@ -79,6 +80,7 @@ dragControl.prototype.dragMove = function() {
     var startCoord = self.startCoord;
     var curCoord = self.curCoord;
     var curDistance = self.curDistance;
+    var lastDistance = self.lastDistance;
 
     if(!self.isStart) {
       console.log('self.isStart: ',self.isStart);
@@ -87,8 +89,15 @@ dragControl.prototype.dragMove = function() {
 
     curCoord.left = e.clientX;
     curCoord.top = e.clientY;
-    curDistance.left = curCoord.left - startCoord.left;
-    curDistance.top = curCoord.top - startCoord.top;
+
+    if(lastDistance.left != '' ) {
+      curDistance.left = curCoord.left - startCoord.left + lastDistance.left;
+      curDistance.top = curCoord.top - startCoord.top + lastDistance.top;
+    }else {
+      curDistance.left = curCoord.left - startCoord.left;
+      curDistance.top = curCoord.top - startCoord.top;
+    }
+
 
     if(typeof self.action.moveAction == 'function') {
       self.action.moveAction.apply(self);
@@ -102,12 +111,11 @@ dragControl.prototype.dragEnd = function() {
   return function(e){
     self.endCoord.left = e.clientX;
     self.endCoord.top = e.clientY;
-    if(self.isSequence) {
-      console.log('se');
-      self.startCoord.left = self.endCoord.left;
-      self.startCoord.top = self.endCoord.top;
-    }
+    self.lastDistance.left = self.curDistance.left;
+    self.lastDistance.top = self.curDistance.top;
     self.isStart = false;
+    console.log('self.lastDistance.left: ',self.lastDistance.left);
+    console.log('self.lastDistance.top: ',self.lastDistance.top);
   }
 }
 dragControl.prototype.init = function(){
