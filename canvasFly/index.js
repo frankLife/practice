@@ -697,54 +697,128 @@ function clip() {
 }
 clip();
 getCanvas(300, 300);
-animation1();
+//animation1();
+
 function animation1() {
-var sun = new Image();
-var moon = new Image();
-var earth = new Image();
-init();
-function init(){
-  sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
-  moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
-  earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
-  setInterval(draw,100);
+  var sun = new Image();
+  var moon = new Image();
+  var earth = new Image();
+  init();
+  function init(){
+    sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+    moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+    earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+    setInterval(draw,100);
+  }
+
+
+  function draw() {
+    var ctx = document.getElementsByTagName('canvas');
+    ctx = ctx[ctx.length - 1].getContext('2d');
+
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.clearRect(0,0,300,300); // clear canvas
+
+    ctx.fillStyle = 'rgba(0,0,0,0.4)';
+    ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+    ctx.save();
+    ctx.translate(150,150);
+
+
+    var time = new Date();
+
+    // // Earth 
+     ctx.rotate( ((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() );
+     ctx.translate(105,0);
+    // ctx.fillRect(0,-12,50,24); // Shadow
+    // ctx.drawImage(earth,-12,-12);
+
+    // Moon
+    ctx.save();
+    ctx.rotate( ((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds() );
+    ctx.translate(0,28.5);
+    ctx.drawImage(moon,-3.5,-3.5);
+    ctx.restore();
+
+    ctx.restore();
+    
+    ctx.beginPath();
+    ctx.arc(150,150,105,0,Math.PI*2,false); // Earth orbit
+    ctx.stroke();
+   
+    ctx.drawImage(sun,0,0,300,300);
+  }
 }
+function canvasPlay() {
+  var ctx = getCanvas(500, 300).getContext('2d');
+  var keysToGuess = ['q','w','e','r','t','y','u','i','o','p',
+                        'a','s','d','f','g','h','j','k','l',
+                        'z','x','c','v','b','n','m'];
+  var guessingKey = keysToGuess[Math.floor(Math.random()*keysToGuess.length)]; 
+  var pressedKeys = [];
+  var timesText = 0;
+  var tipText = ['Higher', 'Lower', 'You Got it!', 'That is not a letter'];
+  var timeText = new Date();
+  var introText = ['Guess The Letter From a (lower) to z (higher)','Guesses: ','Higher Or Lower: ','Letters Guessed: '];
+  document.body.addEventListener('keyup', function(e){
+    timesText++;
+    var isPressKey = false;
+    var pressingKey = String.fromCharCode(e.which).toLowerCase();
+    console.log('guessingKey: ', guessingKey);
+    console.log('pressingKey: ', pressingKey);
+    for(var i = keysToGuess.length;i--;) {
+      if(keysToGuess[i] == pressingKey){
+        isPressKey = true;
+      }
+    }
+    if(!isPressKey) {
+      _drawImage(tipText[3]);
+      return;
+    }
+    pressedKeys.push(pressingKey);
+    if(pressingKey > guessingKey) {
+      _drawImage(tipText[1]);
+    }else if(pressingKey < guessingKey){
+      _drawImage(tipText[0]);
+    }else {
+      _drawImage(tipText[2], true);
+    }
+  });
+  function _drawImage(tip, isEnd) {
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(0,0,500,300);
+    ctx.lineWidth = 3;
+    ctx.strokeRect(10,10,480,280);
+    
+    ctx.textBaseline = 'top';
+    
+    ctx.font = "12px sans-serif";
+    ctx.fillStyle = 'black';
+    ctx.fillText(timeText,120,20);
+    
+    ctx.font = "16px sans-serif";
+    ctx.fillStyle = 'red';
+    ctx.fillText(introText[0], 80, 40);
 
+    ctx.fillStyle = 'green';
+    ctx.fillText(introText[1] + timesText, 180, 60);
 
-function draw() {
-  var ctx = document.getElementsByTagName('canvas');
-  ctx = ctx[ctx.length - 1].getContext('2d');
+    ctx.fillStyle = 'black';
+    if(isEnd == true) {
+      ctx.font = '35px serif';
+      ctx.fillStyle = 'red';
+      ctx.fillText(tip, 135, 135);
+      guessingKey = keysToGuess[Math.floor(Math.random()*keysToGuess.length)]; 
+    }else {
+      ctx.fillText(introText[2] + tip, 135, 110);
+    }
 
-  ctx.globalCompositeOperation = 'destination-over';
-  ctx.clearRect(0,0,300,300); // clear canvas
-
-  ctx.fillStyle = 'rgba(0,0,0,0.4)';
-  ctx.strokeStyle = 'rgba(0,153,255,0.4)';
-  ctx.save();
-  ctx.translate(150,150);
-
-
-  var time = new Date();
-
-  // // Earth 
-   ctx.rotate( ((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds() );
-   ctx.translate(105,0);
-  // ctx.fillRect(0,-12,50,24); // Shadow
-  // ctx.drawImage(earth,-12,-12);
-
-  // Moon
-  ctx.save();
-  ctx.rotate( ((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds() );
-  ctx.translate(0,28.5);
-  ctx.drawImage(moon,-3.5,-3.5);
-  ctx.restore();
-
-  ctx.restore();
-  
-  ctx.beginPath();
-  ctx.arc(150,150,105,0,Math.PI*2,false); // Earth orbit
-  ctx.stroke();
- 
-  ctx.drawImage(sun,0,0,300,300);
+    ctx.fillStyle = 'red';
+    ctx.font = '13px serif';
+    ctx.fillText(introText[3], 15, 180);
+    for(var i = 0, len = pressedKeys.length;i<len;i++) {
+      ctx.fillText(pressedKeys[i],130+i*15,180);
+    }
+  }
 }
-}
+canvasPlay();
