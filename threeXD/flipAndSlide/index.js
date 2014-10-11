@@ -38,3 +38,20 @@ function bindPrism(){
   });
 }
 bindPrism();
+
+function bindSlide(){
+  var prev = document.getElementById('slider-prev');
+  var next = document.getElementById('slider-next');
+  var slider = document.getElementById('slider');
+  var deg = 0;
+
+  prev.addEventListener('click', function(){
+    deg = deg - 40;
+    slider.style.transform = 'rotateY('+deg+'deg) translateZ(-288px)';
+  });
+  next.addEventListener('click', function(){
+    deg = deg + 40;
+    slider.style.transform = 'rotateY('+deg+'deg) translateZ(-288px)';
+  });
+}
+bindSlide();
