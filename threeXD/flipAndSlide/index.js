@@ -27,3 +27,14 @@ function bindFlip(){
 
 }
 bindFlip();
+
+function bindPrism(){
+  var cssText = document.getElementById('cssText');
+  var trigger = document.getElementById('changeStyle');
+  var prism = document.getElementById('prism');
+
+  trigger.addEventListener('click', function(){
+    prism.style.transform = cssText.value + ' translateZ(-50px)';
+  });
+}
+bindPrism();

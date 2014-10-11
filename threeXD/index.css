@@ -59,6 +59,8 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  /*To resolve the distortion and restore pixel perfection on our #cube, we can push back the 3D object, so that the front face will be positioned back at the Z origin.*/
+  transform: translateZ(-150px);
 }
 .cube section {
   position: absolute;

@@ -23,10 +23,73 @@
   text-align: center;
   backface-visibility: hidden;
 }
-.front {
+#flip .front {
   background-color: red;
 }
-.back{
+#flip .back{
   background-color: blue;
   transform: rotateY(180deg);
+}
+
+#prismWrap {
+  margin: 100px;
+  width: 300px;
+  height: 200px;
+  perspective: 1200px;
+}
+#prism {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(-50px);
+  transition: transform 1s;
+}
+#prism div {
+  position: absolute;
+  font: bold 50px impact;
+  color: #fff;
+  text-align: center;
+  opacity: 0.7
+}
+#prism .front {
+  transform: translateZ(50px);
+  width: 300px;
+  height: 200px;
+  background-color: red;
+  line-height: 200px;
+}
+#prism .back {
+  transform: rotateY(180deg) translateZ(50px);
+  width: 300px;
+  height: 200px;
+  background-color: blue;
+  line-height: 200px;
+}
+#prism .left {
+  transform: rotateY(-90deg) translateZ(50px);
+  width: 100px;
+  height: 200px;
+  background-color: pink;
+  line-height: 200px;
+}
+#prism .right {
+  transform: rotateY(90deg) translateZ(250px);
+  width: 100px;
+  height: 200px;
+  background-color: green;
+  line-height: 200px;
+}
+#prism .top {
+  transform: rotateX(90deg) translateZ(50px);
+  width: 300px;
+  height: 100px;
+  background-color: orange;
+  line-height: 100px;
+}
+#prism .bottom {
+  transform: rotateX(-90deg) translateZ(150px);
+  width: 300px;
+  height: 100px;
+  background-color: gray;
+  line-height: 100px;
 }
