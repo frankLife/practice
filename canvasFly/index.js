@@ -697,7 +697,7 @@ function clip() {
 }
 clip();
 getCanvas(300, 300);
-//animation1();
+animation1();
 
 function animation1() {
   var sun = new Image();
@@ -714,7 +714,7 @@ function animation1() {
 
   function draw() {
     var ctx = document.getElementsByTagName('canvas');
-    ctx = ctx[ctx.length - 1].getContext('2d');
+    ctx = ctx[ctx.length - 2].getContext('2d');
 
     ctx.globalCompositeOperation = 'destination-over';
     ctx.clearRect(0,0,300,300); // clear canvas
