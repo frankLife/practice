@@ -1,0 +1,104 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  background-color: #f08080;
+}
+.lineWrap {
+  position: relative;
+  margin-top: 250px;
+  margin-left: 250px;
+  margin-bottom: 250px;
+}
+.line-trigger {
+  width: 50px;
+  height: 50px;
+  background-color: #0a0;
+  cursor: pointer;
+  transition: border-radius .2s;
+}
+.line-trigger:hover {
+  border-radius: 50%;
+}
+.line-tip {
+  position: absolute;
+  top: -200px;
+  left: -125px;
+  pointer-events: none;
+}
+.tip-content {
+  width: 300px;
+  height: 164px;
+  background-color: #333;
+  opacity: 0.7;
+  font:  20px/164px impact;
+  text-align: center;
+  color: #ddd;
+  transform: translate3D(0,100%,0);
+  transition: transform .3s;
+  transition-delay: .3s;
+  pointer-events: none;
+}
+.lineWrap:hover .tip-content{
+  transform: translate3d(0,0,0);
+}
+.content-wrap {
+  overflow: hidden;
+}
+.tip-border {
+  position: absolute;
+  bottom: -15px;
+  width: 300px;
+  height: 15px;
+  background-color: #fff;
+  transform: scale3d(0,1,1);
+  transition: transform .3s;
+  pointer-events: none;
+}
+.lineWrap:hover .tip-border {
+  transform: scale3d(1,1,1);
+}
+
+.tip-border:after {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: -20px;
+  content: "";
+  display: block;
+  width: 0px;
+  height: 0px;
+  border: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+
+.flipWrap {
+  margin-left: 250px;
+}
+.flip1 {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: #528;
+  cursor: pointer;
+  transition: border-radius .2s;
+}
+.flip1:hover {
+  border-radius: 50%;
+}
+.leftTip {
+  position: absolute;
+  left: -45px;
+  top: -80px;
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+}
+.leftTip:after {
+  content: "";
+  
+}
