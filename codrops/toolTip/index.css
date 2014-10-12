@@ -24,6 +24,7 @@ body {
   color: #fff;
   opacity: 0;
   transition: top .3s,opacity .3s;
+  pointer-events: none;
 }
 .classic1-tip:after {
   display: block;
@@ -58,7 +59,7 @@ body {
   display: inline-block;
   width: 105px;
   height: 47px;
-  transform-style: preserve-3d;
+  /*transform-style: preserve-3d;*/
   perspective: 1000px;
   cursor: pointer;
 }
@@ -87,6 +88,7 @@ body {
   transform: rotateX(45deg);
   transform-origin: 50% 110%;
   transition: opacity .2s ,transform .2s;
+  pointer-events: none;
 }
 .classic2-tip:after {
   display: block;
