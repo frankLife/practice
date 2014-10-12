@@ -75,7 +75,7 @@ body {
   border-top: 10px solid #fff;
 }
 
-
+/*flip*/
 .flipWrap {
   margin-left: 250px;
 }
@@ -86,19 +86,203 @@ body {
   background-color: #528;
   cursor: pointer;
   transition: border-radius .2s;
+  perspective: 1200px;
 }
 .flip1:hover {
   border-radius: 50%;
 }
-.leftTip {
+.flip1 .leftTip {
   position: absolute;
   left: -45px;
-  top: -80px;
+  top: -75px;
   width: 60px;
   height: 60px;
   background-color: #fff;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,-60deg);
+  transform-origin: 100% 50%;
+  pointer-events: none;
 }
-.leftTip:after {
+.flip1:hover .leftTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip1 .leftTip:after {
   content: "";
-  
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-right: 10px solid #fff;
+}
+.flip1 .rightTip {
+  position: absolute;
+  right: -45px;
+  top: -75px;
+  width: 60px;
+  height: 60px;
+  background-color: #f00;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,60deg);
+  transform-origin: 0% 50%;
+  pointer-events: none;
+}
+.flip1:hover .rightTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip1 .rightTip:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-left: 10px solid #f00;
+}
+.flip2 {
+  position: relative;
+  margin-left: 200px;
+  width: 30px;
+  height: 30px;
+  background-color: #F8F882;
+  cursor: pointer;
+  transition: border-radius .2s;
+  perspective: 1200px;
+}
+.flip2:hover {
+  border-radius: 50%;
+}
+.flip2 .leftTip {
+  position: absolute;
+  left: -45px;
+  top: -85px;
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,-60deg);
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+.flip2:hover .leftTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip2 .leftTip:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-right: 10px solid #fff;
+}
+.flip2 .rightTip {
+  position: absolute;
+  right: -45px;
+  top: -85px;
+  width: 60px;
+  height: 60px;
+  background-color: #f00;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,60deg);
+  transform-origin: 0% 50%;
+  pointer-events: none;
+}
+.flip2:hover .rightTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip2 .rightTip:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-left: 10px solid #f00;
+}
+.flip3 {
+  position: relative;
+  margin-left: 350px;
+  width: 30px;
+  height: 30px;
+  background-color: #528;
+  cursor: pointer;
+  transition: border-radius .2s;
+  perspective: 1200px;
+}
+.tip3Wrap {
+  transform: rotate3d(0, 0, 1,5deg);
+  transition: transform .3s;
+}
+.flip3:hover .tip3Wrap {
+  transform: rotate3d(0, 0, 1, 0deg);
+}
+.flip3:hover {
+  border-radius: 50%;
+}
+.flip3 .leftTip {
+  position: absolute;
+  left: -45px;
+  top: -75px;
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,-60deg);
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+.flip3:hover .leftTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip3 .leftTip:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-right: 10px solid #fff;
+}
+.flip3 .rightTip {
+  position: absolute;
+  right: -45px;
+  top: -75px;
+  width: 60px;
+  height: 60px;
+  background-color: #f00;
+  opacity: 0;
+  transition: top .3s,opacity .3s, transform .3s;
+  transform: rotate3d(0,1,0,60deg);
+  transform-origin: 0% 50%;
+  pointer-events: none;
+}
+.flip3:hover .rightTip {
+  transform: rotate3d(0,1,0,0deg);
+  opacity: 1;
+  top: -80px;
+}
+.flip3 .rightTip:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  display: block;
+  border: 10px solid transparent;
+  border-left: 10px solid #f00;
 }
