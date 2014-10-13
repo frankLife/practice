@@ -1201,7 +1201,7 @@ function debounce(func, wait, immediate){
           var now = (new Date()).getTime();
             //隔离第一次调用后还未触发的情况
             if(now - self.preTime >= wait && self.preTime != -1) {
-              console.log('self.timeoutId: ',self.timeoutId);
+               console.log('self.timeoutId: ',self.timeoutId);
               if(immediate) {
                 self.preTime = (new Date()).getTime();
                 func();
