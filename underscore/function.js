@@ -1171,9 +1171,77 @@ function throttle(func, wait){
 
 }
 
-
+debounce.cache = {};
 function debounce(func, wait, immediate){
-  return function(){}
+  var cache = debounce.cache;
+  var funcName = func.name;
+
+  cache[funcName] = {
+    timeoutTime: -1,
+    preTime: -1,
+    timeoutId: 0,
+    isFirst: false,
+    factory: function(){
+      var self = cache[funcName];
+      //第一次调用
+      if(!self.isFirst) {
+        if(immediate) {
+          self.preTime = (new Date()).getTime();
+          func();
+        }else {
+          self.timeoutId = setTimeout(function(){
+            self.preTime = (new Date()).getTime();
+            self.timeoutId = -1;
+            func();
+          },wait);
+          self.timeoutTime = (new Date()).getTime();
+        }
+        self.isFirst = true;
+      }else {
+          var now = (new Date()).getTime();
+            //隔离第一次调用后还未触发的情况
+            if(now - self.preTime >= wait && self.preTime != -1) {
+              console.log('self.timeoutId: ',self.timeoutId);
+              if(immediate) {
+                self.preTime = (new Date()).getTime();
+                func();
+              }else{
+                self.timeoutId = setTimeout(function(){
+                  self.preTime = (new Date()).getTime();
+                  self.timeoutId = -1;
+                  func();
+                },wait);
+                self.timeoutTime = (new Date()).getTime();
+              }
+            }else {
+              if(!immediate) {
+                //是否完成执行
+                if(self.timeoutId == -1) {
+                    self.timeoutId = setTimeout(function(){
+                      self.preTime = (new Date()).getTime();
+                      self.timeoutId = -1;
+                      func();
+                    },wait);
+                  self.timeoutTime = (new Date()).getTime();
+                }else {
+                  console.log('into2: ',wait-((new Date()).getTime()-self.timeoutTime));
+                  console.log('(new Date()).getTime(): ',(new Date()).getTime());
+                  console.log('self.timeoutTime: ',self.timeoutTime);
+                  clearTimeout(self.timeoutId);
+                  self.timeoutId = setTimeout(function(){
+                    self.preTime = (new Date()).getTime();
+                    self.timeoutId = -1;
+                    func();
+                  },wait-((new Date()).getTime()-self.timeoutTime));
+                  self.timeoutTime = (new Date()).getTime();
+                }
+              }
+            }
+      }
+    }
+  }
+
+  return cache[funcName]['factory'];
 }
 
 function bindFactory(func, context) {

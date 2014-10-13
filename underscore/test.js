@@ -448,7 +448,7 @@ function testThrottle(){
     console.log('scroll');
   })
 }
-testThrottle();
+//testThrottle();
 function testDefer(){
   var log = bind(console.log, console);
   defer(log,1,2);
@@ -461,6 +461,15 @@ function testArgs(){
   defer(_alert,1,2);
 }
 //testArgs();
-function testDebouce(){
-
+function testDebounce(){
+  var debounced = debounce(function(){console.log(window.scrollY)}, 4000);
+  window.addEventListener('scroll', function(){
+    debounced();
+    console.log('scroll');
+  })
+  var i = 0;
+  setInterval(function(){
+    console.log(++i);
+  },1000);
 }
+testDebounce();
