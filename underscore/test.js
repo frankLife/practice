@@ -462,7 +462,8 @@ function testArgs(){
 }
 //testArgs();
 function testDebounce(){
-  var debounced = debounce(function(){console.log(window.scrollY)}, 4000);
+  // var debounced = debounce(function(){console.log(window.scrollY)}, 8000);
+  var debounced = debounce(function(){console.log(window.scrollY)}, 4000, true);
   window.addEventListener('scroll', function(){
     debounced();
     console.log('scroll');

@@ -1215,7 +1215,7 @@ function debounce(func, wait, immediate){
               }
             }else {
               if(!immediate) {
-                //是否完成执行
+                //执行完成且差距时间小于wait的话，重启一个debounced function
                 if(self.timeoutId == -1) {
                     self.timeoutId = setTimeout(function(){
                       self.preTime = (new Date()).getTime();
@@ -1223,17 +1223,19 @@ function debounce(func, wait, immediate){
                       func();
                     },wait);
                   self.timeoutTime = (new Date()).getTime();
+                  //小于wait且未执行，则更新定时器
                 }else {
                   console.log('into2: ',wait-((new Date()).getTime()-self.timeoutTime));
                   console.log('(new Date()).getTime(): ',(new Date()).getTime());
                   console.log('self.timeoutTime: ',self.timeoutTime);
+                   console.log('((new Date()).getTime()-self.timeoutTime): ',((new Date()).getTime()-self.timeoutTime));
                   clearTimeout(self.timeoutId);
                   self.timeoutId = setTimeout(function(){
                     self.preTime = (new Date()).getTime();
                     self.timeoutId = -1;
                     func();
                   },wait-((new Date()).getTime()-self.timeoutTime));
-                  self.timeoutTime = (new Date()).getTime();
+                //  self.timeoutTime = (new Date()).getTime();
                 }
               }
             }
