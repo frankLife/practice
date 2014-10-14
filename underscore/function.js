@@ -1317,13 +1317,6 @@ function compose(){
   var funcArray = Tool.makeArray(arguments);
   var tempResult = null;
   var len = funcArray.length;
-  // function _pollExcute(funcArray){
-  //   if(funcArray.length >1) {
-  //     funcArray[funcArray.length-1]()
-  //   }else {
-  //     funcArray[0](_pollExcute)
-  //   }
-  // }
   return function(){
     tempResult = funcArray[len -1].apply(null,Tool.makeArray(arguments));
     for(var i = len-1;i--;) {
@@ -1332,10 +1325,79 @@ function compose(){
 
     return tempResult;
   }
-
 }
 
+//Objects
+function keys(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = [];
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      result.push(prop);
+    }
+  }
 
+  return result;
+}
+function values(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = [];
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      result.push(obj[prop]);
+    }
+  }
+
+  return result;
+} 
+function pairs(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = [];
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      result.push([prop,obj[prop]]);
+    }
+  }
+
+  return result;
+}
+function invert(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = {};
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      result[obj[prop]] = prop;
+    }
+  }
+
+  return result;
+}
+function functions(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = [];
+  each(obj,function(value, key, list) {
+    if(Type.isFunction(value)) {
+      result.push(key);
+    }
+  });
+
+  return result;
+}
 
 
 

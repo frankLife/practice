@@ -519,4 +519,30 @@ function testCompose(){
   var welcome = compose(greet, exclaim);
   console.log(welcome('moe'));
 }
-testCompose();
+// testCompose();
+function testKeys(){
+  console.log(keys({one: 1, two: 2, three: 3}));
+}
+// testKeys();
+function testValues(){
+  console.log(values({one: 1, two: 2, three: 3}));
+}
+// testValues();
+function testPairs(){
+  console.log(pairs({one: 1, two: 2, three: 3}));
+}
+// testPairs();
+function testInvert(){
+  console.log(invert({Moe: "Moses", Larry: "Louis", Curly: "Jerome"}));
+}
+// testInvert();
+function testFunctions(){
+  var obj = {
+    a: function(){},
+    b: 'ok',
+    c: function(){}
+  }
+
+  console.log(functions(obj));
+}
+testFunctions();
