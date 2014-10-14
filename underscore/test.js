@@ -473,4 +473,50 @@ function testDebounce(){
     console.log(++i);
   },1000);
 }
-testDebounce();
+//testDebounce();
+function testOnce(){
+  function one(){
+    alert('yeah!');
+  }
+  var onced = once(one);
+  onced();
+  onced();
+  onced();
+  onced();
+}
+// testOnce();
+function testAfter() {
+  var aftered = after(2,function(){alert('hi')});
+  // aftered();
+  // aftered();
+  aftered();
+}
+//testAfter();
+function testBefore(){
+  var i = 0;
+  var befored = before(3,function() {return ++i;});
+  for(var j = 0 ;j<10;j++) {
+    console.log(befored());
+  }
+}
+//testBefore();
+function testWrap(){
+  var hello = function(name) { return "hello: " + name; };
+  hello = wrap(hello, function(func) {
+    console.log( "before, " + func("moe") + ", after");
+  });
+  hello();
+}
+// testWrap();
+function testNegate(){
+  var negated = negate(function(){return false;});
+  console.log(negated());
+}
+// testNegate();
+function testCompose(){
+  var greet    = function(name){ return "hi: " + name; };
+  var exclaim  = function(statement){ return statement.toUpperCase() + "!"; };
+  var welcome = compose(greet, exclaim);
+  console.log(welcome('moe'));
+}
+testCompose();

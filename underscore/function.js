@@ -1246,6 +1246,105 @@ function debounce(func, wait, immediate){
   return cache[funcName]['factory'];
 }
 
+function once(func) {
+  var isHasCalled = false;
+  return function(){
+    if(!isHasCalled){
+      func();
+      isHasCalled = true;
+    }
+  }
+}
+function after(count, func) {
+  if(!Type.isNumber(count)) {
+    throw '传入次数不正确';
+    return;
+  }else {
+    return function(){
+      if(count-- == 0) {
+        func();
+      }
+    }
+  }
+}
+before.cache = {};
+function before(count, func) {
+  if(!Type.isNumber(count)) {
+    throw '传入次数不正确';
+    return;
+  }else {
+      var cache = before.cache;
+      var funcName = func.name;
+  
+      cache[funcName] = {
+        count: count,
+        times: 0,
+        result: null,
+        factory: function() {
+          var self = cache[funcName];
+          if(self.times < count) {
+            self.times ++;
+            self.result = func();
+          }
+
+          return self.result;
+        }
+      }
+  }
+
+  return cache[funcName].factory;
+}
+function wrap(func, wrapFunc){
+  if(!Type.isFunction(func) || !Type.isFunction(wrapFunc)) {
+    throw '传入函数不正确';
+    return;
+  }
+  return function(){
+    return wrapFunc(func);
+  }
+}
+function negate(predicate){
+  if(!Type.isFunction(predicate)) {
+    throw '传入函数不正确';
+    return;
+  }
+
+  return function(){
+    return !predicate();
+  }
+}
+function compose(){
+  var funcArray = Tool.makeArray(arguments);
+  var tempResult = null;
+  var len = funcArray.length;
+  // function _pollExcute(funcArray){
+  //   if(funcArray.length >1) {
+  //     funcArray[funcArray.length-1]()
+  //   }else {
+  //     funcArray[0](_pollExcute)
+  //   }
+  // }
+  return function(){
+    tempResult = funcArray[len -1].apply(null,Tool.makeArray(arguments));
+    for(var i = len-1;i--;) {
+        tempResult = funcArray[i](tempResult);
+    }
+
+    return tempResult;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 function bindFactory(func, context) {
   if(Type.isObj(context)) {
     return func.bind(context);
