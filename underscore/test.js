@@ -519,7 +519,7 @@ function testCompose(){
   var welcome = compose(greet, exclaim);
   console.log(welcome('moe'));
 }
-// testCompose();
+ testCompose();
 function testKeys(){
   console.log(keys({one: 1, two: 2, three: 3}));
 }
@@ -545,4 +545,4 @@ function testFunctions(){
 
   console.log(functions(obj));
 }
-testFunctions();
+// testFunctions();
