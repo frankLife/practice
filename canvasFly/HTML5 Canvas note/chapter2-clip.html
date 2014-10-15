@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<canvas id="clipCanvas" width="500" height="500" ></canvas>
+<script>
+function drawScreen(){
+  var ctx = document.getElementById('clipCanvas').getContext('2d');
+  var r = Math.PI*2/360;
+  ctx.translate(100, 100);
+  ctx.fillStyle = '#000';
+  ctx.fillRect(10, 10, 150, 150);
+  ctx.lineWidth = 5;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0,0,50,50);
+  ctx.clip();
+
+  
+  ctx.strokeStyle = '#f00';
+  ctx.beginPath();
+  ctx.arc(85, 85, 100, r*0, r*360, false);
+  ctx.stroke();
+  ctx.closePath();
+
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(85, 85, 100, r*0, r*360, false);
+  ctx.clip();
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#00f';
+  ctx.arc(85, 85, 85, r*0, r*360, false);
+  ctx.stroke();
+  ctx.closePath();
+
+
+
+}
+drawScreen();
+</script>
+</body>
+</html>
