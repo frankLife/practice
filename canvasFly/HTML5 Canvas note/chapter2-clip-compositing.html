@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chapter2-clip-compositing</title>
+</head>
+<body>
+<canvas id="clipCanvas" width="500" height="500" ></canvas>
+<canvas id="compositingCanvas" width="500" height="500"></canvas>
+<script>
+function drawScreen(){
+  var ctx = document.getElementById('clipCanvas').getContext('2d');
+  var r = Math.PI*2/360;
+  ctx.translate(100, 100);
+  ctx.fillStyle = '#000';
+  ctx.fillRect(10, 10, 150, 150);
+  ctx.lineWidth = 5;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0,0,50,50);
+  ctx.clip();
+
+  
+  ctx.strokeStyle = '#f00';
+  ctx.beginPath();
+  ctx.arc(85, 85, 100, r*0, r*360, false);
+  ctx.stroke();
+  ctx.closePath();
+
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(85, 85, 100, r*0, r*360, false);
+  ctx.clip();
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#00f';
+  ctx.arc(85, 85, 85, r*0, r*360, false);
+  ctx.stroke();
+  ctx.closePath();
+}
+//https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing
+function drawScreenCompisite() {
+  var ctx = document.getElementById('compositingCanvas').getContext('2d');
+  var r = Math.PI*2/360;
+
+  //draw a big box on the screen
+  ctx.fillStyle = "black"; //
+  ctx.fillRect(10, 10, 200, 200);
+  //leave globalCompositeOperation as is
+  //now draw a red square
+  ctx.fillStyle = "red";
+  ctx.fillRect(1, 1, 50, 50);
+  
+  //now set it to source-over
+  ctx.globalCompositeOperation = "source-over";
+  //draw a red square next to the other one
+  ctx.fillRect(60, 1, 50, 50);      //now set to destination-atop
+  
+  //书中展示错误。
+  // ctx.globalCompositeOperation = "destination-atop";
+  // ctx.fillRect(1, 60, 50, 50);
+  
+  //now set globalAlpha
+  ctx.globalAlpha = .5;
+  //now set to source-atop
+  ctx.globalCompositeOperation = "source-atop";
+  ctx.fillRect(60, 60, 50, 50);
+
+}
+drawScreen();
+drawScreenCompisite();
+</script>
+</body>
+</html>

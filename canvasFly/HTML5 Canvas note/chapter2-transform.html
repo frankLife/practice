@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chapter2-transform</title>
+</head>
+<body>
+<canvas id="canvas1" height="300"></canvas>
+<canvas id="canvas2" height="300"></canvas>
+<canvas id="canvas3" height="300"></canvas>
+<script>
+function drawScreen1() {
+  var context = document.getElementById('canvas1').getContext('2d');
+  //now draw a red square
+  context.setTransform(1,0,0,1,0,0);
+  var angleInRadians = 45 * Math.PI / 180
+  context.rotate(angleInRadians);
+  context.fillStyle = "red";
+  context.fillRect(100,100,50,50);
+
+}
+drawScreen1();
+function drawScreen2() {
+  var ctx = document.getElementById('canvas2').getContext('2d');
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.fillStyle = '#000';
+  ctx.fillRect(1,1,50,50);
+
+  ctx.translate(100 + 50,100 + 50);
+  ctx.rotate(Math.PI*2/360*45);
+  ctx.fillStyle = '#f00';
+  ctx.fillRect(-50,-50,100,100);
+
+}
+drawScreen2();
+function drawScreen3(){
+  var ctx = document.getElementById('canvas3').getContext('2d');
+  ctx.fillStyle = '#f00';
+  //实际上不用加上图形半径在fillRect的时候，参照坐标系减去图形半径，图形就会在坐标系中央了
+  ctx.translate(100 ,100 );
+  ctx.rotate(Math.PI*2/360*30);
+  ctx.scale(2,2);
+
+  ctx.fillRect(-25,-25,50,50);
+}
+drawScreen3();
+</script>
+</body>
+</html>
