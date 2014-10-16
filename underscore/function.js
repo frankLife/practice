@@ -1398,7 +1398,27 @@ function functions(obj){
 
   return result;
 }
+function extend(des){
+  if(!Type.isObj(des)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var propArray = Tool.makeArray(arguments).slice(1);
+  var result = clone(des);
 
+  for(var i = propArray.length;i--;) {
+    if(Type.isObj(propArray[i])) {
+      for(prop in propArray[i]) {
+        result[prop] = propArray[i][prop];
+      }
+    }
+  }
+
+  return result;
+}
+function pick(){
+  
+}
 
 
 
