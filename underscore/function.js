@@ -1416,10 +1416,56 @@ function extend(des){
 
   return result;
 }
-function pick(){
-  
-}
+function pick(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var keys = Tool.makeArray(arguments).slice(1);
+  var result = {};
+  if(Type.isFunction(keys[0])) {
+    var filter = keys[0];
+    for(var prop in obj) {
+      if(filter(obj[prop],prop,obj)) {
+        result[prop] = obj[prop];
+      }
+    }
+  }else {
+    for(var i = keys.length;i--;) {
+      result[keys[i]] = obj[keys[i]];
+    }
+  }
 
+  return result;
+}
+function omit(obj){
+  if(!Type.isObj(obj)) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = clone(obj);
+  var keys = Tool.makeArray(arguments).slice(1);
+  if(Type.isFunction(keys[0])) {
+    var filter = keys[0];
+    for(var prop in obj) {
+      if(filter(obj[prop],prop,obj)) {
+        delete result[prop];
+      }
+    }
+  }
+  for(var i = keys.length;i--;) {
+    delete result[keys[i]];
+  }
+
+  return result;
+}
+function defaults(obj) {
+  if(!Type.isObj) {
+    throw '传递值不为对象';
+    return;
+  }
+  var result = {};
+}
 
 
 

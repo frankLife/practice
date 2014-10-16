@@ -549,4 +549,18 @@ function testFunctions(){
 function testExtend(){
   console.log(extend({name: 'moe'}, {age: 50},{name:'frank'}));
 }
-testExtend();
+// testExtend();
+function testPick(){
+  console.log(pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age'));
+  console.log(pick({name: 'moe', age: 50, userid: 'moe1'}, function(value, key, object) {
+  return value == 'moe';
+}))
+}
+// testPick();
+function testOmit(){
+  console.log(omit({name: 'moe', age: 50, userid: 'moe1'}, 'userid'));
+   console.log(omit({name: 'moe', age: 50, userid: 'moe1'}, function(value, key, object) {
+  return value == 'moe';
+}))
+}
+testOmit();
