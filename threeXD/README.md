@@ -7,5 +7,3 @@
 4. 子元素的rotate影响不能超过父元素的rotate后形成的区域限制
 
 
-?
-1. z-index影响repaint rectangle机制是？

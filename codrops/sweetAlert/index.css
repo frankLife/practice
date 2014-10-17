@@ -12,10 +12,50 @@
   height: 80px;
   border: 5px solid #F27474;
   border-radius: 50%;
-  transform: rotate3d(1,0,0,45deg);
+  /*transform: rotate3d(1,0,0,45deg);*/
   transform-style: preserve-3d;
+  -webkit-animation: rotateBack .8s;
 }
-
+@-webkit-keyframes rotateBack {
+  0% {
+    transform: rotate3d(1,0,0,45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate3d(1,0,0,45deg);
+    opacity: 0;
+  }
+  80% {
+    transform: rotate3d(1,0,0,0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate3d(1,0,0,0deg);
+    opacity: 1;
+  }
+}
+@keyframes rotateBack {
+  0% {
+    transform: rotate3d(1,0,0,45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate3d(1,0,0,45deg);
+    opacity: 0;
+  }
+  80% {
+    transform: rotate3d(1,0,0,0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate3d(1,0,0,0deg);
+    opacity: 1;
+  }
+}
+.animateBox {
+  -webkit-animation: shake .3s;
+  -webkit-animation-delay: .8s;
+}
 .error-x-1,
 .error-x-2 {
   position: absolute;
@@ -26,9 +66,59 @@
   background-color: #F27474;
   border-radius: 5px;
 }
+
 .error-x-1 {
-  transform: rotate3d(0,0,1,-45deg) rotate3d(1,0,0,-45deg);
+  transform: rotate3d(0,0,1,-45deg);
+  z-index: 1000;
 }
+
 .error-x-2 {
-  transform: rotate3d(0,0,1,45deg) rotate3d(1,0,0,-45deg);
+  transform: rotate3d(0,0,1,45deg);
+  z-index: 2000;
+}
+
+@keyframes shake{
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    margin-top: -6px; 
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } 
+}
+@-webkit-keyframes shake{
+  0% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  50% {
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    margin-top: 26px;
+    opacity: 0; }
+  80% {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+    margin-top: -6px; 
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    margin-top: 0;
+    opacity: 1; } 
 }
