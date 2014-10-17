@@ -563,4 +563,10 @@ function testOmit(){
   return value == 'moe';
 }))
 }
-testOmit();
+// testOmit();
+function testDefaults(){
+  var iceCream = {flavor: "chocolate"};
+  console.log(defaults(iceCream, {flavor: "vanilla", sprinkles: "lots"},{sprinkles:'pink',name:'xxx'}));
+  
+}
+testDefaults();

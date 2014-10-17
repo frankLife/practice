@@ -1460,11 +1460,20 @@ function omit(obj){
   return result;
 }
 function defaults(obj) {
-  if(!Type.isObj) {
+  if(!Type.isObj(obj)) {
     throw '传递值不为对象';
     return;
   }
   var result = {};
+  var defs = Tool.makeArray(arguments).slice(1);
+  var def = defs[defs.length-1];
+  var obj = clone(obj,true);
+  for(var i = defs.length-1;i--;) {
+    def = extend(def,defs[i]);
+  }
+  result = extend(def,obj);
+
+  return result;
 }
 
 
