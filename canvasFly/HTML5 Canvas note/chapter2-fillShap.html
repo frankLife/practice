@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+function getCanvas(width, height) {
+  var canvasEl = document.createElement('canvas');
+  canvasEl.width = width || 300;
+  canvasEl.height = height || 300;
+  document.body.appendChild(canvasEl);
+
+  return canvasEl;
+}
+
+function drawGradientInit(){
+  var ctx = getCanvas().getContext('2d');
+
+  var gr =  ctx.createLinearGradient(0,0,100,0);
+  gr.addColorStop(0, 'rgb(255, 0, 0)');
+  gr.addColorStop(.5, 'rgb(0, 255, 0)');
+  gr.addColorStop(1, 'rgb(255, 0, 0)');
+  ctx.fillStyle = gr;
+  ctx.fillRect(1,1,100,100);
+}
+drawGradientInit();
+function drawLinearGradientTriple(){
+  var ctx = getCanvas(300, 400).getContext('2d');
+  var gr = ctx.createLinearGradient(0,0,100,0);
+  gr.addColorStop(0, 'rgb(255, 0, 0)');
+  gr.addColorStop(.5, 'rgb(0, 255, 0)');
+  gr.addColorStop(1, 'rgb(255, 0, 0)');
+
+  ctx.strokeStyle = gr;
+  ctx.beginPath();
+  ctx.rect(1, 1, 100, 100);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.translate(0, 110);
+  ctx.rect(1, 1, 50, 100);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.translate(0, 110);
+  ctx.rect(1, 1, 200, 100);
+  ctx.stroke();
+
+  ctx.closePath();
+
+}
+drawLinearGradientTriple();
+function drawLinearGradientShape(isVertical){
+  var ctx = getCanvas().getContext('2d');
+  var gr = isVertical?ctx.createLinearGradient(0,0,0,100):ctx.createLinearGradient(0, 0, 100, 0);
+  gr.addColorStop(0, 'rgb(255, 0, 0)');
+  gr.addColorStop(.5, 'rgb(0, 255, 0)');
+  gr.addColorStop(1, 'rgb(255, 0, 0)');
+
+  ctx.moveTo(0,0);
+  ctx.lineTo(50,0);
+  ctx.lineTo(100,50);
+  ctx.lineTo(50,100);
+  ctx.lineTo(0,100);
+  ctx.closePath();
+
+  ctx.fillStyle = gr;
+  ctx.fill();
+}
+drawLinearGradientShape(false);
+drawLinearGradientShape(true);
+function drawLinearGradientShapeLine(){
+  var ctx = getCanvas().getContext('2d');
+  var gr = ctx.createLinearGradient(0, 0, 0, 100);
+  gr.addColorStop(0, 'rgb(255, 0, 0)');
+  gr.addColorStop(.5, 'rgb(0, 255, 0)');
+  gr.addColorStop(1, 'rgb(255, 0, 0)');
+
+  ctx.moveTo(0,0);
+  ctx.lineTo(50,0);
+  ctx.lineTo(100,50);
+  ctx.lineTo(50,100);
+  ctx.lineTo(0,100);
+  ctx.closePath();
+
+  ctx.strokeStyle = gr;
+  ctx.stroke(); 
+}
+drawLinearGradientShapeLine();
+
+function drawDiagonalGradient(){
+  var ctx = getCanvas().getContext('2d');
+  var gr = ctx.createLinearGradient(0, 0, 100, 100);
+  gr.addColorStop(0, 'rgb(255,0,0)');
+  gr.addColorStop(0.5, 'rgb(0,255,0)');
+  gr.addColorStop(1, 'rgb(255,0,0)');
+  
+  ctx.fillStyle = gr;
+  ctx.fillRect(1, 1, 100, 100);
+}
+drawDiagonalGradient();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
