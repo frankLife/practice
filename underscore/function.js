@@ -1475,8 +1475,33 @@ function defaults(obj) {
 
   return result;
 }
-function 
+function property(key){
+  if(!Type.isString(key)) {
+    throw '传入属性名不正确';
+    return;
+  }
+  return function(obj){
+    return obj[key];
+  }
+}
+function matches(attrs){
+  if(!Type.isObj(attrs)) {
+    throw '传入属性集不正确';
+    return;
+  }
+  return function(obj){
+    var isThrough = true;
+    for(var prop in attrs) {
 
+      if(obj[prop] == undefined||obj[prop] != attrs[prop]) {
+        isThrough = false;
+        break;
+      }
+    }
+
+    return isThrough;
+  }
+}
 
 
 

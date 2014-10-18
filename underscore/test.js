@@ -569,4 +569,15 @@ function testDefaults(){
   console.log(defaults(iceCream, {flavor: "vanilla", sprinkles: "lots"},{sprinkles:'pink',name:'xxx'}));
   
 }
-testDefaults();
+// testDefaults();
+function testProperty(){
+  var moe = {name: 'moe'};
+  console.log('moe' === property('name')(moe));
+}
+// testProperty();
+function testMatches(){
+  var ready = matches({selected: true, visible: true});
+  var readyToGoList = filter([{selected: true},{selected: true, visible: true,name: 'frank'}], ready);
+  console.log(readyToGoList);
+}
+testMatches();
