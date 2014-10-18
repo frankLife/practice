@@ -19,6 +19,7 @@ function canvasPlay() {
   var timeText = new Date();
   var introText = ['Guess The Letter From a (lower) to z (higher)','Guesses: ','Higher Or Lower: ','Letters Guessed: '];
   canvas.addEventListener('click', function(){
+    console.log(canvas.toDataURL());
     window.open(canvas.toDataURL(),'canvasImage','toolbar=0,resizable=0,left=0,top=0,width='+canvas.width+',height='+canvas.height);
   });
   document.body.addEventListener('keyup', function(e){
