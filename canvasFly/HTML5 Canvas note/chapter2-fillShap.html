@@ -97,6 +97,82 @@ function drawDiagonalGradient(){
   ctx.fillRect(1, 1, 100, 100);
 }
 drawDiagonalGradient();
+function drawRadialGradient(){
+  var ctx = getCanvas(500,500).getContext('2d');
+  var gr = ctx.createRadialGradient(50,50,25,100,100,100);
+
+  gr.addColorStop(0, 'rgb(255, 0, 0)');
+  gr.addColorStop(.5, 'rgb(0, 255, 0)');
+  gr.addColorStop(1, 'rgb(255, 0, 0)');
+
+  ctx.fillStyle = gr;
+ // ctx.fillRect(1, 1, 200, 200);
+
+  ctx.strokeStyle = gr;
+  ctx.arc(100, 100,50,0,Math.PI*2,false);
+  ctx.stroke();
+
+  // var context = getCanvas(500,500).getContext('2d');
+  // var gr = context.createRadialGradient(50,50,25,100,100,100);
+  // // Add the color stops.
+  // gr.addColorStop(0,'rgb(255,0,0)');
+  // gr.addColorStop(.5,'rgb(0,255,0)');
+  // gr.addColorStop(1,'rgb(255,0,0)');
+  // // Use the gradient for the fillStyle.
+  // context.strokeStyle = gr;
+  // context.arc(100, 100, 50, (Math.PI/180)*0, (Math.PI/180)*360, false)
+  // context.stroke();
+}
+drawRadialGradient();
+function drawPattern(direction){
+  var ctx = getCanvas(500, 500).getContext('2d');
+  var img = new Image();
+  img.src = './na.gif';
+  img.onload = function(){
+    var repeat = '';
+    console.log('direction: ', direction);
+    if(direction == undefined) {
+      repeat = 'repeat';
+    }else if(direction == 'x') {
+      repeat = 'repeat-x';
+    }else if(direction == 'y') {
+      repeat = 'repeat-y';
+    }
+    console.log('repeat: ',repeat);
+    var pattern = ctx.createPattern(img,repeat);
+    ctx.fillStyle = pattern;
+    ctx.fillRect(0,0,500,500);
+  }
+  
+}
+drawPattern();
+drawPattern('x');
+drawPattern('y');
+function fillShadow() {
+  var ctx = getCanvas(500, 500).getContext('2d');
+  ctx.shadowOffsetX = 4;
+  ctx.shadowOffsetY = 4;
+  ctx.shadowColor = 'black';
+  ctx.shadowBlur = 5;
+  ctx.fillStyle = 'red';
+  ctx.fillRect(1,1,50,50);
+
+  ctx.shadowOffsetX = -4;
+  ctx.shadowOffsetY = -4;
+  ctx.fillRect(100,10,50,50);
+
+
+  ctx.shadowOffsetX = 8;
+  ctx.shadowOffsetY = 8;
+  ctx.shadowColor = 'gray';
+  ctx.shadowBlur = 10;
+  ctx.arc(200,200,100,0,Math.PI*2,false);
+  ctx.fill();
+
+
+}
+
+fillShadow();
 
 
 
