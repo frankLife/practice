@@ -580,4 +580,50 @@ function testMatches(){
   var readyToGoList = filter([{selected: true},{selected: true, visible: true,name: 'frank'}], ready);
   console.log(readyToGoList);
 }
-testMatches();
+// testMatches();
+function testIsEmpty(){
+  console.log(isEmpty([1, 2, 3]));
+  console.log(isEmpty({}));
+}
+// testIsEmpty();
+function testIsElement(){
+  console.log(isElement(document.body));
+  console.log(isElement(document));
+}
+// testIsElement();
+function testIsArguments(){
+  console.log((function(){ return isArguments(arguments); })(1, 2, 3));
+  console.log(isArguments([1,2,3]));
+}
+// testIsArguments();
+function testInfinity(){
+  console.log(isInfinite(101));
+  console.log(isInfinite(-Infinity));
+  console.log(isInfinite(Infinity));
+}
+// testInfinity();
+function testIsDate(){
+  console.log(isDate(new Date()));
+  console.log(isDate('xxx'));
+}
+// testIsDate();
+function testIsRegExp(){
+  console.log(isRegExp(/xx/));
+  console.log(isRegExp('xx'));
+}
+// testIsRegExp();
+function testIsNaN_(){
+  console.log(isNaN_(undefined));
+  console.log(isNaN(undefined));
+}
+// testIsNaN_();
+function testIsNull(){
+  console.log(isNull(null));
+  console.log(isNull(undefined));
+}
+// testIsNull();
+function testIsUndefined(){
+  console.log(isUndefined(undefined));
+  console.log(isUndefined(null));
+}
+testIsUndefined();

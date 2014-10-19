@@ -1502,11 +1502,42 @@ function matches(attrs){
     return isThrough;
   }
 }
-
-
-
-
-
+function isEmpty(obj){
+  if(Type.isObj(obj)) {
+    return keys(obj).length == 0;
+  }else if(Type.isArray(obj)){
+    return obj.length == 0;
+  }else {
+    return Tool.makeArray(obj).length == 0;
+  }
+}
+function isElement(el){
+  return el.tagName != undefined;
+}
+function isArguments(arg){
+  return arg.callee != undefined;
+}
+function isInfinite(num){
+  return num == Infinity || num == -Infinity;
+}
+function isDate(date) {
+  return Type.isType('Date', date);
+}
+function isRegExp(reg){
+  return Type.isType('RegExp', reg);
+}
+function isNaN_(num){
+  if(num == undefined) {
+    return false;
+  }
+  return isNaN(num);
+}
+function isNull(obj){
+  return obj === null;
+}
+function isUndefined(obj) {
+  return obj === undefined;
+}
 function bindFactory(func, context) {
   if(Type.isObj(context)) {
     return func.bind(context);
