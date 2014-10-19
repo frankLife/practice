@@ -1538,6 +1538,31 @@ function isNull(obj){
 function isUndefined(obj) {
   return obj === undefined;
 }
+function iteratee(value){
+  var args = Tool.makeArray(arguments).slice(1);
+  var context = args[0];
+  var argCounts = args[1];
+  var _iterator = null;
+  
+  _iterator = function (obj){
+    return obj[value]
+  }
+
+  if(context != undefined) {
+    _iterator.bind(context);
+    if(argCounts != undefined) {
+     _iterator = _iterator.apply(null, argCounts);
+    }
+  }
+
+  return _iterator;
+}
+
+
+
+
+
+
 function bindFactory(func, context) {
   if(Type.isObj(context)) {
     return func.bind(context);
