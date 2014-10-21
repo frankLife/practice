@@ -1502,6 +1502,22 @@ function matches(attrs){
     return isThrough;
   }
 }
+function escape(str){
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt',
+    '"': '&quot;',
+    '`': '&#x60;',
+    "'": '&#x27;'
+  }
+  str = str.toString().replace(/[&<>"`']/g,function(m){
+    return map[m];
+  });
+
+  return str;
+}
+
 function isEmpty(obj){
   if(Type.isObj(obj)) {
     return keys(obj).length == 0;

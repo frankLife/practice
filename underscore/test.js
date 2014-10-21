@@ -631,4 +631,9 @@ function testIteratee(){
   var stooges = [{name: 'curly', age: 25}, {name: 'moe', age: 21}, {name: 'larry', age: 23}];
   console.log(map(stooges, iteratee('age')));
 }
-testIteratee();
+// testIteratee();
+function testEscape(){
+  var str = "&<>\"`'";
+  console.log(escape(str));
+}
+testEscape();
