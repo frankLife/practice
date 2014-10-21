@@ -636,4 +636,20 @@ function testEscape(){
   var str = "&<>\"`'";
   console.log(escape(str));
 }
-testEscape();
+// testEscape();
+function testunEscape(){
+  var str = "&<>\"`'";
+  console.log('escape(str): ',escape(str));
+  console.log(unEscape(escape(str)));
+}
+// testunEscape();
+function testResult(){
+  var object = {cheese: 'crumpets', stuff: function(){ return this.cheese; }};
+  console.log(result(object, 'cheese'));
+  console.log(result(object, 'stuff'));
+}
+//testResult();
+function testNow(){
+  console.log(now());
+}
+testNow();

@@ -1506,7 +1506,7 @@ function escape(str){
   var map = {
     '&': '&amp;',
     '<': '&lt;',
-    '>': '&gt',
+    '>': '&gt;',
     '"': '&quot;',
     '`': '&#x60;',
     "'": '&#x27;'
@@ -1517,7 +1517,40 @@ function escape(str){
 
   return str;
 }
+function unEscape(str){
+  var map = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#x60;': '`',
+    '&#x27;': "'"
+  }
+  str = str.toString().replace(/&amp;|&lt;|&gt;|&quot;|&#x60;|&#x27;/g,function(m){
+    return map[m];
+  });
 
+  return str;
+}
+function result(obj, prop){
+  if(!Type.isObj(obj) || !Type.isString(prop)) {
+    throw '传入的对象或属性错误';
+    return;
+  }
+  if(obj[prop] != undefined) {
+    if(Type.isFunction(obj[prop])) {
+      return obj[prop].apply(obj);
+    }else {
+      return obj[prop];
+    }
+  }
+}
+function now(){
+  return (new Date()).getTime();
+}
+function template(tpl,data){
+
+}
 function isEmpty(obj){
   if(Type.isObj(obj)) {
     return keys(obj).length == 0;
