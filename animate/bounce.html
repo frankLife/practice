@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>bounce</title>
+<style type="text/css">
+  @-webkit-keyframes bounce {
+    0% {
+      transform: translate3d(0,0,0);
+    }
+    20% {
+      transform: translate3d(0,-0.5em,0);
+    }
+    40% {
+      transform: translate3d(0,-0.5em,0);
+    }
+    50%{
+      transform: translate3d(0,0.2em,0);
+    }
+    70% {
+      transform: translate3d(0,-0.2em,0);
+    }
+    90% {
+      transform: translate3d(0,0.1em,0);
+    }
+    100% {
+      transform: translate3d(0,0,0); 
+    }
+  }
+  h1 {
+    margin: 100px;
+    width: 85px;
+    font-family: Roboto, Verdana, sans-serif;
+    -webkit-animation: bounce .5s;
+  }
+</style>
+</head>
+<body>
+  <h1>Rome</h1>
+</body>
+</html>
