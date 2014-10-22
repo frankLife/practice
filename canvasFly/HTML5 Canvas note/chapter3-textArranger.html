@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>chapter3-textArranger</title>
+  <style type="text/css">
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    .wrap {
+      margin: 100px auto;
+      width: 500px;
+    }
+    .propForm {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<section class="wrap">
+<canvas width="500" height="300"></canvas>
+<form class="propForm">
+  <div>
+    <label for="canvas-text">Text</label>
+    <input id="canvas-text" type="text" value="your text">
+  </div>
+
+</form>
+</section>
+<script>
+(function(){
+  var canvas = null;
+  var ctx = null;
+  var config = {
+    text: 'your text',
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+    fontSize: '50',
+    fontFace: 'sans-serif',
+    fillOrStroke: 'stroke',
+    textBaseline: 'middle',
+    textAlign: 'center'
+  };
+
+  function setStage(){
+    canvas = document.getElementsByTagName('canvas')[0]
+    ctx = canvas.getContext('2d');
+    
+    // ctx.save();
+    // ctx.fillStyle = '#ffa';
+    // ctx.strokeStyle = '#808055';
+    // ctx.lineWidth = '5';
+
+    // ctx.fillRect(0,0,500,300);
+    // ctx.strokeRect(0,0,500,300);
+    // ctx.restore();
+   // resetCanvas();
+  }
+  
+  function bindEvent(){
+    var getElById = document.getElementById.bind(document);
+    var textEl = getElById('canvas-text');
+    inputBindEvent(textEl, 'text');
+
+  }
+
+  function inputBindEvent(dom,prop,type,fn){
+    dom.addEventListener(type||'change',fn||function(e){
+      var target = e.target;
+      config[prop] = target.value;
+      drawScreen();
+    }, false);
+  }
+  function resetCanvas(){
+    ctx.save();
+    ctx.fillStyle = '#ffa';
+    ctx.strokeStyle = '#808055';
+    ctx.lineWidth = '5';
+
+    ctx.fillRect(0,0,500,300);
+    ctx.strokeRect(0,0,500,300);
+    ctx.restore();
+  }
+  function drawScreen(){
+    var metrics = ctx.measureText(config.text);
+    resetCanvas();
+    ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
+    ctx.textBaseline = config.textBaseline;
+    ctx.textAlign = config.textAlign;
+    ctx.fillText(config.text,(canvas.width-metrics.width)/2,canvas.height/2);
+  }
+  function init(){
+    setStage();
+    bindEvent();
+    drawScreen();
+  }
+
+  init();
+})()
+
+</script>
+</body>
+</html>
