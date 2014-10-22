@@ -47,10 +47,11 @@
    <div>
     <label for="canvas-face">Font Face</label>
     <select id="canvas-face">
-      <option value="sans-serif">sans-serif</option>
       <option value="serif">serif</option>
+      <option value="sans-serif">sans-serif</option>
       <option value="cursive">cursive</option>
       <option value="fantasy">fantasy</option>
+      <option value="monospace">monospace</option>
     </select>
   </div>
   <div>
@@ -105,7 +106,7 @@
     fontWeight: 'normal',
     fontStyle: 'normal',
     fontSize: '50',
-    fontFace: 'sans-serif',
+    fontFace: 'serif',
     fillOrStroke: 'fill',
     textBaseline: 'middle',
     textAlign: 'center',
@@ -171,17 +172,18 @@
     // console.log(config.text.length)
     // console.log(metrics.width);
 
-    ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
+    ctx.font = config.fontStyle + ' ' + config.fontWeight + ' ' + config.fontSize + 'px ' + config.fontFace;
+    console.log(config.fontStyle + ' ' + config.fontWeight + ' ' + config.fontSize + 'px ' + config.fontFace);
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
-
+      
     switch(config.fillOrStroke) {
       case 'fill':
         ctx.fillStyle = config.fillColor;
         ctx.fillText(config.text,canvas.width/2,canvas.height/2);
         break;
       case 'stroke':
-      console.log()
+
         ctx.strokeStyle = config.strokeColor;
         ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
         break;
