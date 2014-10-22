@@ -14,6 +14,9 @@
     .propForm {
       margin-top: 20px;
     }
+    .propForm div {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -24,7 +27,43 @@
     <label for="canvas-text">Text</label>
     <input id="canvas-text" type="text" value="your text">
   </div>
-
+  <div>
+    <label for="canvas-style">Fill Or Stroke</label>
+    <select id="canvas-style">
+      <option value="fill">fill</option>
+      <option value="stroke">stroke</option>
+      <option value="both">both</option>
+    </select>
+  </div>
+  <div>
+    <label for="canvas-weight">Font Weight</label>
+    <select id="canvas-weight">
+      <option value="normal">normal</option>
+      <option value="bold">bold</option>
+      <option value="bolder">bolder</option>
+      <option value="lighter">lighter</option>
+    </select>
+  </div>
+  <div>
+    <label for="canvas-size">Font Size</label>
+    <input type="range" value="50" min="50" max="250" id="canvas-size" />
+  </div>
+  <div>
+    <label for="canvas-fillColor">Font fillColor</label>
+    <input type="color" value="#000" id="canvas-fillColor" />
+  </div>
+  <div>
+    <label for="canvas-strokeColor">Font fillColor</label>
+    <input type="color" value="#fff" id="canvas-strokeColor" />
+  </div>
+  <div>
+    <label for="canvas-fontStyle">Font Style</label>
+    <select id="canvas-fontStyle">
+      <option value="normal">normal</option>
+      <option value="italic">italic</option>
+      <option value="oblique">oblicque</option>
+    </select>
+  </div>
 </form>
 </section>
 <script>
@@ -32,41 +71,49 @@
   var canvas = null;
   var ctx = null;
   var config = {
-    text: 'your text',
-    fontWeight: 'bold',
+    text: "your text",
+    fontWeight: 'normal',
     fontStyle: 'normal',
     fontSize: '50',
     fontFace: 'sans-serif',
-    fillOrStroke: 'stroke',
+    fillOrStroke: 'fill',
     textBaseline: 'middle',
-    textAlign: 'center'
+    textAlign: 'center',
+    fillColor: '#000',
+    strokeColor: '#fff'
   };
 
   function setStage(){
     canvas = document.getElementsByTagName('canvas')[0]
     ctx = canvas.getContext('2d');
-    
-    // ctx.save();
-    // ctx.fillStyle = '#ffa';
-    // ctx.strokeStyle = '#808055';
-    // ctx.lineWidth = '5';
-
-    // ctx.fillRect(0,0,500,300);
-    // ctx.strokeRect(0,0,500,300);
-    // ctx.restore();
-   // resetCanvas();
   }
   
   function bindEvent(){
     var getElById = document.getElementById.bind(document);
     var textEl = getElById('canvas-text');
-    inputBindEvent(textEl, 'text');
+    var styleEl = getElById('canvas-style');
+    var weightEl = getElById('canvas-weight');
+    var sizeEl = getElById('canvas-size');
+    var fillColorEl = getElById('canvas-fillColor');
+    var strokeColorEl = getElById('canvas-strokeColor');
+    var fontStyleEl = getElById('canvas-fontStyle');
 
+
+    inputBindEvent(textEl, 'text');
+    inputBindEvent(styleEl, 'fillOrStroke');
+    inputBindEvent(weightEl, 'fontWeight');
+    inputBindEvent(sizeEl, 'fontSize');
+    inputBindEvent(fillColorEl, 'fillColor');
+    inputBindEvent(strokeColorEl, 'strokeColor');
+    inputBindEvent(fontStyleEl, 'fontStyle');
   }
 
   function inputBindEvent(dom,prop,type,fn){
     dom.addEventListener(type||'change',fn||function(e){
       var target = e.target;
+      console.log('config[prop]: ',config[prop]);
+      console.log('e.target: ',e.target.value);
+      console.log(config[prop] == e.target.value);
       config[prop] = target.value;
       drawScreen();
     }, false);
@@ -82,17 +129,41 @@
     ctx.restore();
   }
   function drawScreen(){
-    var metrics = ctx.measureText(config.text);
     resetCanvas();
+
+    // var metrics = ctx.measureText(config.text);
+    // console.log(ctx.measureText(config.text).width);
+    // console.log(config.text.length)
+    // console.log(metrics.width);
+
     ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
-    ctx.fillText(config.text,(canvas.width-metrics.width)/2,canvas.height/2);
+
+    switch(config.fillOrStroke) {
+      case 'fill':
+        ctx.fillStyle = config.fillColor;
+        ctx.fillText(config.text,canvas.width/2,canvas.height/2);
+        break;
+      case 'stroke':
+      console.log()
+        ctx.strokeStyle = config.strokeColor;
+        ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
+        break;
+      case 'both':
+        ctx.fillStyle = config.fillColor;
+        ctx.fillText(config.text,canvas.width/2,canvas.height/2);
+        ctx.strokeStyle = config.strokeColor;
+        ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
+        break;
+    }
+    
   }
   function init(){
     setStage();
     bindEvent();
     drawScreen();
+
   }
 
   init();
