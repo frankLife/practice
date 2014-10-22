@@ -44,6 +44,15 @@
       <option value="lighter">lighter</option>
     </select>
   </div>
+   <div>
+    <label for="canvas-face">Font Face</label>
+    <select id="canvas-face">
+      <option value="sans-serif">sans-serif</option>
+      <option value="serif">serif</option>
+      <option value="cursive">cursive</option>
+      <option value="fantasy">fantasy</option>
+    </select>
+  </div>
   <div>
     <label for="canvas-size">Font Size</label>
     <input type="range" value="50" min="50" max="250" id="canvas-size" />
@@ -76,7 +85,7 @@
     </select>
   </div>
     <div>
-    <label for="canvas-align">Text Baseline</label>
+    <label for="canvas-align">Text Align</label>
     <select id="canvas-align">
       <option value="center">center</option>
       <option value="start">start</option>
@@ -120,6 +129,7 @@
     var fontStyleEl = getElById('canvas-fontStyle');
     var baselineEl = getElById('canvas-baseline');
     var alignEl = getElById('canvas-align');
+    var faceEl = getElById('canvas-face');
 
     inputBindEvent(textEl, 'text');
     inputBindEvent(styleEl, 'fillOrStroke');
@@ -130,6 +140,7 @@
     inputBindEvent(fontStyleEl, 'fontStyle');
     inputBindEvent(baselineEl, 'textBaseline');
     inputBindEvent(alignEl, 'textAlign');
+    inputBindEvent(faceEl, 'fontFace');
   }
 
   function inputBindEvent(dom,prop,type,fn){
