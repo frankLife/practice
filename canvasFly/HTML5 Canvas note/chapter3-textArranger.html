@@ -64,6 +64,27 @@
       <option value="oblique">oblicque</option>
     </select>
   </div>
+  <div>
+    <label for="canvas-baseLine">Text Baseline</label>
+    <select id="canvas-baseline">
+      <option value="middle">middle</option>
+      <option value="top">top</option>
+      <option value="hanging">hanging</option>
+      <option value="alphabetic">alphabetic</option>
+      <option value="ideographic">ideographic</option>
+      <option value="bottom">bottom</option>
+    </select>
+  </div>
+    <div>
+    <label for="canvas-align">Text Baseline</label>
+    <select id="canvas-align">
+      <option value="center">center</option>
+      <option value="start">start</option>
+      <option value="end">end</option>
+      <option value="left">left</option>
+      <option value="right">right</option>
+    </select>
+  </div>
 </form>
 </section>
 <script>
@@ -97,7 +118,8 @@
     var fillColorEl = getElById('canvas-fillColor');
     var strokeColorEl = getElById('canvas-strokeColor');
     var fontStyleEl = getElById('canvas-fontStyle');
-
+    var baselineEl = getElById('canvas-baseline');
+    var alignEl = getElById('canvas-align');
 
     inputBindEvent(textEl, 'text');
     inputBindEvent(styleEl, 'fillOrStroke');
@@ -106,6 +128,8 @@
     inputBindEvent(fillColorEl, 'fillColor');
     inputBindEvent(strokeColorEl, 'strokeColor');
     inputBindEvent(fontStyleEl, 'fontStyle');
+    inputBindEvent(baselineEl, 'textBaseline');
+    inputBindEvent(alignEl, 'textAlign');
   }
 
   function inputBindEvent(dom,prop,type,fn){
