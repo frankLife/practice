@@ -3,38 +3,109 @@
 <head>
 <title>bounce</title>
 <style type="text/css">
-  @-webkit-keyframes bounce {
+    @-webkit-keyframes bounce {
+      0% {
+        transform: translate3d(0,0,0);
+      }
+      20% {
+        transform: translate3d(0,-0.5em,0);
+      }
+      40% {
+        transform: translate3d(0,-0.5em,0);
+      }
+      50%{
+        transform: translate3d(0,0.2em,0);
+      }
+      70% {
+        transform: translate3d(0,-0.2em,0);
+      }
+      90% {
+        transform: translate3d(0,0.1em,0);
+      }
+      100% {
+        transform: translate3d(0,0,0); 
+      }
+  }
+  @-webkit-keyframes flash {
     0% {
-      transform: translate3d(0,0,0);
+      opacity: 1;
     }
-    20% {
-      transform: translate3d(0,-0.5em,0);
+    25% {
+      opacity: 0;
     }
-    40% {
-      transform: translate3d(0,-0.5em,0);
+    50% {
+      opacity: 1;
     }
-    50%{
-      transform: translate3d(0,0.2em,0);
-    }
-    70% {
-      transform: translate3d(0,-0.2em,0);
-    }
-    90% {
-      transform: translate3d(0,0.1em,0);
+    75% {
+      opacity: 0;
     }
     100% {
-      transform: translate3d(0,0,0); 
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes pulse {
+    0% {
+      transform: scale3d(1,1,1);
+    }
+    50% {
+      transform: scale3d(1.2,1.2,1);
+    }
+    100% {
+      transform: scale3d(1,1,1);
+    }
+  }
+  @-webkit-keyframes rubberBand{
+    0% {
+      transform: scale3d(1,1,1);
+    }
+    10% {
+      transform: scale3d(1.5,0.8,1);
+    }
+    30% {
+      transform: scale3d(1.5,0.8,1);
+    }
+    45% {
+      transform: scale3d(0.5,1.4,1);
+    }
+    60% {
+      transform: scale3d(1.3,0.8,1);
+    }
+    75%{
+      transform: scale3d(0.9,1.1,1);
+    }
+    90% {
+      transform: scale3d(1.2,0.9,1);
+    }
+    100% {
+      transform: scale3d(1,1,1);
     }
   }
   h1 {
+    float: left;
     margin: 100px;
-    width: 85px;
     font-family: Roboto, Verdana, sans-serif;
-    -webkit-animation: bounce .5s;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+  }
+  h1.bounce:hover {
+    -webkit-animation: bounce 1s;
+  }
+  h1.flash:hover {
+    -webkit-animation: flash 1s;
+  }
+  h1.pulse:hover {
+    -webkit-animation: pulse 1s;
+  }
+  h1.rubberBand:hover {
+    -webkit-animation: rubberBand 1s;
   }
 </style>
 </head>
 <body>
-  <h1>Rome</h1>
+  <h1 class="bounce">Rome</h1>
+  <h1 class="flash">Rome</h1>
+  <h1 class="pulse">Rome</h1>
+  <h1 class="rubberBand">Rome</h1>
+  <h1 class="shake"></h1>
 </body>
 </html>

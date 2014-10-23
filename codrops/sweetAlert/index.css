@@ -4,7 +4,7 @@
 }
 #errorWrap {
   padding: 150px;
-  /*perspective: 1000px;*/
+  perspective: 1000px;
 }
 .error-circle {
   position: relative;

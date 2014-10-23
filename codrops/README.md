@@ -6,6 +6,7 @@
 6. translate是在当前元素位置的基础上，所以可以设置position来定好位置之后来用translate进行变换
 7. tranform的变换都是基于前一个变换状态
 8. 利用keyframes设置相同，可以达到delay的效果，这样还可以避免最终状态的提前显示(动画播放完成后，还是会显示设置到元素上的初始属性)
+9. preserve-3d、perspective都是对子元素有效
 ?
 1. z-index影响repaint rectangle机制是
-2. perspective 设置时和未设置时的差别
+2. perspective 设置时和未设置时的差别 -> 不设置时，透视点在10000px及更远的地方？->当perpective的值无穷大的，值为0，不写perpective，这三种情况的效果一样
