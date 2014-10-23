@@ -147,9 +147,6 @@
   function inputBindEvent(dom,prop,type,fn){
     dom.addEventListener(type||'change',fn||function(e){
       var target = e.target;
-      console.log('config[prop]: ',config[prop]);
-      console.log('e.target: ',e.target.value);
-      console.log(config[prop] == e.target.value);
       config[prop] = target.value;
       drawScreen();
     }, false);
@@ -165,25 +162,35 @@
     ctx.restore();
   }
   function drawScreen(){
-    resetCanvas();
+   // resetCanvas();    
 
     // var metrics = ctx.measureText(config.text);
     // console.log(ctx.measureText(config.text).width);
     // console.log(config.text.length)
     // console.log(metrics.width);
+    //Background
+    
+    ctx.fillStyle = "#ffffaa";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    //Box
+    ctx.strokeStyle = "#000000"; 
+    ctx.strokeRect(5,  5, canvas.width-10, canvas.height-10);
 
-    ctx.font = config.fontStyle + ' ' + config.fontWeight + ' ' + config.fontSize + 'px ' + config.fontFace;
-    console.log(config.fontStyle + ' ' + config.fontWeight + ' ' + config.fontSize + 'px ' + config.fontFace);
+
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
+    ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
+    console.log(config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace);
+    console.log('ctx.font: ',ctx.font);
+
       
     switch(config.fillOrStroke) {
       case 'fill':
         ctx.fillStyle = config.fillColor;
+         console.log('ctx.font: ',ctx.font);
         ctx.fillText(config.text,canvas.width/2,canvas.height/2);
         break;
       case 'stroke':
-
         ctx.strokeStyle = config.strokeColor;
         ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
         break;
