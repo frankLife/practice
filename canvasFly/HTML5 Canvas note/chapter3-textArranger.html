@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
   <meta charset="UTF-8">
   <title>chapter3-textArranger</title>
-<!--  <style type="text/css">
+  <style type="text/css">
     *{
       margin: 0px;
       padding: 0px;
@@ -18,10 +19,10 @@
     .propForm div {
       margin-bottom: 10px;
     }
-  </style> -->
+  </style>
 </head>
 <body>
-<section class="wrap" style="position: absolute; top: 50px; left: 50px;">
+<section class="wrap">
 <canvas width="500" height="300"></canvas>
 <form class="propForm">
   <div>
@@ -37,7 +38,7 @@
     </select>
   </div>
   <div>
-    <label for="canvas-weight">Font Weight</label>
+    Font Weight
     <select id="canvas-weight">
       <option value="normal">normal</option>
       <option value="bold">bold</option>
@@ -111,7 +112,7 @@
     fillOrStroke: 'fill',
     textBaseline: 'middle',
     textAlign: 'center',
-    fillColor: '#000',
+    fillColor: '#ff0000',
     strokeColor: '#fff'
   };
 
@@ -156,35 +157,25 @@
     ctx.save();
     ctx.fillStyle = '#ffa';
     ctx.strokeStyle = '#808055';
-    ctx.lineWidth = '5';
 
     ctx.fillRect(0,0,500,300);
     ctx.strokeRect(0,0,500,300);
     ctx.restore();
   }
   function drawScreen(){
-   // resetCanvas();    
+    resetCanvas();    
 
     // var metrics = ctx.measureText(config.text);
     // console.log(ctx.measureText(config.text).width);
     // console.log(config.text.length)
     // console.log(metrics.width);
-    //Background
+    // Background
     
-    ctx.fillStyle = "#ffffaa";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    //Box
-    ctx.strokeStyle = "#000000"; 
-    ctx.strokeRect(5,  5, canvas.width-10, canvas.height-10);
-
 
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
     ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
-    // console.log(config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace);
-    // console.log('ctx.font: ',ctx.font);
 
-      
     switch(config.fillOrStroke) {
       case 'fill':
         ctx.fillStyle = config.fillColor;
