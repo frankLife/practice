@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>chapter3-textArranger</title>
-  <style type="text/css">
+<!--  <style type="text/css">
     *{
       margin: 0px;
       padding: 0px;
@@ -17,10 +18,10 @@
     .propForm div {
       margin-bottom: 10px;
     }
-  </style>
+  </style> -->
 </head>
 <body>
-<section class="wrap">
+<section class="wrap" style="position: absolute; top: 50px; left: 50px;">
 <canvas width="500" height="300"></canvas>
 <form class="propForm">
   <div>
@@ -63,7 +64,7 @@
     <input type="color" value="#000" id="canvas-fillColor" />
   </div>
   <div>
-    <label for="canvas-strokeColor">Font fillColor</label>
+    <label for="canvas-strokeColor">Font strokeColor</label>
     <input type="color" value="#fff" id="canvas-strokeColor" />
   </div>
   <div>
@@ -180,14 +181,14 @@
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
     ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
-    console.log(config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace);
-    console.log('ctx.font: ',ctx.font);
+    // console.log(config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace);
+    // console.log('ctx.font: ',ctx.font);
 
       
     switch(config.fillOrStroke) {
       case 'fill':
         ctx.fillStyle = config.fillColor;
-         console.log('ctx.font: ',ctx.font);
+        console.log(ctx.font);
         ctx.fillText(config.text,canvas.width/2,canvas.height/2);
         break;
       case 'stroke':
@@ -207,7 +208,6 @@
     setStage();
     bindEvent();
     drawScreen();
-
   }
 
   init();
