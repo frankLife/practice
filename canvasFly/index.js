@@ -216,7 +216,8 @@ function gallery(){
   }
   img2.onload = function(){
     ctx.drawImage(img1, 33, 71, 104, 124, 21, 20, 87, 104);
-    ctx.drawImage(img2, 0, 0);
+    ctx.drawImage(img1, 150, 71, 104, 124, 100, 20, 87, 60);
+   // ctx.drawImage(img2, 0, 0);
   }
 }
 gallery();
