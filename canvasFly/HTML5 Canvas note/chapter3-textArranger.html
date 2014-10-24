@@ -61,6 +61,10 @@
     <input type="range" value="50" min="50" max="250" id="canvas-size" />
   </div>
   <div>
+    <label for="canvas-strokeSize">Font Stroke Size</label>
+    <input type="range" value="1" min="1" max="10" id="canvas-strokeSize" />
+  </div>
+  <div>
     <label for="canvas-fillColor">Font fillColor</label>
     <input type="color" value="#000" id="canvas-fillColor" />
   </div>
@@ -108,6 +112,7 @@
     fontWeight: 'normal',
     fontStyle: 'normal',
     fontSize: '50',
+    strokeSize: '1',
     fontFace: 'serif',
     fillOrStroke: 'fill',
     textBaseline: 'middle',
@@ -127,6 +132,7 @@
     var styleEl = getElById('canvas-style');
     var weightEl = getElById('canvas-weight');
     var sizeEl = getElById('canvas-size');
+    var fillSize = getElById('canvas-strokeSize');
     var fillColorEl = getElById('canvas-fillColor');
     var strokeColorEl = getElById('canvas-strokeColor');
     var fontStyleEl = getElById('canvas-fontStyle');
@@ -138,6 +144,7 @@
     inputBindEvent(styleEl, 'fillOrStroke');
     inputBindEvent(weightEl, 'fontWeight');
     inputBindEvent(sizeEl, 'fontSize');
+    inputBindEvent(fillSize, 'strokeSize');
     inputBindEvent(fillColorEl, 'fillColor');
     inputBindEvent(strokeColorEl, 'strokeColor');
     inputBindEvent(fontStyleEl, 'fontStyle');
@@ -179,16 +186,18 @@
     switch(config.fillOrStroke) {
       case 'fill':
         ctx.fillStyle = config.fillColor;
-        console.log(ctx.font);
         ctx.fillText(config.text,canvas.width/2,canvas.height/2);
         break;
       case 'stroke':
+        ctx.lineWidth = config.strokeSize;
         ctx.strokeStyle = config.strokeColor;
         ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
         break;
       case 'both':
         ctx.fillStyle = config.fillColor;
         ctx.fillText(config.text,canvas.width/2,canvas.height/2);
+
+        ctx.lineWidth = config.strokeSize;
         ctx.strokeStyle = config.strokeColor;
         ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
         break;
