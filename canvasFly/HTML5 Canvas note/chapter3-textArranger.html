@@ -8,15 +8,22 @@
     *{
       margin: 0px;
       padding: 0px;
+      font-size: 12px;
+    }
+    canvas {
+      float: left;
     }
     .wrap {
-      margin: 100px auto;
-      width: 500px;
+      margin: auto;
+      width: 960px;
     }
     .propForm {
+      float: left;
       margin-top: 20px;
+      width: 460px;
     }
     .propForm div {
+      display: inline-block;
       margin-bottom: 10px;
     }
   </style>
@@ -101,6 +108,20 @@
       <option value="right">right</option>
     </select>
   </div>
+  <div>
+    <label for="canvas-alpha">Text Alpha</label>
+    <input type="range"  value="1" min="0" max="1" id="canvas-alpha" step="0.01" />
+  </div>
+  <div>
+    <label for="canvas-shadowX">Text ShadowX</label>
+    <input type="range" value="0" min="-5" max="5" id="canvas-shadowX" />
+    <label for="canvas-shadowY">Text ShadowY</label>
+    <input type="range" value="0" min="-5" max="5" id="canvas-shadowY" />
+    <label for="canvas-shadowColor">Text Shadow Color</label>
+    <input type="color" value="#000" id="canvas-shadowColor" />
+    <label type="canvas-shadowBlur">Text Shadow Blur</label>
+    <input type="range" value="1" min="1" max="5" id="canvas-shadowBlur" />
+  </div>
 </form>
 </section>
 <script>
@@ -118,7 +139,12 @@
     textBaseline: 'middle',
     textAlign: 'center',
     fillColor: '#ff0000',
-    strokeColor: '#fff'
+    strokeColor: '#fff',
+    textAlpha: 1,
+    shadowX: 0,
+    shadowY: 0,
+    shadowColor: '#000',
+    shadowBlur: 1
   };
 
   function setStage(){
@@ -139,6 +165,11 @@
     var baselineEl = getElById('canvas-baseline');
     var alignEl = getElById('canvas-align');
     var faceEl = getElById('canvas-face');
+    var alphaEl = getElById('canvas-alpha');
+    var shadowXEl = getElById('canvas-shadowX');
+    var shadowYEl = getElById('canvas-shadowY');
+    var shadowColorEl = getElById('canvas-shadowColor');
+    var shadowBlurEl = getElById('canvas-shadowBlur');
 
     inputBindEvent(textEl, 'text');
     inputBindEvent(styleEl, 'fillOrStroke');
@@ -151,6 +182,11 @@
     inputBindEvent(baselineEl, 'textBaseline');
     inputBindEvent(alignEl, 'textAlign');
     inputBindEvent(faceEl, 'fontFace');
+    inputBindEvent(alphaEl, 'textAlpha');
+    inputBindEvent(shadowXEl, 'shadowX');
+    inputBindEvent(shadowYEl, 'shadowY');
+    inputBindEvent(shadowColorEl,'shadowColor');
+    inputBindEvent(shadowBlurEl, 'shadowBlur');
   }
 
   function inputBindEvent(dom,prop,type,fn){
@@ -164,7 +200,10 @@
     ctx.save();
     ctx.fillStyle = '#ffa';
     ctx.strokeStyle = '#808055';
-
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
     ctx.fillRect(0,0,500,300);
     ctx.strokeRect(0,0,500,300);
     ctx.restore();
@@ -182,6 +221,13 @@
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
     ctx.font = config.fontWeight + ' ' + config.fontStyle + ' ' + config.fontSize + 'px ' + config.fontFace;
+
+    ctx.globalAlpha = config.textAlpha;
+
+    ctx.shadowOffsetX = config.shadowX;
+    ctx.shadowOffsetY = config.shadowY;
+    ctx.shadowColor = config.shadowColor;
+    ctx.shadowBlur = config.shadowBlur;
 
     switch(config.fillOrStroke) {
       case 'fill':
