@@ -12,10 +12,11 @@
     }
     canvas {
       float: left;
+      margin: 10px;
     }
     .wrap {
       margin: auto;
-      width: 960px;
+      width: 1024px;
     }
     .propForm {
       float: left;
@@ -62,6 +63,13 @@
       <option value="fantasy">fantasy</option>
       <option value="monospace">monospace</option>
     </select>
+    <label for="canvas-type">Canvas Type</label>
+    <select id="canvas-type">
+      <option value="normal">normal</option>
+      <option value="linearGradient">linearGradient</option>
+      <option value="radialGradient">radialGradient</option>
+      <option value="pattern">pattern</option>
+    </select>
   </div>
   <div>
     <label for="canvas-size">Font Size</label>
@@ -74,6 +82,10 @@
   <div>
     <label for="canvas-fillColor">Font fillColor</label>
     <input type="color" value="#000" id="canvas-fillColor" />
+  </div>
+  <div>
+    <label for="canvas-fillColor2">Font fillColor2</label>
+    <input type="color" value="#fff" id="canvas-fillColor2" />
   </div>
   <div>
     <label for="canvas-strokeColor">Font strokeColor</label>
@@ -120,7 +132,19 @@
     <label for="canvas-shadowColor">Text Shadow Color</label>
     <input type="color" value="#000" id="canvas-shadowColor" />
     <label type="canvas-shadowBlur">Text Shadow Blur</label>
-    <input type="range" value="1" min="1" max="5" id="canvas-shadowBlur" />
+    <input type="range" value="1" min="1" max="5" step="0.1" id="canvas-shadowBlur" />
+  </div>
+  <div>
+    <label for="canvas-width">Canvas Width</label>
+    <input type="range" value="500" min="300" max="1000" id="canvas-width" />
+    <label for="canvas-height">Canvas Height</label>
+    <input type="range" value="300" min="100" max="600" id="canvas-height" />
+  </div>
+  <div>
+    <label for="canvas-styleWidth">Canvas Style Width</label>
+    <input type="range" value="500" min="300" max="1000" id="canvas-styleWidth" />
+    <label for="canvas-styleHeight">Canvas Style Height</label>
+    <input type="range" value="300" min="100" max="600" id="canvas-styleHeight" />
   </div>
 </form>
 </section>
@@ -138,13 +162,19 @@
     fillOrStroke: 'fill',
     textBaseline: 'middle',
     textAlign: 'center',
-    fillColor: '#ff0000',
+    fillColor: '#000000',
+    fillColor2: '#ffffff',
     strokeColor: '#fff',
     textAlpha: 1,
     shadowX: 0,
     shadowY: 0,
     shadowColor: '#000',
-    shadowBlur: 1
+    shadowBlur: 1,
+    canvasWidth: 500,
+    canvasHeight: 300,
+    canvasStyleWidth: 500,
+    canvasStyleHeight: 300,
+    canvasType: 'normal'
   };
 
   function setStage(){
@@ -160,6 +190,7 @@
     var sizeEl = getElById('canvas-size');
     var fillSize = getElById('canvas-strokeSize');
     var fillColorEl = getElById('canvas-fillColor');
+    var fillColorEl2 = getElById('canvas-fillColor2');
     var strokeColorEl = getElById('canvas-strokeColor');
     var fontStyleEl = getElById('canvas-fontStyle');
     var baselineEl = getElById('canvas-baseline');
@@ -170,6 +201,11 @@
     var shadowYEl = getElById('canvas-shadowY');
     var shadowColorEl = getElById('canvas-shadowColor');
     var shadowBlurEl = getElById('canvas-shadowBlur');
+    var canvasWidth = getElById('canvas-width');
+    var canvasHeight = getElById('canvas-height');
+    var canvasStyleWidth = getElById('canvas-styleWidth');
+    var canvasStyleHeight = getElById('canvas-styleHeight');
+    var canvasTypeEl = getElById('canvas-type');
 
     inputBindEvent(textEl, 'text');
     inputBindEvent(styleEl, 'fillOrStroke');
@@ -177,6 +213,7 @@
     inputBindEvent(sizeEl, 'fontSize');
     inputBindEvent(fillSize, 'strokeSize');
     inputBindEvent(fillColorEl, 'fillColor');
+    inputBindEvent(fillColorEl2, 'fillColor2');
     inputBindEvent(strokeColorEl, 'strokeColor');
     inputBindEvent(fontStyleEl, 'fontStyle');
     inputBindEvent(baselineEl, 'textBaseline');
@@ -187,6 +224,11 @@
     inputBindEvent(shadowYEl, 'shadowY');
     inputBindEvent(shadowColorEl,'shadowColor');
     inputBindEvent(shadowBlurEl, 'shadowBlur');
+    inputBindEvent(canvasWidth, 'canvasWidth');
+    inputBindEvent(canvasHeight, 'canvasHeight');
+    inputBindEvent(canvasStyleWidth, 'canvasStyleWidth');
+    inputBindEvent(canvasStyleHeight,'canvasStyleHeight');
+    inputBindEvent(canvasTypeEl, 'canvasType');
   }
 
   function inputBindEvent(dom,prop,type,fn){
@@ -197,6 +239,10 @@
     }, false);
   }
   function resetCanvas(){
+    canvas.width = config.canvasWidth;
+    canvas.height = config.canvasHeight;
+    canvas.style.width = config.canvasStyleWidth + 'px';
+    canvas.style.height = config.canvasStyleHeight + 'px';
     ctx.save();
     ctx.fillStyle = '#ffa';
     ctx.strokeStyle = '#808055';
@@ -204,8 +250,9 @@
     ctx.shadowOffsetY = 0;
     ctx.globalAlpha = 1;
     ctx.shadowBlur = 0;
-    ctx.fillRect(0,0,500,300);
-    ctx.strokeRect(0,0,500,300);
+
+    ctx.fillRect(0,0,config.canvasWidth,config.canvasHeight);
+    ctx.strokeRect(5,5,config.canvasWidth-10,config.canvasHeight-10);
     ctx.restore();
   }
   function drawScreen(){
@@ -217,6 +264,8 @@
     // console.log(metrics.width);
     // Background
     
+    var canvasWidth = config.canvasWidth;
+    var canvasHeight = config.canvasHeight;
 
     ctx.textBaseline = config.textBaseline;
     ctx.textAlign = config.textAlign;
@@ -229,23 +278,59 @@
     ctx.shadowColor = config.shadowColor;
     ctx.shadowBlur = config.shadowBlur;
 
+    switch(config.canvasType) {
+      case 'normal': 
+        ctx.fillStyle = config.fillColor;
+        break;
+      case 'linearGradient':
+        var metrics = ctx.measureText(ctx.text);
+        var gr = ctx.createLinearGradient(canvasWidth/2-metrics.width/2,canvasHeight/2,canvasWidth/2 + metrics.width/2,canvasHeight/2);
+        gr.addColorStop(0,config.fillColor);
+        gr.addColorStop(1,config.fillColor2);
+        ctx.fillStyle = gr;
+        break;
+      case 'radialGradient':
+        var metrics = ctx.measureText(ctx.text);
+        var gr = ctx.createRadialGradient(canvasWidth/2,canvasHeight/2,5,canvasWidth/2,canvasHeight/2,config.fontSize);
+        gr.addColorStop(0,config.fillColor);
+        gr.addColorStop(1,config.fillColor2);
+        ctx.fillStyle = gr;
+        break;
+
+    }
+    // ctx.fillStyle = config.fillColor;
+
+    ctx.lineWidth = config.strokeSize;
+    ctx.strokeStyle = config.strokeColor;
+
     switch(config.fillOrStroke) {
       case 'fill':
-        ctx.fillStyle = config.fillColor;
-        ctx.fillText(config.text,canvas.width/2,canvas.height/2);
+        if(config.canvasType == 'pattern') {
+          var img = new Image();
+          img.src = './texture.jpg';
+          img.onload = function(){
+            ctx.fillStyle = ctx.createPattern(img,'repeat');
+            ctx.fillText(config.text,canvasWidth/2,canvasHeight/2);
+          }
+          return;
+        }
+        ctx.fillText(config.text,canvasWidth/2,canvasHeight/2);
         break;
       case 'stroke':
-        ctx.lineWidth = config.strokeSize;
-        ctx.strokeStyle = config.strokeColor;
-        ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
+        ctx.strokeText(config.text,canvasWidth/2,canvasHeight/2);
         break;
       case 'both':
-        ctx.fillStyle = config.fillColor;
-        ctx.fillText(config.text,canvas.width/2,canvas.height/2);
-
-        ctx.lineWidth = config.strokeSize;
-        ctx.strokeStyle = config.strokeColor;
-        ctx.strokeText(config.text,canvas.width/2,canvas.height/2);
+        ctx.strokeText(config.text,canvasWidth/2,canvasHeight/2);
+        if(config.canvasType == 'pattern') {
+          var img = new Image();
+          img.src = './texture.jpg';
+          img.onload = function(){
+            ctx.fillStyle = ctx.createPattern(img,'repeat');
+            ctx.fillText(config.text,canvasWidth/2,canvasHeight/2);
+          }
+          return;
+        }
+        ctx.fillText(config.text,canvasWidth/2,canvasHeight/2);
         break;
     }
     
