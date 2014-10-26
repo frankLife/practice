@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bouncing Entrances</title>
+<style type="text/css">
+ h1 {
+    float: left;
+    margin: 100px;
+    font-family: Roboto, Verdana, sans-serif;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+}
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(.5,.5,1);
+  }
+  20% {
+    /*opacity: 1;*/
+    transform: scale3d(1.2,1.2,1) ;
+  }
+  40% {
+/*    opacity: 1;*/
+    transform: scale3d(0.8,0.8,1);
+  }
+  60% {
+    /*opacity: 1;*/
+    transform: scale3d(1.15,1.15,1);
+  }
+  80% {
+    /*opacity: 1;*/
+    transform: scale3d(0.85,0.85,1);
+  }
+  100% {
+    /*opacity: 1;*/
+    transform: scale3d(1,1,1,1);
+  }
+}
+h1.bounceIn {
+  -webkit-animation: bounceIn 0.7s;
+}
+</style>
+</head>
+<body>
+<h1 class="bounceIn">bounceIn</h1>
+</body>
+</html>
