@@ -4,7 +4,8 @@
 }
 #errorWrap {
   padding: 150px;
-  perspective: 1000px;
+  /*give a perspective view on child nodes*/
+  /*perspective: 1000px;*/
 }
 .error-circle {
   position: relative;
@@ -153,25 +154,14 @@
   left: -7px;
   transform: rotate3d(0,0,1,45deg); /* 45deg -> -129deg */
   transform-origin: 50% 100%;
-  -webkit-animation: rotateBar 1s;
-}
-@keyframes {
-  0% {
-    transform: rotate3d(0,0,1,45deg);
-  }
-  90% {
-    transform: rotate3d(0,0,1,-129deg);
-  }
-  100% {
-    transform: rotate3d(0,0,1,45deg);
-  }
+  -webkit-animation: rotateBar 0.5s;
 }
 @-webkit-keyframes rotateBar{
   0% {
     transform: rotate3d(0,0,1,45deg);
   }
   100% {
-    transform: rotate3d(0,0,1,-129deg);
+    transform: rotate3d(0,0,1,-140deg);
   }
 }
 .circle-mask2 {
@@ -187,8 +177,7 @@
   border-radius: 4px;
   transform: rotate3d(0,0,1,45deg) translate3d(31px,8px,0); 
   /*rotate3d(0,0,1,45deg) translate3d(0,0,0) -> transform: rotate3d(0,0,1,45deg) translate3d(31px,8px,0)*/
-  -webkit-animation: line1 1.3s;
-  /*-webkit-animation-delay: 1s;*/
+  -webkit-animation: line1 0.7s;
 }
 @-webkit-keyframes line1 {
   0% {
@@ -214,7 +203,7 @@
   border-radius: 4px;
   transform: rotate3d(0,0,1,131deg) translate3d(-7px,14px,0);
   /*transform: rotate3d(0,0,1,131deg) translate3d(0,0,0) -> transform: rotate3d(0,0,1,131deg) translate3d(-7px,14px,0)*/
-  -webkit-animation: line2 1.6s;
+  -webkit-animation: line2 0.8s;
 }
 @-webkit-keyframes line2 {
   0% {
