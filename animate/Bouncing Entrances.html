@@ -36,12 +36,64 @@
     transform: scale3d(1,1,1,1);
   }
 }
-h1.bounceIn {
+@-webkit-keyframes bounceInDown {
+  0% {
+    transform: translate3d(0,-100em,0);
+  }
+  45% {
+    transform: translate3d(0,0.5em,0);
+  }
+  65% {
+    transform: translate3d(0,-0.3em,0);
+  }
+  80% {
+    transform: translate3d(0,0.2em,0);
+  }
+  90% {
+    transform: translate3d(0.-0.1em,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+.bounceIn {
   -webkit-animation: bounceIn 0.7s;
+}
+.bounceInDown {
+  -webkit-animation: bounceInDown 0.7s;
 }
 </style>
 </head>
 <body>
 <h1 class="bounceIn">bounceIn</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="bounceIn">bounceIn</option>
+    <option value="bounceInDown">bounceInDown</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
 </body>
 </html>
