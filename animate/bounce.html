@@ -80,6 +80,98 @@
       transform: scale3d(1,1,1);
     }
   }
+  @-webkit-keyframes shake {
+    0% {
+      transform: translate3d(0,0,0);
+    }
+    15% {
+      transform: translate3d(-0.3em,0,0);
+    }
+    30% {
+      transform: translate3d(0.3em,0,0);
+    }
+    45% {
+      transform: translate3d(-0.3em,0,0);
+    }
+    60% {
+      transform: translate3d(0.3em,0,0);      
+    }
+    75% {
+      transform: translate3d(-0.3em,0,0);
+    }
+    90% {
+      transform: translate3d(0.3em,0,0);
+    }
+    100% {
+      transform: translate3d(0,0,0);
+    }
+  }
+  @-webkit-keyframes swing {
+    0% {
+      transform: rotate3d(0,0,0,0);
+    }
+    20% {
+      transform: rotate3d(0,0,1,-30deg);
+    }
+    40% {
+      transform: rotate3d(0,0,1,25deg);
+    }
+    60% {
+      transform: rotate3d(0,0,1,-20deg);
+    }
+    80% {
+      transform: rotate3d(0,0,1,20deg);
+    }
+    100% {
+      transform: rotate3d(0,0,1,0deg);
+    }
+  }
+  @-webkit-keyframes tada {
+    0% {
+      transform: scale3d(0.8,0.8,1) rotate3d(0,0,1,-15deg);
+    }
+    40% {
+      transform: scale3d(0.8,0.8,1) rotate3d(0,0,1,-15deg);
+    }
+    50% {
+      transform: scale3d(1.2,1.2,1) rotate3d(0,0,1,10deg);
+    }
+    60% {
+      transform: scale3d(1.2,1.2,1) rotate3d(0,0,1,-10deg);
+    }
+    70% {
+      transform: scale3d(1.2,1.2,1) rotate3d(0,0,1,10deg);
+    }
+    80% {
+      transform: scale3d(1.2,1.2,1) rotate3d(0,0,1,-10deg);
+    }
+    90% {
+      transform: scale3d(1.2,1.2,1) rotate3d(0,0,1,10deg);
+    }
+    100% {
+      transform: scale3d(1,1,1) rotate3d(0,0,0,0);
+    }
+  }
+  @-webkit-keyframes wobble {
+    0% {
+      transform: rotate3d(0,0,1,0deg);
+    }
+    20% {
+      transform: rotate3d(0,0,1,-20deg);
+    }
+    40% {
+      transform: rotate3d(0,0,1,15deg);
+    }
+    60% {
+      transform: rotate3d(0,0,1,-10deg);
+    }
+    80% {
+      transform: rotate3d(0,0,1,5deg);
+    }
+    100% {
+      transfomr: rotate3d(0,0,1,0deg);
+    }
+  }
   h1 {
     float: left;
     margin: 100px;
@@ -87,26 +179,54 @@
     cursor: pointer;
     transform-origin: 50% 50%;
   }
+
   h1.bounce:hover {
     -webkit-animation: bounce 1s;
   }
+
   h1.flash:hover {
     -webkit-animation: flash 1s;
   }
+
   h1.pulse:hover {
     -webkit-animation: pulse 1s;
   }
+
   h1.rubberBand:hover {
     -webkit-animation: rubberBand 1s;
   }
-  
+
+  h1.shake:hover {
+    -webkit-animation: shake .7s;
+  }
+
+  h1.swing {
+    transform-origin: 50% 0%;
+  }
+  h1.swing:hover {
+    -webkit-animation: swing 1s;
+  }
+
+  h1.tada:hover {
+    -webkit-animation: tada 1s;
+  }
+
+  h1.wobble {
+    transform-origin: 50% 600%;
+  }
+  h1.wobble:hover {
+    -webkit-animation: wobble 1s;
+  }
 </style>
 </head>
 <body>
-  <h1 class="bounce">Rome</h1>
-  <h1 class="flash">Rome</h1>
-  <h1 class="pulse">Rome</h1>
-  <h1 class="rubberBand">Rome</h1>
-  <h1 class="shake">Shake</h1>
+  <h1 class="bounce">bounce</h1>
+  <h1 class="flash">flash</h1>
+  <h1 class="pulse">pulse</h1>
+  <h1 class="rubberBand">rubberBand</h1>
+  <h1 class="shake">shake</h1>
+  <h1 class="swing">swing</h1>
+  <h1 class="tada">tada</h1>
+  <h1 class="wobble">wobble</h1>
 </body>
 </html>
