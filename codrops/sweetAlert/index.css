@@ -219,3 +219,12 @@
     transform: rotate3d(0,0,1,131deg) translate3d(-7px,14px,0);
   }
 }
+.fix {
+  width: 106px;
+  height: 6px;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 0;
+  transform: rotate3d(0,0,1,45deg) translate3d(26px,33px,0);
+}
