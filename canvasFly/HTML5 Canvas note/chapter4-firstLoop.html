@@ -21,21 +21,36 @@
   var ctx = canvas.getContext('2d');
   var img = new Image();
   img.src = "./ships.png";
+  var img2 = new Image();
+  img2.src = "./tanks_sheet.png";
 
   function demoRole(){
     this.drawScreen = null;
   }
   var airplaneLaunch = new demoRole();
   airplaneLaunch.drawScreen = function(){
-    ctx.drawImage(img,0,0,32,32,10,10,32,32);
+    // ctx.drawImage(img,0,0,32,32,10,10,32,32);
     var index = 0;
     var animateFunc = function(){
       index ++;
       if(index > 1) {
         index = 0;
       }
-      setStage();
+      setStage({x:10,y:10,width:32,height:32});
       ctx.drawImage(img,index*32,0,32,32,10,10,32,32);
+    }
+    timer(animateFunc,100);
+  }
+  var tankReady = new demoRole();
+  tankReady.drawScreen = function(){
+    var index = 0;
+    var animateFunc = function(){
+      index++;
+      if(index > 8) {
+        index = 1;
+      }
+      setStage({x:50,y:50,width:32,height:32});
+      ctx.drawImage(img2,(index%8)*32,parseInt(index/8)*32,32,32,50,50,32,32);
     }
     timer(animateFunc,200);
   }
@@ -57,23 +72,29 @@
     }
 
   }
-  function setStage(){
+  function setStage(opt){
+    opt = opt || {};
     ctx.save();
     ctx.fillStyle = '#aaa';
-    ctx.fillRect(0,0,960,500);
+    ctx.fillRect(opt.x||0,opt.y||0,opt.width||960,opt.height||500);
     ctx.restore();
   }
   function drawScreen(role){
     role.drawScreen();
   }
-  function init(role){
+  function init(img,role){
+     setStage();
+    if(img == undefined){
+      return;
+    }
     img.onload = function(){
-      setStage();
       drawScreen(role);
     }
   }
-
-  init(airplaneLaunch);
+  // init();
+  init(img2,tankReady);
+  init(img,airplaneLaunch);
+  
 })()
 </script>
 </body>
