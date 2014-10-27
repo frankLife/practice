@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter4-firstLoop</title>
+<style>
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+  canvas {
+    display: block;
+    margin: 20px auto;
+  }
+</style>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var img = new Image();
+  img.src = "./ships.png";
+
+  function setStage(){
+    ctx.save();
+    ctx.fillStyle = '#aaa';
+    ctx.fillRect(0,0,960,500);
+    ctx.restore();
+  }
+  function drawScreen(){
+    ctx.drawImage(img,0,0,32,32,0,0,32,32);
+  }
+  function init(){
+    img.onload = function(){
+      setStage();
+      drawScreen();
+    }
+  }
+
+  init();
+})()
+</script>
+</body>
+</html>
