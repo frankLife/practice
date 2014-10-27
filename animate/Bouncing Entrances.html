@@ -56,11 +56,80 @@
     transform: translate3d(0,0,0);
   }
 }
+@-webkit-keyframes bounceInUp {
+  0% {
+    transform: translate3d(0,100em,0);
+  }
+  45% {
+    transform: translate3d(0,-0.5em,0);
+  }
+  65% {
+    transform: translate3d(0,0.3em,0);
+  }
+  80% {
+    transform: translate3d(0,-0.2em,0);
+  }
+  90% {
+    transform: translate3d(0.0.1em,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes bounceInLeft {
+  0% {
+    transform: translate3d(-100em,0,0);
+  }
+  45% {
+    transform: translate3d(0.5em,0,0);
+  }
+  65% {
+    transform: translate3d(-0.3em,0,0);
+  }
+  80% {
+    transform: translate3d(0.2em,0,0);
+  }
+  90% {
+    transform: translate3d(-0.1em,0,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes bounceInRight {
+  0% {
+    transform: translate3d(100em,0,0);
+  }
+  45% {
+    transform: translate3d(-0.5em,0,0);
+  }
+  65% {
+    transform: translate3d(0.3em,0,0);
+  }
+  80% {
+    transform: translate3d(-0.2em,0,0);
+  }
+  90% {
+    transform: translate3d(0.1em,0,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
 .bounceIn {
-  -webkit-animation: bounceIn 0.7s;
+  -webkit-animation: bounceIn 0.8s;
 }
 .bounceInDown {
-  -webkit-animation: bounceInDown 0.7s;
+  -webkit-animation: bounceInDown 0.8s;
+}
+.bounceInUp {
+  -webkit-animation: bounceInUp 0.8s;
+}
+.bounceInLeft {
+  -webkit-animation: bounceInLeft 0.8s;
+}
+.bounceInRight {
+  -webkit-animation: bounceInRight 0.8s;
 }
 </style>
 </head>
@@ -71,6 +140,9 @@
   <select>
     <option value="bounceIn">bounceIn</option>
     <option value="bounceInDown">bounceInDown</option>
+    <option value="bounceInUp">bounceInUp</option>
+    <option value="bounceInLeft">bounceInLeft</option>
+    <option value="bounceInRight">bounceInRight</option>
   </select>
   <button id="btn">animate!</button>
 </div>
