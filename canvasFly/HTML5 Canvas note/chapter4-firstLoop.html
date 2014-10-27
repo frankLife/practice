@@ -22,23 +22,58 @@
   var img = new Image();
   img.src = "./ships.png";
 
+  function demoRole(){
+    this.drawScreen = null;
+  }
+  var airplaneLaunch = new demoRole();
+  airplaneLaunch.drawScreen = function(){
+    ctx.drawImage(img,0,0,32,32,10,10,32,32);
+    var index = 0;
+    var animateFunc = function(){
+      index ++;
+      if(index > 1) {
+        index = 0;
+      }
+      setStage();
+      ctx.drawImage(img,index*32,0,32,32,10,10,32,32);
+    }
+    timer(animateFunc,200);
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+
+  }
   function setStage(){
     ctx.save();
     ctx.fillStyle = '#aaa';
     ctx.fillRect(0,0,960,500);
     ctx.restore();
   }
-  function drawScreen(){
-    ctx.drawImage(img,0,0,32,32,0,0,32,32);
+  function drawScreen(role){
+    role.drawScreen();
   }
-  function init(){
+  function init(role){
     img.onload = function(){
       setStage();
-      drawScreen();
+      drawScreen(role);
     }
   }
 
-  init();
+  init(airplaneLaunch);
 })()
 </script>
 </body>
