@@ -24,6 +24,7 @@
   var img2 = new Image();
   img2.src = "./tanks_sheet.png";
 
+
   function demoRole(){
     this.drawScreen = null;
   }
@@ -52,7 +53,25 @@
       setStage({x:50,y:50,width:32,height:32});
       ctx.drawImage(img2,(index%8)*32,parseInt(index/8)*32,32,32,50,50,32,32);
     }
-    timer(animateFunc,200);
+    timer(animateFunc,100);
+  }
+  var tankRun = new demoRole();
+  tankRun.drawScreen = function(){
+    var speed = {
+      x: 1,
+      y: 1
+    }
+    var cord = {
+      x: 100,
+      y: 50
+    }
+    var animateFunc = function(){
+      setStage({x:cord.x,y:cord.y,width:32,height:32});
+      cord.x  +=  speed.x;
+      cord.y  += speed.y;
+      ctx.drawImage(img2,(index%8)*32,parseInt(index/8)*32,32,32,cord.x,cord.y,32,32);
+    }
+    timer(animateFunc);
   }
   function timer(func,time){
     if(time == undefined) {
@@ -79,22 +98,36 @@
     ctx.fillRect(opt.x||0,opt.y||0,opt.width||960,opt.height||500);
     ctx.restore();
   }
+  function imgLoad(imgs,callback){
+    var imgsLen = imgs.length;
+    for(var i = imgsLen;i--;) {
+      imgs[i].onload = function(){
+        if(--imgsLen ==0) {
+          callback();
+        }  
+      }
+    }
+  }
   function drawScreen(role){
     role.drawScreen();
   }
   function init(img,role){
-     setStage();
+    setStage();
     if(img == undefined){
       return;
     }
-    img.onload = function(){
-      drawScreen(role);
-    }
+    // img.onload = function(){
+    //   drawScreen(role);
+    // }
+    drawScreen(role);
   }
+  imgLoad([img,img2],function(){
+      init(img2,tankReady);
+      init(img,airplaneLaunch);
+  });
   // init();
-  init(img2,tankReady);
-  init(img,airplaneLaunch);
-  
+  // init(img2,tankReady);
+  // init(img,airplaneLaunch);
 })()
 </script>
 </body>
