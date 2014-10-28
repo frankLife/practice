@@ -24,8 +24,70 @@ h1 {
     transform: scale3d(0,0,0);
   }
 }
+@-webkit-keyframes bounceOutDown {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  33.3% {
+    transform: translate3d(0,0.2em,0);
+  }
+  66.6% {
+    transform: translate3d(0,-0.4em,0);
+  }
+  100% {
+    transform: translate3d(0,100em,0);
+  }
+}
+@-webkit-keyframes bounceOutUp {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  33.3% {
+    transform: translate3d(0,-0.2em,0);
+  }
+  66.6% {
+    transform: translate3d(0,0.4em,0);
+  }
+  100% {
+    transform: translate3d(0,-100em,0);
+  }
+}
+@-webkit-keyframes bounceOutLeft {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  25% {
+    transform: translate3d(0.2em,0,0);
+  }
+  100% {
+    transform: translate3d(-100em,0,0);
+  }
+}
+@-webkit-keyframes bounceOutRight {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  25% {
+    transform: translate3d(-0.2em,0,0);
+  }
+  100% {
+    transform: translate3d(100em,0,0);
+  }
+}
 .bounceOut {
   -webkit-animation: bounceOut 0.8s;
+}
+.bounceOutDown {
+  -webkit-animation: bounceOutDown 1s;
+}
+.bounceOutUp {
+  -webkit-animation: bounceOutUp 1s;
+}
+.bounceOutLeft {
+  -webkit-animation: bounceOutLeft 1s;
+}
+.bounceOutRight {
+  -webkit-animation: bounceOutRight 1s;
 }
 </style>
 </head>
@@ -35,6 +97,10 @@ h1 {
 <div>
   <select>
     <option value="bounceOut">bounceOut</option>
+    <option value="bounceOutDown">bounceOutDown</option>
+    <option value="bounceOutUp">bounceOutUp</option>
+    <option value="bounceOutLeft">bounceOutLeft</option>
+     <option value="bounceOutRight">bounceOutRight</option>
   </select>
   <button id="btn">animate!</button>
 </div>
