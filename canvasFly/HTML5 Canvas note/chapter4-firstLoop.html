@@ -65,14 +65,48 @@
       x: 100,
       y: 50
     }
+    var index = 0;
     var animateFunc = function(){
       setStage({x:cord.x,y:cord.y,width:32,height:32});
-      cord.x  +=  speed.x;
-      cord.y  += speed.y;
+      // cord.x += speed.x;
+      cord.y += speed.y;
+      index ++;
+      if(index > 8) {
+        index = 1;
+      }
       ctx.drawImage(img2,(index%8)*32,parseInt(index/8)*32,32,32,cord.x,cord.y,32,32);
     }
-    timer(animateFunc);
+    timer(animateFunc,50);
   }
+  var tankRotateRun = new demoRole();
+  tankRotateRun.drawScreen = function(){
+    var speed = {
+      x: 2,
+      y: 2
+    }
+    var cord = {
+      x: 200,
+      y: 200
+    }
+    var index = 0;
+
+    var animateFunc = function(){
+      ctx.save();
+      rotateDir('left');
+      rotateDir('left');
+      ctx.translate(-960,-500);
+      // ctx.rotate(-Math.PI/180*30);
+      setStage({x:cord.x,y:cord.y,width:32,height:32});
+      cord.y += (-speed.y);
+      index ++;
+      if(index > 8) {
+        index = 1;
+      }
+      ctx.drawImage(img2,(index%8)*32,parseInt(index/8)*32,32,32,cord.x,cord.y,32,32);
+      ctx.restore();
+    }
+    timer(animateFunc,100);
+  };
   function timer(func,time){
     if(time == undefined) {
       (function _pollFunc(){
@@ -90,6 +124,19 @@
       })();
     }
 
+  }
+  function rotateDir(dir){
+    var raUnit = (Math.PI)/180;
+    switch(dir) {
+      case "left":
+        console.log(raUnit*90);
+
+        ctx.rotate(raUnit*90);
+        break;
+      case "right":
+        ctx.rotate(-raUnit*90);
+        break;
+    }
   }
   function setStage(opt){
     opt = opt || {};
@@ -111,23 +158,17 @@
   function drawScreen(role){
     role.drawScreen();
   }
-  function init(img,role){
-    setStage();
-    if(img == undefined){
-      return;
-    }
-    // img.onload = function(){
-    //   drawScreen(role);
-    // }
+  function init(role){
     drawScreen(role);
   }
   imgLoad([img,img2],function(){
-      init(img2,tankReady);
-      init(img,airplaneLaunch);
+      setStage();
+      init(tankReady);
+      init(airplaneLaunch);
+      init(tankRun);
+      init(tankRotateRun);
   });
-  // init();
-  // init(img2,tankReady);
-  // init(img,airplaneLaunch);
+
 })()
 </script>
 </body>
