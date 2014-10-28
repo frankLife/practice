@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tanks_sheet" tilewidth="32" tileheight="32">
+  <image source="C:/Users/shangpo.zw/Desktop/html5canvas/ch4/tanks_sheet.png" width="256" height="128"/>
+ </tileset>
+ <layer name="块层 1" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxTYGBgkEfCMIAspsBAPICplcJBw9QooIlhY8PUMaDJoZuJrg7ZLELm4VKHLobNH+hqcQGYvejhLM+AGc4A9QkFGg==
+  </data>
+ </layer>
+</map>

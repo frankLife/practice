@@ -92,6 +92,7 @@
 
     var animateFunc = function(){
       ctx.save();
+      ctx.setTransform(1,0,0,1,0,0);
       rotateDir('left');
       rotateDir('left');
       ctx.translate(-960,-500);
@@ -107,6 +108,28 @@
     }
     timer(animateFunc,100);
   };
+  var mapDraw = new demoRole();
+  mapDraw.drawScreen = function(){
+    var metaData = [32, 31, 31, 31, 1, 1, 31, 31, 31, 32, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32, 1, 26, 1, 26, 1, 26, 1, 1, 32, 32, 26, 1, 1, 26, 1, 1, 26, 1, 32, 32, 1, 1, 1, 26, 26, 1, 26, 1, 32, 32, 1, 1, 26, 1, 1, 1, 26, 1, 32, 32, 1, 1, 1, 1, 1, 1, 26, 1, 32, 1, 1, 26, 1, 26, 1, 26, 1, 1, 1, 32, 1, 1, 1, 1, 1, 1, 1, 1, 32, 32, 31, 31, 31, 1, 31, 31, 31, 31, 32];
+    var cord = {
+      x: -1,
+      y: -1
+    }
+    var imgOffset = {
+      x: -1,
+      y: -1
+    }
+    ctx.save();
+    ctx.translate(200,100);
+    for(var i = 0,len = metaData.length;i<len;i++) {
+      cord.x = i%(10)*32;
+      cord.y = parseInt(i/(10))*32;
+      imgOffset.x = (metaData[i]-1)%8*32;
+      imgOffset.y = parseInt((metaData[i]-1)/8)*32;
+      ctx.drawImage(img2,imgOffset.x,imgOffset.y,32,32,cord.x,cord.y,32,32);
+    }
+    ctx.restore();
+  }
   function timer(func,time){
     if(time == undefined) {
       (function _pollFunc(){
@@ -129,8 +152,6 @@
     var raUnit = (Math.PI)/180;
     switch(dir) {
       case "left":
-        console.log(raUnit*90);
-
         ctx.rotate(raUnit*90);
         break;
       case "right":
@@ -167,6 +188,7 @@
       init(airplaneLaunch);
       init(tankRun);
       init(tankRotateRun);
+      init(mapDraw);
   });
 
 })()
