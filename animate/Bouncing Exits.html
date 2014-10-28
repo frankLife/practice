@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bouncing Exits</title>
+<style type="text/css">
+h1 {
+    float: left;
+    margin: 100px;
+    font-family: Roboto, Verdana, sans-serif;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+}
+@-webkit-keyframes bounceOut {
+  0% {
+    transform: scale3d(1,1,1);
+  }
+  33.3% {
+    transform: scale3d(0.8,0.8,1);
+  }
+  66.6% {
+    transform: scale3d(1.2,1.2,1);
+  }
+  100% {
+    transform: scale3d(0,0,0);
+  }
+}
+.bounceOut {
+  -webkit-animation: bounceOut 0.8s;
+}
+</style>
+</head>
+<body>
+<h1 class="bounceOut">bounceOut</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="bounceOut">bounceOut</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</html>
