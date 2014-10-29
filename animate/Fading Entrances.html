@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fading Entrances</title>
+<style type="text/css">
+h1 {
+    float: left;
+    margin: 100px;
+    font-family: Roboto, Verdana, sans-serif;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,-1.5em,0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,1.5em,0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInDownBig {
+  0% {
+    transform: translate3d(0,-10em,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-5em,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(5em,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInLeftBig {
+  0% {
+    transform: translate3d(-20em,0,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInRightBig {
+  0% {
+    transform: translate3d(20em,0,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+@-webkit-keyframes fadeInUpBig {
+  0% {
+    transform: translate3d(0,10em,0);
+  }
+  100% {
+    transform: translate3d(0,0,0);
+  }
+}
+.fadeIn {
+  -webkit-animation: fadeIn 1s;
+}
+.fadeInDown {
+  -webkit-animation: fadeInDown 1s;
+}
+.fadeInDownBig {
+  -webkit-animation: fadeInDownBig 1s;
+}
+.fadeInLeft {
+  -webkit-animation: fadeInLeft 1s;
+}
+.fadeInRight {
+  -webkit-animation: fadeInRight 1s;
+}
+.fadeInLeftBig {
+   -webkit-animation: fadeInLeftBig 1s;
+}
+.fadeInRightBig {
+   -webkit-animation: fadeInRightBig 1s;
+}
+.fadeInUp {
+  -webkit-animation: fadeInUp 1s;
+}
+.fadeInUpBig {
+  -webkit-animation: fadeInUpBig 1s;
+}
+</style>
+<body>
+<h1 class="fadeIn">fadeIn</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="fadeIn">fadeIn</option>
+    <option value="fadeInDown">fadeInDown</div>
+    <option value="fadeInDownBig">fadeInDownBig</div>
+    <option value="fadeInLeft">fadeInLeft</div>
+    <option value="fadeInLeftBig">fadeInLeftBig</div>
+    <option value="fadeInRight">fadeInRight</div>
+    <option value="fadeInRightBig">fadeInRightBig</div>
+    <option value="fadeInUp">fadeInUp</div>
+    <option value="fadeInUpBig">fadeInUpBig</div>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</head>
+</html>
