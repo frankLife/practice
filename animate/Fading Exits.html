@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ed">
+<head>
+<title>Fading Exits</title>
+<style type="text/css">
+h1 {
+    float: left;
+    margin: 100px;
+    font-family: Roboto, Verdana, sans-serif;
+    cursor: pointer;
+    transform-origin: 50% 50%;
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0,1.5em,0);
+  }
+}
+@-webkit-keyframes fadeOutDownBig {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(0,100em,0);
+  }
+}
+@-webkit-keyframes fadeOutLeft {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-5em,0,0);
+  }
+}
+@-webkit-keyframes fadeOutLeftBig {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(-100em,0,0);
+  }
+}
+@-webkit-keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(5em,0,0);
+  }
+}
+@-webkit-keyframes fadeOutRightBig {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(100em,0,0);
+  }
+}
+@-webkit-keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0,-1.5em,0);
+  }
+}
+@-webkit-keyframes fadeOutUpBig {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(0,-100em,0);
+  }
+}
+.fadeOut {
+  -webkit-animation: fadeOut 1s;
+}
+.fadeOutDown {
+  -webkit-animation: fadeOutDown 1s;
+}
+.fadeOutDownBig {
+  -webkit-animation: fadeOutDownBig 1s;
+}
+.fadeOutLeft {
+  -webkit-animation: fadeOutLeft 1s;
+}
+.fadeOutLeftBig {
+  -webkit-animation: fadeOutLeftBig 1s;
+}
+.fadeOutRight {
+  -webkit-animation: fadeOutRight 1s;
+}
+.fadeOutRightBig {
+  -webkit-animation: fadeOutRightBig 1s;
+}
+.fadeOutUp {
+  -webkit-animation: fadeOutUp 1s;
+}
+.fadeOutUpBig {
+  -webkit-animation: fadeOutUpBig 1s;
+}
+</style>
+<body>
+<h1 class="fadeOut">fadeOut</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="fadeOut">fadeOut</option>
+    <option value="fadeOutDown">fadeOutDown</option>
+    <option value="fadeOutDownBig">fadeOutDownBig</option>
+    <option value="fadeOutLeft">fadeOutLeft</option>
+    <option value="fadeOutLeftBig">fadeOutLeftBig</option>
+    <option value="fadeOutRight">fadeOutRight</option>
+    <option value="fadeOutRightBig">fadeOutRightBig</option>
+    <option value="fadeOutDown">fadeOutUp</option>
+    <option value="fadeOutDownBig">fadeOutUpBig</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</head>
+</html>
