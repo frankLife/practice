@@ -20,6 +20,7 @@
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
   var pointPaths = [];
+  var radian = Math.PI/180*45;
   var ball = {
     x: 15,
     y: canvas.height/2
@@ -35,14 +36,15 @@
     ctx.restore();
   }
   function updateCord(){
-    ball.x += 5;
+    ball.x += 5*Math.cos(radian);
+    ball.y += 5*Math.sin(radian);
     pointPaths.push({
       x: ball.x,
       y: ball.y
     });
   }
   function drawScreen(){
-    if(ball.x + 15 < canvas.width) {
+    if(ball.x + 15 < canvas.width && ball.y + 15 < canvas.height) {
       reset();
       updateCord();
       for(var i = 0,len = pointPaths.length;i<len;i++) {
