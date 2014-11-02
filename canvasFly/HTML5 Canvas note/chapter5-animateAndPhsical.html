@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chapter5-animateAndPhysical</title>
+<style>
+  * {
+    margin: 0px;
+    padding: 0px;
+  }
+  canvas {
+    display: block;
+    margin: 20px auto;
+  }
+</style>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var pointPaths = [];
+  var ball = {
+    x: 15,
+    y: canvas.height/2
+  }
+  var dotImage = new Image();
+  dotImage.src = './point.png';
+  function reset(){
+    ctx.save();
+    ctx.fillStyle = '#eee';
+    ctx.strokeStyle ="#aaa";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(1,1,canvas.width-2,canvas.height-2);
+    ctx.restore();
+  }
+  function updateCord(){
+    ball.x += 5;
+    pointPaths.push({
+      x: ball.x,
+      y: ball.y
+    });
+  }
+  function drawScreen(){
+    if(ball.x + 15 < canvas.width) {
+      reset();
+      updateCord();
+      for(var i = 0,len = pointPaths.length;i<len;i++) {
+        ctx.drawImage(dotImage,0,0,2,2,pointPaths[i].x,pointPaths[i].y,2,2);
+      }
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(ball.x,ball.y,15,0,Math.PI*2,false);
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+  timer(drawScreen);
+
+})()
+</script>
+
+</body>
+</html>
