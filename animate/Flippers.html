@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flippers</title>
+  <style type="text/css">
+    h1 {
+      float: left;
+      margin: 100px;
+      font-family: Roboto, Verdana, sans-serif;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+
+    @-webkit-keyframes flip {
+      0% {
+        transform: scale3d(1,1,1) rotate3d(0,1,0,0) ;
+      }
+      70% {
+        transform: scale3d(2,2,1) translate3d(0,0,150px) rotate3d(0,1,0,180deg) perspective(400px);
+        -webkit-animation-timing-function: ease-out;
+      }
+      100% {
+        transform: scale3d(1,1,1) rotate3d(0,1,0,360deg) perspective(400px);
+        -webkit-animation-timing-function: ease-in;
+      }
+
+ /*     0% {
+          -webkit-transform: perspective(400px) rotate3d(0,1,0,-360deg);
+          transform: perspective(400px) rotate3d(0,1,0,-360deg);
+          -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out
+      }
+
+      40% {
+          -webkit-transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-190deg);
+          transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-190deg);
+          -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out
+      }
+
+      50% {
+          -webkit-transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-170deg);
+          transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-170deg);
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in
+      }
+
+      80% {
+          -webkit-transform: perspective(400px) scale3d(.95,.95,.95);
+          transform: perspective(400px) scale3d(.95,.95,.95);
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in
+      }
+
+      100% {
+          -webkit-transform: perspective(400px);
+          transform: perspective(400px);
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in
+      }*/
+
+    }
+    .flip {
+      -webkit-animation: flip 2s;
+    }
+  </style>
+</head>
+<body>
+<h1 class="flip">flip</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="flip">flip</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</html>
