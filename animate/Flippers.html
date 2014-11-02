@@ -6,6 +6,7 @@
     h1 {
       float: left;
       margin: 100px;
+      font-size: 60px;
       font-family: Roboto, Verdana, sans-serif;
       cursor: pointer;
       transform-origin: 50% 50%;
@@ -60,8 +61,29 @@
       }*/
 
     }
+    @-webkit-keyframes flipInX {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) rotate3d(1,0,0,90deg) ;
+      }
+      50% {
+        opacity: 0.75;
+        transform: perspective(1000px) rotate3d(1,0,0,-60deg);
+      }
+      75% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(1,0,0,30deg);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(1,0,0,0deg);
+      }
+    }
     .flip {
       -webkit-animation: flip 2s;
+    }
+    .flipInX {
+      -webkit-animation: flipInX 1s;
     }
   </style>
 </head>
@@ -71,6 +93,7 @@
 <div>
   <select>
     <option value="flip">flip</option>
+    <option value="flipInX">flipInX</option>
   </select>
   <button id="btn">animate!</button>
 </div>
