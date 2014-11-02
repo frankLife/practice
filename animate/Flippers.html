@@ -79,11 +79,32 @@
         transform: perspective(1000px) rotate3d(1,0,0,0deg);
       }
     }
+    @-webkit-keyframes flipInY {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) rotate3d(0,1,0,90deg) ;
+      }
+      50% {
+        opacity: 0.75;
+        transform: perspective(1000px) rotate3d(0,1,0,-60deg);
+      }
+      75% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(0,1,0,30deg);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(0,1,0,0deg);
+      }
+    }
     .flip {
       -webkit-animation: flip 2s;
     }
     .flipInX {
       -webkit-animation: flipInX 1s;
+    }
+    .flipInY {
+      -webkit-animation: flipInY 1s;
     }
   </style>
 </head>
@@ -94,6 +115,7 @@
   <select>
     <option value="flip">flip</option>
     <option value="flipInX">flipInX</option>
+    <option value="flipInY">flipInY</option>
   </select>
   <button id="btn">animate!</button>
 </div>
