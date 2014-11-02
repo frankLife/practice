@@ -97,6 +97,34 @@
         transform: perspective(1000px) rotate3d(0,1,0,0deg);
       }
     }
+    @-webkit-keyframes flipOutX {
+      0% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(1,0,0,0) ;
+      }
+      50% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(1,0,0,-30deg) ;
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1000px) rotate3d(1,0,0,90deg);
+      }
+    }
+    @-webkit-keyframes flipOutY {
+      0% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(0,1,0,0) ;
+      }
+      50% {
+        opacity: 1;
+        transform: perspective(1000px) rotate3d(0,1,0,-30deg) ;
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1000px) rotate3d(0,1,0,90deg);
+      }
+    }
     .flip {
       -webkit-animation: flip 2s;
     }
@@ -105,6 +133,12 @@
     }
     .flipInY {
       -webkit-animation: flipInY 1s;
+    }
+    .flipOutX {
+      -webkit-animation: flipOutX 1s;
+    }
+    .flipOutY {
+      -webkit-animation: flipOutY 1s;
     }
   </style>
 </head>
@@ -116,6 +150,8 @@
     <option value="flip">flip</option>
     <option value="flipInX">flipInX</option>
     <option value="flipInY">flipInY</option>
+    <option value="flipOutX">flipOutX</option>
+    <option value="flipOutY">flipOutY</option>
   </select>
   <button id="btn">animate!</button>
 </div>
