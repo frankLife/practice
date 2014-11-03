@@ -11,49 +11,28 @@
       cursor: pointer;
       transform-origin: 50% 50%;
     }
-    @-webkit-keyframes lightSpeedIn {
+    @-webkit-keyframes rotateIn {
       0% {
         opacity: 0;
-        /*负值设置使动作轨迹更逼真*/
-        transform: translate3d(5em,0,0) skew(-30deg,0);
-      }
-      60% {
-        opacity: 1;
-        transform: translate3d(0,0,0) skew(20deg,0);
-        -webkit-animation-timing-function: ease-in;
-      }
-      80% {
-        opacity: 1;
-        transform: skew(-10deg,0);
+        transform: rotate3d(0,0,1,-180deg);
+        -webkit-animation-timing-function: ease-out;
       }
       100% {
         opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+        
       }
     }
-    @-webkit-keyframes lightSpeedOut {
-      0% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        transform: translate3d(5em,0,0) skew(20deg,0);
-        -webkit-animation-timing-function: ease-in;
-      }
-    }
-    .lightSpeedIn {
-      -webkit-animation: lightSpeedIn 1s;
-    }
-    .lightSpeedOut {
-      -webkit-animation: lightSpeedOut 1s;
+    .rotateIn {
+      -webkit-animation: rotateIn 1s;
     }
   </style>
 <body>
-<h1 class="lightSpeedIn">lightSpeedIn</h1>
+<h1 class="rotateIn">flip</h1>
 <br style="clear:both" />
 <div>
   <select>
-    <option value="lightSpeedIn">lightSpeedIn</option>
-    <option value="lightSpeedOut">lightSpeedIn</option>
+    <option value="rotateIn">rotateIn</option>
   </select>
   <button id="btn">animate!</button>
 </div>
