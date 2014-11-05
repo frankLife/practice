@@ -5,7 +5,10 @@
 </head>
 <body>
 <canvas width="960" height="500"></canvas>
+<br />
+<button id="addBall">add</button>
 <script>
+
 (function(){
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
@@ -25,12 +28,77 @@
   function Ball(){
     this.radius = getBtw(minRadius,maxRadius);
     this.radian = getBtw(0,maxRdian);
-    this.x = getBtw(minX,maxX);
-    this.y = getBtw(minY,maxY)
+    this.x = getBtw(minX+this.radius,maxX-this.radius);
+    this.y = getBtw(minY+this.radius,maxY-this.radius)
     this.speed = speed;
     this.color = "#000";
   }
+  Ball.prototype.run = function(){
 
+    var delX = this.speed*Math.cos(Math.PI/180*this.radian);
+    var delY = this.speed*Math.sin(Math.PI/180*this.radian);
+    this.x = this.x + delX;
+    this.y = this.y + delY;
+    if(this.x + delX + this.radius > canvas.width || this.x + delX - this.radius < 0) {
+      this.radian = 180 - this.radian;
+    }
+    if(this.y + delY + this.radius > canvas.height || this.y + delY - this.radius < 0) {
+      this.radian = 360 - this.radian;
+    }
+
+
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fill();
+    ctx.closePath();
+  }
+  function addBall(num){
+    num = num || 1;
+    for(var i = 0;i<num;i++) {
+      balls.push(new Ball());
+    }
+  }
+  function reset(){
+    ctx.save();
+    ctx.fillStyle = '#eee';
+    ctx.strokeStyle ="#aaa";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(1,1,canvas.width-2,canvas.height-2);
+    ctx.restore();
+  }
+  function drawScreen(){
+    reset();
+    for(var i = 0,len = balls.length;i<len;i++) {
+      balls[i].run();
+    }
+  }
+  addBall();
+  timer(drawScreen,20);
+  bindEvent();
+  function bindEvent(){
+    var addBtn = document.getElementById('addBall');
+    addBtn.addEventListener('click', function(){
+      addBall(10);
+    });
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
 })();
 </script>
 </body>
