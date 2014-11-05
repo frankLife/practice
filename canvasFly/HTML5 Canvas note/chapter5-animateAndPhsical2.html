@@ -9,15 +9,28 @@
 (function(){
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
+  var balls = [];
+  var minRadius = 5;
+  var maxRadius = 10;
+  var maxRdian = 360;
+  var minX = 0;
+  var maxX = canvas.width;
+  var minY = 0;
+  var maxY = canvas.height;
+  var speed = 5;
 
+  function getBtw(min,max) {
+    return Math.ceil(Math.random()*(max-min)) + min;
+  }
   function Ball(){
-    this.radius = -1;
-    this.radian = -1;
-    this.x = -1;
-    this.y = -1;
-    this.speed = 5;
+    this.radius = getBtw(minRadius,maxRadius);
+    this.radian = getBtw(0,maxRdian);
+    this.x = getBtw(minX,maxX);
+    this.y = getBtw(minY,maxY)
+    this.speed = speed;
     this.color = "#000";
   }
+
 })();
 </script>
 </body>
