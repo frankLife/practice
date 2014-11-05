@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rotating Exits</title>
+<style type="text/css">
+    h1 {
+      float: left;
+      margin: 100px;
+      font-size: 60px;
+      font-family: Roboto, Verdana, sans-serif;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+    @-webkit-keyframes rotateOut {
+      0% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0);
+      }
+      100% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,180deg);
+      }
+    }
+    @-webkit-keyframes rotateOutDownLeft {
+      0% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }      
+      100% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,60deg);
+      }
+    }
+    @-webkit-keyframes rotateOutDownRight {
+      0% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }      
+      100% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,-60deg);
+      }
+    }
+    @-webkit-keyframes rotateOutUpLeft {
+      0% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }      
+      100% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,-60deg);
+      }
+    }
+    @-webkit-keyframes rotateOutUpRight {
+      0% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }      
+      100% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,60deg);
+      }
+    }
+    .rotateOut {
+      -webkit-animation: rotateOut 1s;
+    }
+    .rotateOutDownLeft {
+      transform-origin: 0% 50%;
+      -webkit-animation: rotateOutDownLeft 1s;
+    }
+    .rotateOutDownRight {
+      transform-origin: 100% 50%;
+      -webkit-animation: rotateOutDownRight 1s;
+    }
+    .rotateOutUpLeft {
+      transform-origin: 0% 50%;
+      -webkit-animation: rotateOutUpLeft 1s;
+    }
+    .rotateOutUpRight {
+      transform-origin: 100% 50%;
+      -webkit-animation: rotateOutUpRight 1s;
+    }
+</style>
+</head>
+<body>
+<h1 class="rotateOut">rotateOut</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="rotateOut">rotateOut</option>
+    <option value="rotateOutDownLeft">rotateOutDownLeft</option>
+    <option value="rotateOutDownRight">rotateOutDownRight</option>
+    <option value="rotateOutUpLeft">rotateOutUpLeft</option>
+    <option value="rotateOutUpRight">rotateOutUpRight</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</html>
