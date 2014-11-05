@@ -23,16 +23,80 @@
         
       }
     }
+    @-webkit-keyframes rotateInDownLeft {
+      0% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,-60deg);
+        /*-webkit-animation-timing-function: ease-out;*/
+      }      
+      100% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }
+    }
+    @-webkit-keyframes rotateInDownRight {
+      0% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,60deg);
+        /*-webkit-animation-timing-function: ease-out;*/
+      }      
+      100% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }
+    }
+    @-webkit-keyframes rotateInUpLeft {
+      0% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,60deg);
+        /*-webkit-animation-timing-function: ease-out;*/
+      }      
+      100% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }
+    }
+    @-webkit-keyframes rotateInUpRight {
+      0% {
+        opacity: 0;
+        transform: rotate3d(0,0,1,-60deg);
+        /*-webkit-animation-timing-function: ease-out;*/
+      }      
+      100% {
+        opacity: 1;
+        transform: rotate3d(0,0,1,0deg);
+      }
+    }
     .rotateIn {
       -webkit-animation: rotateIn 1s;
     }
+    .rotateInDownLeft {
+      transform-origin: 0% 50%;
+      -webkit-animation: rotateInDownLeft 1s;
+    }
+    .rotateInDownRight {
+      transform-origin: 100% 50%;
+      -webkit-animation: rotateInDownRight 1s;
+    }
+    .rotateInUpLeft {
+      transform-origin: 0% 50%;
+      -webkit-animation: rotateInUpLeft 1s;
+    }
+    .rotateInUpRight {
+       transform-origin: 100% 50%;
+      -webkit-animation: rotateInUpRight 1s;
+    }
   </style>
 <body>
-<h1 class="rotateIn">flip</h1>
+<h1 class="rotateIn">rotateIn</h1>
 <br style="clear:both" />
 <div>
   <select>
     <option value="rotateIn">rotateIn</option>
+    <option value="rotateInDownLeft">rotateInDownLeft</option>
+    <option value="rotateInDownRight">rotateInDownRight</option>
+    <option value="rotateInUpLeft">rotateInUpLeft</option>
+    <option value="rotateInUpRight">rotateInUpRight</option>
   </select>
   <button id="btn">animate!</button>
 </div>
