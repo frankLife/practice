@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Zooming Entrance</title>
+<style type="text/css">
+    h1 {
+      float: left;
+      margin: 100px;
+      font-size: 60px;
+      font-family: Roboto, Verdana, sans-serif;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+    @-webkit-keyframes zoomIn{
+      0% {
+        transform: scale3d(0,0,1);
+      }
+      100% {
+        transform: scale3d(1,1,1);
+      }
+    }
+    @-webkit-keyframes zoomInDown {
+      0% {
+        transform: scale3d(0,0,1) translate3d(0,-5em,0);
+        -webkit-animate-timing-function: ease-in;
+      }
+      100% {
+        transform: scale3d(1,1,1) translate3d(0,0,0);
+      }
+    }
+    @-webkit-keyframes zoomInDown2 {
+      0% {
+        opacity: 0;
+        transform: scale3d(0,0,1) translate3d(0,-1000px,0);
+        -webkit-animate-timing-function: ease-in;
+      }
+      30% {
+        opacity: 0;
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(0.75,0.75,0.75) translate3d(0,50px,0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1,1,1) translate3d(0,0,0);
+      }
+    }
+    @-webkit-keyframes zoomInUp {
+      0% {
+        opacity: 0;
+        transform: scale3d(0,0,1) translate3d(0,1000px,0);
+        -webkit-animate-timing-function: ease-in;
+      }
+      30% {
+        opacity: 0;
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(0.75,0.75,0.75) translate3d(0,-50px,0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1,1,1) translate3d(0,0,0);
+      }
+    }
+    @-webkit-keyframes zoomInLeft {
+      0% {
+        opacity: 0;
+        transform: scale3d(0,0,1) translate3d(-1000px,0,0);
+        -webkit-animate-timing-function: ease-in;
+      }
+      10% {
+        opacity: 0;
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(0.75,0.75,0.75) translate3d(50px,0,0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1,1,1) translate3d(0,0,0);
+      }
+    }
+    @-webkit-keyframes zoomInRight {
+      0% {
+        opacity: 0;
+        transform: scale3d(0,0,1) translate3d(1000px,0,0);
+        -webkit-animate-timing-function: ease-in;
+      }
+      10% {
+        opacity: 0;
+      }
+      60% {
+        opacity: 1;
+        transform: scale3d(0.75,0.75,0.75) translate3d(-50px,0,0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale3d(1,1,1) translate3d(0,0,0);
+      }
+    }
+    .zoomIn {
+      -webkit-animation: zoomIn 1s;
+    }
+    .zoomInDown {
+      -webkit-animation: zoomInDown 1s;
+    }
+    .zoomInDown2 {
+      -webkit-animation: zoomInDown2 1s;
+    }
+    .zoomInLeft {
+      -webkit-animation: zoomInLeft 1s;
+    }
+    .zoomInRight {
+      -webkit-animation: zoomInRight 1s;
+    }
+    .zoomInUp {
+      -webkit-animation: zoomInUp 1s;
+    }
+</style>
+</head>
+<body>
+<h1 class="zoomIn">zoomIn</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="zoomIn">zoomIn</option>
+    <option value="zoomInDown">zoomInDown</option>
+    <option value="zoomInDown2">zoomInDown2</option>
+    <option value="zoomInLeft">zoomInLeft</div>
+    <option value="zoomInRight">zoomInRight</div>
+      <option value="zoomInUp">zoomInUp</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</html>
