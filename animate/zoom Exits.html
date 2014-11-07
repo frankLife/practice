@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Zooming Exits</title>
+<style type="text/css">
+    h1 {
+      float: left;
+      margin: 100px;
+      font-size: 60px;
+      font-family: Roboto, Verdana, sans-serif;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+    @-webkit-keyframes zoomOut {
+      transform: scale;
+    }
+</style>
+</head>
+<body>
+<h1 class="zoomOut">zoomOut</h1>
+<br style="clear:both" />
+<div>
+  <select>
+    <option value="zoomOut">zoomOut</option>
+  </select>
+  <button id="btn">animate!</button>
+</div>
+<script>
+(function(){
+  var selectEl = document.getElementsByTagName('select')[0];
+  var animateEl = document.getElementsByTagName('h1')[0];
+  var btn = document.getElementById('btn');
+
+  selectEl.addEventListener('change',function(e){
+    animateEl.innerText = this.value;
+    animateEl.className = this.value;
+  });
+  btn.addEventListener('click',function(e){
+    animateEl.className = '';
+    setTimeout(function(){
+      animateEl.innerText = selectEl.value;    
+      animateEl.className = selectEl.value;
+    },1)
+    
+  });
+
+})()
+</script>
+</body>
+</html>
