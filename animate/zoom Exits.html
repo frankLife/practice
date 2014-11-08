@@ -12,7 +12,17 @@
       transform-origin: 50% 50%;
     }
     @-webkit-keyframes zoomOut {
-      transform: scale;
+      0% {
+        opacity: 1;
+        transform: scale3d(1,1,0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale3d(0,0,1);
+      }
+    }
+    .zoomOut {
+      -webkit-animation: zoomOut 1s;
     }
 </style>
 </head>
