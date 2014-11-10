@@ -21,8 +21,90 @@
         transform: scale3d(0,0,1);
       }
     }
+    @-webkit-keyframes zoomOutDown {
+/*      0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale3d(1,1,1);
+      }*/
+      40% {
+        opacity: 1;
+        /*transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);*/
+        transform: translate3d(0,-40px,0) scale3d(.5,.5,.5);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(0,300px,0) scale3d(.4,.4,.4);
+        transform-origin: center bottom;
+      }
+    }
+    @-webkit-keyframes zoomOutUp {
+      0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale3d(1,1,1);
+      }
+      40% {
+        opacity: 1;
+        transform: translate3d(0,40px,0) scale3d(.5,.5,1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(0,-300px,0) scale3d(.4,.4,1);
+      }
+    }
+    @-webkit-keyframes zoomOutLeft {
+/*      0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale3d(1,1,1);
+      }
+      40% {
+        opacity: 1;
+        transform: translate3d(40px,0px,0) scale3d(.5,.5,.5);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-300px,0,0) scale3d(.1,.1,.1);
+      }*/
+      40% {
+        opacity: 1;
+        transform: scale3d(.475,.475,.475) translate3d(42px,0,0)
+      }
+    
+      100% {
+          opacity: 0;
+          transform: scale(.1) translate3d(-2000px,0,0);
+          transform-origin: left center
+      }
+    }
+    @-webkit-keyframes zoomOutRight {
+      0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale3d(1,1,1);
+        /*-webkit-animation-timing-function: cubic-bezier(.42,0,1,1);*/
+      }
+      40% {
+        opacity: 1;
+        transform: translate3d(-40px,0px,0) scale3d(.5,.5,.5);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(300px,0,0) scale3d(.1,.1,.1);
+      }
+    }
+    .zoomOutDown {
+      -webkit-animation: zoomOutDown 1s;
+    }
+    .zoomOutUp {
+      -webkit-animation: zoomOutUp 1s;
+    }
     .zoomOut {
       -webkit-animation: zoomOut 1s;
+    }
+    .zoomOutLeft {
+      /*transform-origin: left center;*/
+      -webkit-animation: zoomOutLeft 1s;
+    }
+    .zoomOutRight {
+      -webkit-animation: zoomOutRight 1s;
     }
 </style>
 </head>
@@ -32,6 +114,10 @@
 <div>
   <select>
     <option value="zoomOut">zoomOut</option>
+    <option value="zoomOutDown">zoomOutDown</option>
+    <option value="zoomOutUp">zoomOutUp</option>
+    <option value="zoomOutLeft">zoomOutLeft</option>
+    <option value="zoomOutRight">zoomOutRight</option>
   </select>
   <button id="btn">animate!</button>
 </div>
