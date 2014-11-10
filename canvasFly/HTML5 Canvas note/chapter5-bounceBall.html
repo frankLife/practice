@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>chapter5-animateAndPhysical</title>
+<title>chapter5-bounceBall</title>
 </head>
 <body>
 <canvas width="960" height="500"></canvas>
@@ -29,22 +29,23 @@
     this.radius = getBtw(minRadius,maxRadius);
     this.radian = getBtw(0,maxRdian);
     this.x = getBtw(minX+this.radius,maxX-this.radius);
-    this.y = getBtw(minY+this.radius,maxY-this.radius)
+    this.y = getBtw(minY+this.radius,maxY-this.radius);
     this.speed = speed;
     this.color = "#000";
   }
-  
+  Ball.prototype.getDel = function(){
+    return {
+      delX: this.speed*Math.cos(Math.PI/180*this.radian),
+      delY: this.speed*Math.sin(Math.PI/180*this.radian)
+    };
+  }
   Ball.prototype.run = function(){
-    var delX = this.speed*Math.cos(Math.PI/180*this.radian);
-    var delY = this.speed*Math.sin(Math.PI/180*this.radian);
+    var delX = this.getDel().delX;
+    var delY = this.getDel().delY;
+    this.checkWall();
     this.x = this.x + delX;
     this.y = this.y + delY;
-    if(this.x + delX + this.radius > canvas.width || this.x + delX - this.radius < 0) {
-      this.radian = 180 - this.radian;
-    }
-    if(this.y + delY + this.radius > canvas.height || this.y + delY - this.radius < 0) {
-      this.radian = 360 - this.radian;
-    }
+
 
     ctx.beginPath();
     ctx.fillStyle = this.color;
@@ -52,6 +53,39 @@
     ctx.fill();
     ctx.closePath();
   }
+  Ball.prototype.checkWall = function(){
+    var delX = this.speed*Math.cos(Math.PI/180*this.radian);
+    var delY = this.speed*Math.sin(Math.PI/180*this.radian);
+    if(this.x + delX + this.radius > canvas.width || this.x + delX - this.radius < 0) {
+      this.radian = 180 - this.radian;
+    }
+    if(this.y + delY + this.radius > canvas.height || this.y + delY - this.radius < 0) {
+      this.radian = 360 - this.radian;
+    }
+  }
+  Ball.prototype.isPlaceOk = function(){
+
+  }
+  Ball.prototype.isHitOthers = function(){
+    var isHit = {
+      isHit: false,
+      hitBall: {}
+    };
+    for(var i =0,len = balls.length;i<len;i++) {
+      
+    }
+    function _ballsCollideCheck(ballA,ballB) {
+      var isCollide = false;
+      var AdelX = ballA.speed*Math.cos(Math.PI/180*this.radian);
+      var AdelY = ballA.speed*Math.sin(Math.PI/180*this.radian);
+      var BdelX = ballA.speed*Math.cos(Math.PI/180*this.radian);
+      var BdelY = ballA.speed*Math.sin(Math.PI/180*this.radian);
+      if(Math.pow(ballA.radius + ballB.radius,2)>=Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2)) {
+        isCollide = true;
+      }
+      return isCollide;
+    }
+  } 
   function addBall(num){
     num = num || 1;
     for(var i = 0;i<num;i++) {
