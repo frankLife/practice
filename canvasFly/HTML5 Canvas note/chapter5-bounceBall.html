@@ -34,6 +34,7 @@
     this.color = "#000";
 
     this.init();
+
   }
   Ball.prototype.getDel = function(){
     return {
@@ -63,6 +64,15 @@
     }
     if(this.y + delY + this.radius > canvas.height || this.y + delY - this.radius < 0) {
       this.radian = 360 - this.radian;
+    }
+  }
+  Ball.prototype.checkCollide = function(){
+    var hitResult = this.isHitOthers;
+    if(hitResult.isHit) {
+      var hitBall = hitResult.hitBall;
+      var dx = (this.getDel().delX + this.x) - (hitBall.getDel().delX + hitBall.x);
+      var dy = (this.getDel().delY + this.y) - (hitBall.getDel().delY + hitBall.y);
+      var collisionAngle = Math.atan2(dy,dx);
     }
   }
   Ball.prototype.init = function(){
@@ -97,10 +107,14 @@
   }
   Ball.ballsCollideCheck = function(ballA,ballB) {
     var isCollide = false;
-    var AdelX = ballA.speed*Math.cos(Math.PI/180*ballA.radian);
-    var AdelY = ballA.speed*Math.sin(Math.PI/180*ballA.radian);
-    var BdelX = ballB.speed*Math.cos(Math.PI/180*ballB.radian);
-    var BdelY = ballB.speed*Math.sin(Math.PI/180*ballB.radian);
+    // var AdelX = ballA.speed*Math.cos(Math.PI/180*ballA.radian);
+    // var AdelY = ballA.speed*Math.sin(Math.PI/180*ballA.radian);
+    // var BdelX = ballB.speed*Math.cos(Math.PI/180*ballB.radian);
+    // var BdelY = ballB.speed*Math.sin(Math.PI/180*ballB.radian);
+    var AdelX = ballA.getDel().delX;
+    var AdelY = ballA.getDel().delY;
+    var BdelX = ballB.getDel().delX;
+    var BdelY = ballB.getDel().delY;
     console.log('Math.pow(ballA.radius + ballB.radius,2): ',Math.pow(ballA.radius + ballB.radius,2));
     console.log('Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2): ',Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2));
     if(Math.pow(ballA.radius + ballB.radius,2)>=Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2)) {
