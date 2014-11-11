@@ -14,7 +14,7 @@
   var ctx = canvas.getContext('2d');
   var balls = [];
   var minRadius = 5;
-  var maxRadius = 10;
+  var maxRadius = 100;
   var maxRdian = 360;
   var minX = 0;
   var maxX = canvas.width;
@@ -32,6 +32,8 @@
     this.y = getBtw(minY+this.radius,maxY-this.radius);
     this.speed = speed;
     this.color = "#000";
+
+    this.init();
   }
   Ball.prototype.getDel = function(){
     return {
@@ -63,29 +65,50 @@
       this.radian = 360 - this.radian;
     }
   }
+  Ball.prototype.init = function(){
+    this.isPlaceOk();
+  }
+  Ball.prototype.generate = function(){
+    this.radius = getBtw(minRadius,maxRadius);
+    this.radian = getBtw(0,maxRdian);
+    this.x = getBtw(minX+this.radius,maxX-this.radius);
+    this.y = getBtw(minY+this.radius,maxY-this.radius);
+  }
   Ball.prototype.isPlaceOk = function(){
-
+    while(this.isHitOthers().isHit) {
+      this.generate();
+    }
   }
   Ball.prototype.isHitOthers = function(){
-    var isHit = {
+    var isHitObj = {
       isHit: false,
       hitBall: {}
     };
+    var self = this;
     for(var i =0,len = balls.length;i<len;i++) {
+      if(Ball.ballsCollideCheck(self,balls[i])) {
+        isHitObj.isHit = true;
+        isHitObj.hitBall = balls[i];
+        break;
+      }
       
     }
-    function _ballsCollideCheck(ballA,ballB) {
-      var isCollide = false;
-      var AdelX = ballA.speed*Math.cos(Math.PI/180*this.radian);
-      var AdelY = ballA.speed*Math.sin(Math.PI/180*this.radian);
-      var BdelX = ballA.speed*Math.cos(Math.PI/180*this.radian);
-      var BdelY = ballA.speed*Math.sin(Math.PI/180*this.radian);
-      if(Math.pow(ballA.radius + ballB.radius,2)>=Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2)) {
-        isCollide = true;
-      }
-      return isCollide;
+    return isHitObj;
+  }
+  Ball.ballsCollideCheck = function(ballA,ballB) {
+    var isCollide = false;
+    var AdelX = ballA.speed*Math.cos(Math.PI/180*ballA.radian);
+    var AdelY = ballA.speed*Math.sin(Math.PI/180*ballA.radian);
+    var BdelX = ballB.speed*Math.cos(Math.PI/180*ballB.radian);
+    var BdelY = ballB.speed*Math.sin(Math.PI/180*ballB.radian);
+    console.log('Math.pow(ballA.radius + ballB.radius,2): ',Math.pow(ballA.radius + ballB.radius,2));
+    console.log('Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2): ',Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2));
+    if(Math.pow(ballA.radius + ballB.radius,2)>=Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2)) {
+      console.log('in')
+      isCollide = true;
     }
-  } 
+    return isCollide;
+  }
   function addBall(num){
     num = num || 1;
     for(var i = 0;i<num;i++) {
@@ -112,7 +135,7 @@
   function bindEvent(){
     var addBtn = document.getElementById('addBall');
     addBtn.addEventListener('click', function(){
-      addBall(10);
+      addBall(1);
     });
   }
   function timer(func,time){
