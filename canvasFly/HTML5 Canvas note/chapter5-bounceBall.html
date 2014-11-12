@@ -13,7 +13,7 @@
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
   var balls = [];
-  var minRadius = 5;
+  var minRadius = 100;
   var maxRadius = 100;
   var maxRdian = 360;
   var minX = 0;
@@ -47,6 +47,8 @@
     var delX = this.getDel().delX;
     var delY = this.getDel().delY;
     this.checkWall();
+    // this.checkCollide();
+    this.isHitOthers();
     this.x = this.x + delX;
     this.y = this.y + delY;
 
@@ -68,8 +70,9 @@
     }
   }
   Ball.prototype.checkCollide = function(){
-    var hitResult = this.isHitOthers;
+    var hitResult = this.isHitOthers();
     if(hitResult.isHit) {
+
       var hitBall = hitResult.hitBall;
       var dx = (this.getDel().delX + this.x) - (hitBall.getDel().delX + hitBall.x);
       var dy = (this.getDel().delY + this.y) - (hitBall.getDel().delY + hitBall.y);
@@ -100,7 +103,7 @@
       hitBall.getDel = function(){
         return {
           delX: Math.cos(collisionAngle) * finalHitDelX + Math.cos(collisionAngle + Math.PI/2) * finalHitDelY,
-          delY: Math.sin(collisionAngle) * finalHitDelX + Math.sin(collisionAngle + Math.PI/2) * finalHitDelY;
+          delY: Math.sin(collisionAngle) * finalHitDelX + Math.sin(collisionAngle + Math.PI/2) * finalHitDelY
         };
       }
     }
@@ -120,6 +123,7 @@
     }
   }
   Ball.prototype.isHitOthers = function(){
+
     var isHitObj = {
       isHit: false,
       hitBall: {}
@@ -133,6 +137,8 @@
       }
       
     }
+    console.log(balls);
+    console.log('into Hit: ',isHitObj);
     return isHitObj;
   }
   Ball.ballsCollideCheck = function(ballA,ballB) {
@@ -148,7 +154,6 @@
     console.log('Math.pow(ballA.radius + ballB.radius,2): ',Math.pow(ballA.radius + ballB.radius,2));
     console.log('Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2): ',Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2));
     if(Math.pow(ballA.radius + ballB.radius,2)>=Math.pow(ballA.x+AdelX-ballB.x-BdelX,2)+Math.pow(ballA.y+AdelY-ballB.y-BdelY,2)) {
-      console.log('in')
       isCollide = true;
     }
     return isCollide;
