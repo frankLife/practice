@@ -31,6 +31,7 @@
     this.x = getBtw(minX+this.radius,maxX-this.radius);
     this.y = getBtw(minY+this.radius,maxY-this.radius);
     this.speed = speed;
+    this.mass = this.speed;
     this.color = "#000";
 
     this.init();
@@ -73,6 +74,35 @@
       var dx = (this.getDel().delX + this.x) - (hitBall.getDel().delX + hitBall.x);
       var dy = (this.getDel().delY + this.y) - (hitBall.getDel().delY + hitBall.y);
       var collisionAngle = Math.atan2(dy,dx);
+
+      var thisDirection = Math.atan2(this.getDel().delY,this.getDel().delX);
+      var hitDirection = Math.atan2(hitBall.getDel().delY,this.getDel().delX);
+
+      var thisDelX = this.speed*Math.cos(thisDirection - collisionAngle);
+      var thisDelY = this.speed*Math.sin(thisDirection - collisionAngle);
+      var hitDelX = hitBall.speed*Math.cos(hitDirection - collisionAngle);
+      var hitDelY = hitBall.speed*Math.sin(hitDirection - collisionAngle);
+
+      var finalThisDelX =  ((this.mass - hitBall.mass) * thisDelX +
+         (hitBall.mass + hitBall.mass) * hitDelX)/(this.mass + hitBall.mass);
+      var finalHitDelX = ((this.mass + this.mass) * thisDelX +
+         (hitBall.mass - this.mass) * hitDelX)/(this.mass + hitBall.mass);
+
+      var finalThisDelY = thisDelY;
+      var finalHitDelY = hitDelY;
+
+      this.getDel = function(){
+        return {
+          delX: Math.cos(collisionAngle) * finalThisDelX + Math.cos(collisionAngle + Math.PI/2) * finalThisDelY,
+          delY: Math.sin(collisionAngle) * finalThisDelX + Math.sin(collisionAngle + Math.PI/2) * finalThisDelY
+        };
+      }
+      hitBall.getDel = function(){
+        return {
+          delX: Math.cos(collisionAngle) * finalHitDelX + Math.cos(collisionAngle + Math.PI/2) * finalHitDelY,
+          delY: Math.sin(collisionAngle) * finalHitDelX + Math.sin(collisionAngle + Math.PI/2) * finalHitDelY;
+        };
+      }
     }
   }
   Ball.prototype.init = function(){
