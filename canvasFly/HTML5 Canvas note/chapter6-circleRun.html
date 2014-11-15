@@ -9,8 +9,21 @@
 (function(){
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
+  var maxRadian = Math.PI*2;
+  var curRadian = 0;
+  var del = maxRadian*0.01;
+  var radius = 150;
+  function runCircle(){
+    reset();
+    ctx.beginPath();
+    ctx.fillStyle = '#000';
+    ctx.arc(300 + radius*Math.cos(curRadian),200 + radius*Math.sin(curRadian),radius/5,0,2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+    curRadian += del;
+  }
 
-  timer(reset);
+  timer(runCircle);
   function reset(){
     ctx.save();
     ctx.lineWidth = 4;
