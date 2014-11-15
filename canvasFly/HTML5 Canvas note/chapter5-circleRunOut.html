@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter5-circleRunOut</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var maxRadian = Math.PI*2;
+  var curRadian = 0;
+  var curRadius = 5;
+  var radius = 5;
+  var del = maxRadian*0.01;
+  var delRa = radius*0.01;
+  function runCircle(){
+    ctx.beginPath();
+    ctx.fillStyle = '#000';
+    ctx.arc(300 + curRadius*Math.cos(curRadian),200 + curRadius*Math.sin(curRadian),curRadius,0,2*Math.PI);
+    // setStage({x:300 + curRadius*Math.cos(curRadian-del),y:200 + curRadius*Math.sin(curRadian-del),radius: (curRadius-delRa)*Math.sin(curRadian-del)});
+    ctx.fill();
+    ctx.closePath();
+
+    // setStage({x:300 + curRadius*Math.cos(curRadian),y:200 + curRadius*Math.sin(curRadian),radius: curRadius});
+
+    ctx.beginPath();
+    ctx.fillStyle = '#eee';
+    ctx.arc(300 + curRadius*Math.cos(curRadian),200 + curRadius*Math.sin(curRadian),curRadius,0,2*Math.PI)
+    ctx.fill();
+    ctx.closePath();
+
+    if(curRadius <= 300) {
+      curRadius += delRa;
+    }
+    curRadian += del;
+
+
+ //   console.log(curRadius);
+    // console.log(delRa);
+  }
+  reset();
+  timer(runCircle);
+  function setStage(opt){
+    opt = opt || {};
+    ctx.save();
+    
+    // ctx.fillRect(opt.x||0,opt.y||0,opt.width||960,opt.height||500);
+    ctx.beginPath();
+    ctx.fillStyle = '#eee';
+    ctx.arc(opt.x||0,opt.y||0,opt.radius||0,0,2*Math.PI)
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+  }
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
