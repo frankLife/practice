@@ -73,17 +73,21 @@
     ctx.fillStyle = '#fff';
     ctx.fillText("3",p3.x-2,p3.y+2);
 
+    ctx.closePath();
+    ctx.fillStyle = '#000';
     points.push({x:xt,y:yt});
     for(var i = 0,len = points.length;i<len;i++) {
      ctx.fillRect(points[i].x,points[i].y,2,2);
     }
 
-    ctx.fillStyle = '#000';
+    // ctx.fillStyle = '#000';
     ctx.beginPath();
-    ctx.arc()
+    ctx.arc(xt,yt,5,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
   }
 
-  runBezier();
+  timer(runBezier);
 
   function reset(){
     ctx.save();
