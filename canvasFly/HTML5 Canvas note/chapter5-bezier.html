@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter5-bezier</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var p0 = {x:60,y:10};
+  var p1 = {x:70,y:200};
+  var p2 = {x:125,y:295};
+  var p3 = {x:350,y:350};
+  var ball = {x:0,y:0,speed:.01,t:0};
+  var points = [];
+
+  function runBezier(){
+    reset();
+    var t = ball.t;
+    
+    var cx = 3 * (p1.x - p0.x);
+    var bx = 3 * (p2.x - p1.x) - cx;
+    var ax = p3.x - p0.x - cx - bx;
+
+    var cy = 3 * (p1.y - p0.y);
+    var by = 3 * (p2.y - p1.y) - cy;
+    var ay = p3.y - p0.y - cy - by;
+
+    var xt = ax*(t*t*t) + bx*(t*t) + cx*t + p0.x;
+    var yt = ay*(t*t*t) + by*(t*t) + cy*t + p0.y;
+
+    ball.t += ball.speed;
+
+    if(ball.t > 1) {
+      ball.t = 1;
+    }
+
+    ctx.font = '10px sans';
+    ctx.fillStyle = '#f00';
+    ctx.beginPath();
+    ctx.arc(p0.x,p0.y,8,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText("0",p0.x-2,p0.y+2);
+
+    ctx.font = '10px sans';
+    ctx.fillStyle = '#f00';
+    ctx.beginPath();
+    ctx.arc(p1.x,p1.y,8,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText("1",p1.x-2,p1.y+2);
+
+    ctx.font = '10px sans';
+    ctx.fillStyle = '#f00';
+    ctx.beginPath();
+    ctx.arc(p2.x,p2.y,8,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText("2",p2.x-2,p2.y+2);
+
+    ctx.font = '10px sans';
+    ctx.fillStyle = '#f00';
+    ctx.beginPath();
+    ctx.arc(p3.x,p3.y,8,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText("3",p3.x-2,p3.y+2);
+
+    points.push({x:xt,y:yt});
+    for(var i = 0,len = points.length;i<len;i++) {
+     ctx.fillRect(points[i].x,points[i].y,2,2);
+    }
+
+    ctx.fillStyle = '#000';
+    ctx.beginPath();
+    ctx.arc()
+  }
+
+  runBezier();
+
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
