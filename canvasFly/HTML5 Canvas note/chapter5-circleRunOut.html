@@ -15,33 +15,43 @@
   var radius = 5;
   var del = maxRadian*0.01;
   var delRa = radius*0.01;
+  var pointArray = [];
+  function drawPoint(){
+    for(var i = 0,len = pointArray.length;i<len;i++) {
+      ctx.fillRect(pointArray[i].x,pointArray[i].y,2,2);
+    }
+  }
   function runCircle(){
+    reset();
     ctx.beginPath();
     ctx.fillStyle = '#000';
-    ctx.arc(300 + curRadius*Math.cos(curRadian),200 + curRadius*Math.sin(curRadian),curRadius,0,2*Math.PI);
-    // setStage({x:300 + curRadius*Math.cos(curRadian-del),y:200 + curRadius*Math.sin(curRadian-del),radius: (curRadius-delRa)*Math.sin(curRadian-del)});
+    var x = 300 + curRadius*Math.cos(curRadian);
+    var y = 200 + curRadius*Math.sin(curRadian)
+    pointArray.push({
+      x: x,
+      y: y
+    })
+    ctx.arc(x,y,radius,0,2*Math.PI);
     ctx.fill();
     ctx.closePath();
+    drawPoint();
+    // setStage({x:x,y:y,radius:curRadius+1});
 
-    // setStage({x:300 + curRadius*Math.cos(curRadian),y:200 + curRadius*Math.sin(curRadian),radius: curRadius});
-
-    ctx.beginPath();
-    ctx.fillStyle = '#eee';
-    ctx.arc(300 + curRadius*Math.cos(curRadian),200 + curRadius*Math.sin(curRadian),curRadius,0,2*Math.PI)
-    ctx.fill();
-    ctx.closePath();
+    // ctx.beginPath();
+    // ctx.fillStyle = '#eee';
+    // ctx.arc(x,y,curRadius+1,0,2*Math.PI)
+    // ctx.fill();
+    // ctx.closePath();
 
     if(curRadius <= 300) {
       curRadius += delRa;
     }
     curRadian += del;
 
-
- //   console.log(curRadius);
-    // console.log(delRa);
   }
   reset();
-  timer(runCircle);
+  // runCircle();
+   timer(runCircle);
   function setStage(opt){
     opt = opt || {};
     ctx.save();
