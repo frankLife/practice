@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter5-gravityNElasticityNFriction</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+var canvas = document.getElementsByTagName('canvas')[0];
+var ctx = canvas.getContext('2d');
+var balls = [];
+function Ball(){
+  this.radius = 5;
+  this.x = Math.random() * (canvas.width - this.radius) + this.radius;
+  this.y = Math.random() * (canvas.height - this.radius) + this.radius;
+  this.gravity = 0.1;    //重力加速度
+  this.elasticity = 0.5;
+  this.friction = 0.008; //摩擦系数
+  this.radian = Math.PI/180 * (Math.random() * (315 - 225) + 225);
+  this.speed = 5;
+  this.delX = this.speed * Math.cos(this.radian);
+  this.delY = this.speed * Math.sin(this.radian);
+}
+Ball.prototype.run = function(){
+  this.delX = this.delX * (1-this.friction); //半分比可针对不同方向的情况
+  this.delY = this.delY + this.gravity;
+  // console.log('delY: ',this.delY);
+  this.checkDown();
+  this.x = this.x + this.delX;
+  this.y = this.y + this.delY;
+
+  ctx.beginPath();
+  ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+  ctx.fill();
+  ctx.closePath();
+}
+Ball.prototype.checkDown = function(){
+  if(this.y + this.radius + this.delY >= canvas.height) {
+    console.log(this.delY);
+    this.delY = this.delY * -1 * this.elasticity;
+  }
+  // console.log(this.delY);
+  if(this.delY == 0) {
+    this.delX = 0; //在边界时会出现delY为0的状态，则大致可判定为Y方向已经停止;
+    //this.gravity = 0; //清楚重力影响，完成计算终态
+  }
+}
+function drawScreen(){
+  reset();
+  runBalls();
+}
+addBall();
+timer(drawScreen);
+function runBalls(){
+  for(var i = 0,len = balls.length;i<len;i++) {
+    balls[i].run();
+  }
+}
+function addBall(num){
+  num = num || 1;
+  for(var i = 0;i<num;i++) {
+    balls.push(new Ball());
+  }
+}
+
+
+function reset(){
+  ctx.save();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "#777";
+  ctx.fillStyle = '#eee';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+  ctx.restore();
+}
+function timer(func,time){
+  if(time == undefined) {
+  (function _pollFunc(){
+    window.requestAnimationFrame(function(){
+      func();
+      _pollFunc();
+    });
+  })();
+  }else {
+  (function _pollFunc(){
+    setTimeout(function(){
+      func();
+      _pollFunc();
+    },time);
+  })();
+  }
+}
+})();
+</script>
+</body>
+</html>
