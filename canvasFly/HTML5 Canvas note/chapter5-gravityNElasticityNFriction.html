@@ -12,8 +12,8 @@ var ctx = canvas.getContext('2d');
 var balls = [];
 function Ball(){
   this.radius = 5;
-  this.x = Math.random() * (canvas.width - this.radius) + this.radius;
-  this.y = Math.random() * (canvas.height - this.radius) + this.radius;
+  this.x = Math.random() * ((canvas.width - this.radius) - this.radius) + this.radius;
+  this.y = Math.random() * ((canvas.height - this.radius) - this.radius) + this.radius;
   this.gravity = 0.1;    //重力加速度
   this.elasticity = 0.5;
   this.friction = 0.008; //摩擦系数
@@ -37,20 +37,23 @@ Ball.prototype.run = function(){
 }
 Ball.prototype.checkDown = function(){
   if(this.y + this.radius + this.delY >= canvas.height) {
-    console.log(this.delY);
+    // console.log('this.delY: ',this.delY);
+    // console.log('this.y: ',this.y);
     this.delY = this.delY * -1 * this.elasticity;
   }
   // console.log(this.delY);
   if(this.delY == 0) {
+    // console.log('this.delY0: ',this.delY);
+    // console.log('this.y0: ',this.y);
     this.delX = 0; //在边界时会出现delY为0的状态，则大致可判定为Y方向已经停止;
-    //this.gravity = 0; //清楚重力影响，完成计算终态
+    this.gravity = 0; //清楚重力影响，完成计算终态
   }
 }
 function drawScreen(){
   reset();
   runBalls();
 }
-addBall();
+addBall(1000);
 timer(drawScreen);
 function runBalls(){
   for(var i = 0,len = balls.length;i<len;i++) {
