@@ -70,9 +70,9 @@
     ctx.drawImage(airplane,landCord.x,landCord.y)
   }
   function drawLaunch(){
-    // if(launchCord.y + airplane.height <= 0) {
-    //   return;
-    // }
+    if(launchCord.y + airplane.height <= 0) {
+      return;
+    }
     reset('right');
     console.log(speedLaunch);
     launchCord.y += speedLaunch;
