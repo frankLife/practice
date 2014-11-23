@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter5-shipMove</title>
+</head>
+<body>
+<canvas width="500" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var landPoints = [];
+  var launchPoints = [];
+  var easingParam = 0.02;
+  var speed = 10;
+  var speedLand = speed;
+  var speedLaunch = -speed;
+  var airplane = new Image();
+  var landCord = {
+    x: -1,
+    y: -1
+  }
+  var launchCord = {
+    x: -1,
+    y: -1
+  }
+
+  airplaneLoad();
+  function airplaneLoad(){
+    airplane.src = './ship.png';
+    airplane.onload = function(){
+        init();
+    }
+  }
+  function init(){
+    landCord = {
+      x: canvas.width/4 - airplane.width/2,
+      y: -airplane.height
+    }
+    launchCord = {
+      x: canvas.width*3/4 - airplane.width/2,
+      y: canvas.height - airplane.height
+    }
+
+    ctx.drawImage(airplane,landCord.x,landCord.y);
+    ctx.drawImage(airplane,launchCord.x,launchCord.y);
+    timer(function(){
+      drawLand();
+      drawLaunch();
+    });
+  }
+  function drawTrackPoints(pointsArray){
+    ctx.beginPath();
+    ctx.fillStyle = '#fff';
+    for(var i = 0,len = pointsArray.length;i<len;i++) {
+      ctx.fillRect(pointsArray[i].x,pointsArray[i].y,1,1);
+    }
+    ctx.closePath();
+  }
+  function drawLand(){
+    if(landCord.y + airplane.height >= canvas.height) {
+      return;
+    }
+    reset('left');
+    landCord.y += speedLand;
+    landPoints.push({x: landCord.x+airplane.width/2,y:landCord.y});
+    drawTrackPoints(landPoints);
+    speedLand = (1-easingParam)* speedLand;
+
+    ctx.drawImage(airplane,landCord.x,landCord.y)
+  }
+  function drawLaunch(){
+    if(launchCord.y + airplane.height <= 0) {
+      return;
+    }
+    reset('right');
+    console.log(speedLaunch);
+    launchCord.y += speedLaunch;
+    launchPoints.push({x: launchCord.x+airplane.width/2,y:launchCord.y+airplane.height});
+    drawTrackPoints(launchPoints);
+    speedLaunch = Math.pow((1 + easingParam),3)* speedLaunch;
+
+    ctx.drawImage(airplane,launchCord.x,launchCord.y)
+  }
+
+  reset();
+  function reset(dir){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#000';
+    if(dir == 'left'){
+      ctx.fillRect(0,0,canvas.width /2,canvas.height);
+    }else if(dir == 'right') {
+      ctx.fillRect(canvas.width/2,0,canvas.width,canvas.height);
+    }else {
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
