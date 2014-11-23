@@ -17,6 +17,11 @@
     reset();
     prepareVedio();
   }
+
+  function drawScreen(){
+    reset();
+    ctx.drawImage(video,50,200);
+  }
   function prepareVedio(){
     video = document.createElement('video');
     videoWrap = document.createElement('div');
@@ -24,13 +29,18 @@
     videoWrap.style['position'] = 'absolute';
     videoWrap.style['top'] = '20px';
     videoWrap.style['left'] = '1000px';
-    console.log(supportedVideoFormat())
+
     if(supportedVideoFormat() == '') {
       return;
     }
     video.setAttribute('src','video/muirbeach.' + supportedVideoFormat());
     document.body.appendChild(videoWrap);
+    video.addEventListener('canplaythrough',function(){
+      this.play();
+      timer(drawScreen);
+    },false);
   }
+
   function supportedVideoFormat() {
     var returnExtension = '';
     var checkType = ['webm','mp4','ogg'];
