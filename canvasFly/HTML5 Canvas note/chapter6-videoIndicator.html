@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter6-videoIndicator</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var video = null;
+  var videoWrap = null;
+
+  init();
+  function init(){
+    reset();
+    prepareVedio();
+  }
+  function prepareVedio(){
+    video = document.createElement('video');
+    videoWrap = document.createElement('div');
+    videoWrap.appendChild(video);
+    videoWrap.style['position'] = 'absolute';
+    videoWrap.style['top'] = '20px';
+    videoWrap.style['left'] = '1000px';
+    console.log(supportedVideoFormat())
+    if(supportedVideoFormat() == '') {
+      return;
+    }
+    video.setAttribute('src','video/muirbeach.' + supportedVideoFormat());
+    document.body.appendChild(videoWrap);
+  }
+  function supportedVideoFormat() {
+    var returnExtension = '';
+    var checkType = ['webm','mp4','ogg'];
+    for(var i = checkType.length;i--;) {
+      if(video.canPlayType('video/'+checkType[i]) == "probably" || video.canPlayType('video/'+checkType[i]) == 'maybe') {
+        returnExtension = checkType[i];
+        break;
+      }
+    }
+
+    return returnExtension;
+  }
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>

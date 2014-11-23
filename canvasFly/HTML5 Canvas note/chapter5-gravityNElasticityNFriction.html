@@ -50,7 +50,7 @@ function drawScreen(){
   reset();
   runBalls();
 }
-addBall();
+addBall(1000);
 timer(drawScreen);
 function runBalls(){
   for(var i = 0,len = balls.length;i<len;i++) {

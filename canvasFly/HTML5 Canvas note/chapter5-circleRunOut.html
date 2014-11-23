@@ -35,7 +35,7 @@
     ctx.fill();
     ctx.closePath();
     drawPoint();
-    // setStage({x:x,y:y,radius:curRadius+1});
+    setStage({x:x,y:y,radius:radius});
 
     // ctx.beginPath();
     // ctx.fillStyle = '#eee';
@@ -49,13 +49,14 @@
     curRadian += del;
 
   }
+      ctx.imageSmoothingEnabled= false; //貌似无效
   reset();
   // runCircle();
    timer(runCircle);
   function setStage(opt){
     opt = opt || {};
     ctx.save();
-    
+
     // ctx.fillRect(opt.x||0,opt.y||0,opt.width||960,opt.height||500);
     ctx.beginPath();
     ctx.fillStyle = '#eee';
