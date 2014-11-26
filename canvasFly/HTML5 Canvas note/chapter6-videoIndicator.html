@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapter6-videoIndicator</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var video = null;
+  var videoWrap = null;
+  var radianUnit = Math.PI/180;
+  var startAngle = 30;
+
+  init();
+  function init(){
+    reset();
+    prepareVedio();
+  }
+
+  function drawScreen(){
+    reset();
+    ctx.drawImage(video,10,10);
+    videoProp();
+    eventTrigger();
+    rotateVideo();
+  }
+  function rotateVideo(){
+    ctx.save();
+     ctx.translate(canvas.width/2,canvas.height/2);
+    // console.log(canvas.width/2-video.width/2);
+    // console.log(canvas.height/2-video.height/2);
+    // console.log(-video.width/2);
+    console.log(video.width);
+    ctx.rotate(startAngle * radianUnit);
+    ctx.drawImage(video,-video.clientWidth/2,-video.clientHeight/2);
+    startAngle += 1;
+    ctx.restore();
+  }
+  function eventTrigger(){
+    ctx.save();
+    ctx.translate(10,10);
+    ctx.fillStyle = "#ff0";
+    ctx.font = "bold 14px sans-serif";
+    var messageArray = [
+    {time: 0,message: "",x: 0,y: 0},
+    {time: 1,message: "This Is Muir Beach!",x:90,y:200},
+    {time: 4,message: "Look At Those Waves!",x:150,y:150},
+    {time: 8,message: "Look At Those Rocks!",x:100,y:100}
+    ];
+    for(var i = 0,len = messageArray.length;i<len;i++) {
+      if(video.currentTime >= messageArray[i].time) {
+        ctx.fillText(messageArray[i].message,messageArray[i].x,messageArray[i].y);
+      }
+    }
+    ctx.restore();
+  }
+  function videoProp(){
+    var prop = ['duration','currentTime','loop','autoplay','muted','controls','volume'];
+    var xStart = 350;
+    var yStart = 20;
+    ctx.save();
+    ctx.fillStyle = '#f00';
+    ctx.font = '15px sans-serif';
+    for(var i = 0,len = prop.length;i<len;i++) {
+      ctx.fillText( prop[i]+': '+video[prop[i]],xStart,yStart);
+      yStart += 15;
+    }
+    ctx.restore();
+  }
+  function prepareVedio(){
+    video = document.createElement('video');
+    videoWrap = document.createElement('div');
+    videoWrap.appendChild(video);
+    videoWrap.style['position'] = 'absolute';
+    videoWrap.style['top'] = '20px';
+    videoWrap.style['left'] = '1000px';
+
+    if(supportedVideoFormat() == '') {
+      return;
+    }
+    video.setAttribute('src','video/muirbeach.' + supportedVideoFormat());
+    document.body.appendChild(videoWrap);
+    video.addEventListener('canplaythrough',function(){
+      this.play();
+      timer(drawScreen);
+    },false);
+  }
+
+  function supportedVideoFormat() {
+    var returnExtension = '';
+    var checkType = ['webm','mp4','ogg'];
+    for(var i = checkType.length;i--;) {
+      if(video.canPlayType('video/'+checkType[i]) == "probably" || video.canPlayType('video/'+checkType[i]) == 'maybe') {
+        returnExtension = checkType[i];
+        break;
+      }
+    }
+
+    return returnExtension;
+  }
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
