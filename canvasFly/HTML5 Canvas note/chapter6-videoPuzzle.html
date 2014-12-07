@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var video = null;
+  var videoWrap = null;
+  var rows = 4;
+  var cols = 4;
+  var xPad = 10;
+  var yPad = 10;
+  var startXOffset = 10;
+  var startYOffset = 10;
+  var partWidth = -1;
+  var partHeight = -1;
+  var board = [];
+
+  function supportedVideoFormat(){
+    var returnExtension = '';
+    var checkType = ['webm','mp4','ogg'];
+    for(var i = checkType.length;i--;) {
+      if(video.canPlayType('vedio/'+checkType[i]) == 'probably' || video.canPlayType('video/'+checkType[i]) == 'maybe') {
+        returnExtension = checkType[i];
+        break;
+      }
+    }
+
+    return returnExtension;
+  }
+  function initBoard(){
+    var partWidth = vedio.width/cols;
+    var partHeight = vedio.height/rows;
+    
+  }
+  function randomCord(){
+    var initBoard = [];
+    for(var i = 0;i<rows;i++) {
+      board[i] = [];
+      for(var j = 0;j < cols;j++) {
+        initBoard[i*4+j] = {
+          xPos:j,yPos:i
+        }
+        board[i][j] = {};
+      }
+    }
+    // console.log('initBoard: ',initBoard);
+    for(var i = 0;i<rows;i++) {
+      for(var j = 0;j<cols;j++) {
+        var index = _random(0,initBoard.length);
+
+        board[i][j] = initBoard[index];
+        initBoard.splice(index,1);
+      }
+    }
+    console.log('board: ',board);
+    function _random(min,max){
+      return Math.floor((Math.random() * (max-min))) + min;
+    }
+  }
+  function puzzleSet(){
+
+  }
+  
+  function prepareVedio(){
+    video = document.createElement('video');
+    videoWrap = document.createElement('div');
+    videoWrap.appendChild(video);
+    videoWrap.style['position'] = 'absolute';
+    videoWrap.style['top'] = '20px';
+    videoWrap.style['left'] = '1000px';
+    var returnExtension = '';
+
+    returnExtension = supportedVideoFormat();
+    if(returnExtension == '') {
+      return;
+    }
+    video.setAttribute('src','video/muirbeach.'+supportedVideoFormat());
+    document.body.appendChild(videoWrap);
+    video.addEventListener('canplaythrough', function(){
+      this.play();
+    });
+  }
+  
+  init();
+  function init(){
+    // prepareVedio();
+    randomCord();
+  }
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
+  }
+})();
+</script>
+</body>
+</html>
