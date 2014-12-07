@@ -19,6 +19,7 @@
   var partHeight = -1;
   var board = [];
   var exChangeArray = [];
+  var handle = function(){};
 
   function supportedVideoFormat(){
     var returnExtension = '';
@@ -37,7 +38,7 @@
   }
   function bindDetect(){
 
-    canvas.addEventListener('click',function(e){
+    canvas.addEventListener('click',handle = function(e){
       var clickX = e.offsetX;
       var clickY = e.offsetY;
       ctx.save();
@@ -47,27 +48,26 @@
           if( (clickX >= j*(partWidth+xPad) && clickX <= j*(partWidth+xPad)+partWidth) &&
               (clickY >= i*(partHeight+yPad) && clickY <= i*(partHeight+yPad)+partHeight )
             ){
-              // drawRec(j,i);
               
               if(exChangeArray.length == 1) {
-                exChangeArray.push([i,j]);
-                var tempCord = board[exChangeArray[0][0],exChangeArray[0][1]];
-                board[exChangeArray[0][0],tempCord[0][1]] = board[exChangeArray[1][0],exChangeArray[1][1]];
-                board[exChangeArray[1][0],exChangeArray[1][1]] =  tempCord;
+                exChangeArray.push([j,i]);
+                //x: rows y:cols
+                var tempCord = board[exChangeArray[0][1]][exChangeArray[0][0]];
+                board[exChangeArray[0][1]][exChangeArray[0][0]] = board[exChangeArray[1][1]][exChangeArray[1][0]];
+                board[exChangeArray[1][1]][exChangeArray[1][0]] =  tempCord;
                 exChangeArray = [];
               }else {
-                exChangeArray.push([i,j]);
+                exChangeArray.push([j,i]);
               }
-              console.log(exChangeArray);
+              
             }
         }
       }
       ctx.restore();
-    });
+    },false);
   }
   
   function drawRec(x,y){
-    // console.log(x,y);
     ctx.save();
     ctx.translate(10,10);
     // ctx.globalAlpha = 0.5;
@@ -79,13 +79,20 @@
   }
   function puzzleDraw(){
     reset();
+    if(checkFinish()){
+      xPad = 0;
+      yPad = 0;
+      canvas.removeEventListener('click',handle);
+      console.log('finish')
+    }
     var originStartXOffset = startXOffset;
     var originStartYOffset = startYOffset;
 
     for(var i = 0;i<rows;i++) {
       startXOffset = xPad;
       for(var j = 0;j<cols;j++) {
-        ctx.drawImage(video,j*partWidth,i*partHeight,partWidth,partHeight,startXOffset,startYOffset,partWidth,partHeight);
+        var tempBoard = board[i][j];
+        ctx.drawImage(video,tempBoard['xPos']*partWidth,tempBoard['yPos']*partHeight,partWidth,partHeight,startXOffset,startYOffset,partWidth,partHeight);
         startXOffset += (partWidth+xPad);
       }
       startYOffset += (partHeight+yPad);
@@ -95,6 +102,19 @@
     for(var i = 0,len = exChangeArray.length;i<len;i++) {
       drawRec(exChangeArray[i][0],exChangeArray[i][1]);
     }
+  }
+  function checkFinish(){
+    var isFinish = true;
+    for(var i = 0;i<rows;i++) {
+      for(var j = 0;j<cols;j++) {
+        if(board[i][j]['xPos'] != j || board[i][j]['yPos'] != i) {
+          isFinish = false;
+          return isFinish;
+        }
+      }
+    }
+
+    return isFinish;
   }
   function randomCord(){
     var initBoard = [];
