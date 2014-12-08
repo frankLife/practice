@@ -89,7 +89,7 @@
     var originStartYOffset = startYOffset;
 
     for(var i = 0;i<rows;i++) {
-      startXOffset = xPad;
+      startXOffset = originStartXOffset;
       for(var j = 0;j<cols;j++) {
         var tempBoard = board[i][j];
         ctx.drawImage(video,tempBoard['xPos']*partWidth,tempBoard['yPos']*partHeight,partWidth,partHeight,startXOffset,startYOffset,partWidth,partHeight);
