@@ -10,11 +10,31 @@
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
   var audio = null;
+  var img = new Image();
+  img.src = "./audiocontrols.png";
+
+
+  function itemsLoad(){
+    this.count = 0;
+    this.start = null;
+  }
+  itemsLoad.prototype.loadTrigger = function(){
+
+  }
+  itemsLoad.prototype.loadAdd = function(){
+    
+  }
+  var controlMap = {
+
+  }
 
   init();
   function init(){
     reset();
-    initAudio();
+    // initAudio();
+  }
+  function initControl(){
+
   }
   function trackStatus(){
 
