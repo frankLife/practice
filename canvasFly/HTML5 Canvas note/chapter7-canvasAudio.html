@@ -10,13 +10,96 @@
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
   var audio = null;
+
+  init();
+  function init(){
+    reset();
+    initAudio();
+  }
+  function trackStatus(){
+
+    var startX = 20;
+    var startY = 20;
+    var increaseX = 200;
+    var increaseY = 20;
+    var propArray = [
+      'duration',
+      'currentTime',
+      'loop',
+      'autoplay',
+      'muted',
+      'controls',
+      'volume',
+      'paused',
+      'ended',
+      'currentSrc'
+    ];
+    reset();
+    ctx.save();
+    ctx.fillStyle = 'red';
+    ctx.font = 'bold normal 13px sans-serif';
+
+    for(var i = 0,len = propArray.length;i<len;i++) {
+      ctx.fillText(propArray[i]+' : '+audio[propArray[i]],startX,startY);
+
+      startX += increaseX;
+      if(i%2 == 1) {
+        startX = 20;
+        startY += increaseY;
+      }
+    }
+    ctx.restore();
+  }
   function initAudio(){
     audio = document.createElement('audio');
+    var initType = audioSupportType();
+    if(initType == '') {
+      return;
+    }
+    audio.src = './audio/song1.' + initType;
+    document.body.appendChild(audio);
+    audio.addEventListener('canplaythrough',function(){
+      this.play();
+      timer(trackStatus);
+    });
   }
+
   function audioSupportType(){
     var returnExtension = '';
     if(audio.canPlayType('audio/ogg') == 'probably' || audio.canPlayType('audio/ogg') == 'maybe'){
+      returnExtension = 'ogg';
+    }else if (audio.canPlayType('audio/wav') == 'probably' || audio.canPlayType('audio/wav') == 'maybe') {
+      returnExtension = 'wav';
+    }else if(audio.canPlayType('audio/mp3') == 'probably' || audio.canPlayType('audio/mp3') == 'maybe') {
+      returnExtension = 'mp3';
+    }
 
+    return returnExtension;
+  }
+  function reset(){
+    ctx.save();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#777";
+    ctx.fillStyle = '#eee';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.restore();
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
     }
   }
 })()
