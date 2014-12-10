@@ -12,7 +12,15 @@
   var audio = null;
   var img = new Image();
   img.src = "./audiocontrols.png";
-
+  var controlMap = {
+    play: {x: 2,y:1,width: 29,height: 29},
+    pause: {x:2,y:33,width: 29,height: 29},
+    progressBar: {x: 34,y:1,width: 203,height:29},
+    tracker: {x:240,y:1,width: 7,height: 29},
+    volume: {x:34,y:33,width: 45,height: 29},
+    loopOn: {x: 203,y: 33,width:29,height: 29},
+    loopOff: {x:115,y:33,width:29,height:29}
+  }
 
   function itemsLoad(){
     this.count = 0;
@@ -22,11 +30,9 @@
 
   }
   itemsLoad.prototype.loadAdd = function(){
-    
-  }
-  var controlMap = {
 
   }
+
 
   init();
   function init(){
