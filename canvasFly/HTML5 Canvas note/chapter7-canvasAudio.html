@@ -157,15 +157,30 @@
 
       if(isMoused) {
         if(clickX >= progressBarCord.cord.x && clickX<= progressBarCord.cord.x + progressBarCord.width && clickY >= progressBarCord.cord.y && clickY <= progressBarCord.cord.y + progressBarCord.height) {
-          audio.currentTime = (clickX - progressBarCord.cord.x - tracker.width/2)/(progressBarCord.width - tracker.width) * audio.duration;
+          try{
+            audio.currentTime = (clickX - progressBarCord.cord.x - tracker.width/2)/(progressBarCord.width - tracker.width) * audio.duration;
+          }catch(e) {}
+          
         }
         if(clickX >= volumeCord.cord.x && clickX<= volumeCord.cord.x + volumeCord.width && clickY >= volumeCord.cord.y && clickY <= volumeCord.cord.y + volumeCord.height) {
-          audio.volume = (clickX - volumeCord.cord.x - tracker.width/2)/(volumeCord.width - tracker.width) * 1;
+          try {
+            audio.volume = (clickX - volumeCord.cord.x - tracker.width/2)/(volumeCord.width - tracker.width) * 1;
+          }catch(e) {}
         }
       }
     });
     canvas.addEventListener('mouseup',function(e){
       isMoused = false;
+    });
+
+    audio.addEventListener('ended',function(){
+      for(var i = 0,len = drawArray.length;i<len;i++) {
+        if(drawArray[i] == 'pause') {
+            drawArray.splice(i,1,'play');
+            break;
+          }
+        }
+      audio.pause();
     });
   }
 
