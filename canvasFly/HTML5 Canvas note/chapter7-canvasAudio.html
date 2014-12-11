@@ -10,8 +10,8 @@
   var canvas = document.getElementsByTagName('canvas')[0];
   var ctx = canvas.getContext('2d');
   var audio = null;
-  var img = new Image();
-  img.src = "./audiocontrols.png";
+  var controlImg = new Image();
+  controlImg.src = "./audio/audiocontrols.png";
   var controlMap = {
     play: {x: 2,y:1,width: 29,height: 29},
     pause: {x:2,y:33,width: 29,height: 29},
@@ -21,20 +21,42 @@
     loopOn: {x: 203,y: 33,width:29,height: 29},
     loopOff: {x:115,y:33,width:29,height:29}
   }
-
-  function itemsLoad(){
+  function itemsLoad(callback){
     this.count = 0;
     this.start = null;
+    this.callback = callback;
+    this.sourceEl = [];
   }
-  itemsLoad.prototype.loadTrigger = function(){
-
+  itemsLoad.prototype.loadTrigger = function(el){
+    this.count--;
+    for(var i = 0,len = this.sourceEl.length;i<len;i++) {
+      if(this.sourceEl[i]['el'] == el) {
+        this.sourceEl[i]['isLoaded'] = true;
+        break;
+      }
+    }
+    if(i == len ){
+      throw '加载资源出错';
+    }
+    if(this.count == 0) {
+      this.callback();
+    }
   }
-  itemsLoad.prototype.loadAdd = function(){
-
+  itemsLoad.prototype.loadAdd = function(el){
+    this.sourceEl.push({el:el,isLoaded:false});
+    this.count++;
   }
 
+  var loader = new itemsLoad(function(){
+    init();
+  });
+  loader.loadAdd(controlImg);
+  controlImg.addEventListener('load',function(){
+    loader.loadTrigger(this);
+  });
+  
 
-  init();
+  // init();
   function init(){
     reset();
     // initAudio();
