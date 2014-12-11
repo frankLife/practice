@@ -13,14 +13,20 @@
   var controlImg = new Image();
   controlImg.src = "./audio/audiocontrols.png";
   var controlMap = {
-    play: {x: 2,y:1,width: 29,height: 29},
-    pause: {x:2,y:33,width: 29,height: 29},
-    progressBar: {x: 34,y:1,width: 203,height:29},
-    tracker: {x:240,y:1,width: 7,height: 29},
-    volume: {x:34,y:33,width: 45,height: 29},
-    loopOn: {x: 203,y: 33,width:29,height: 29},
-    loopOff: {x:115,y:33,width:29,height:29}
+    play: {x: 2,y:1,width: 29,height: 29,cord:{x: 100,y: 250}},
+    pause: {x:2,y:33,width: 29,height: 29,cord:{x: 100,y: 250}},
+    progressBar: {x: 34,y:1,width: 203,height:29,cord:{x: 130 ,y: 250}},
+    tracker: {x:240,y:1,width: 7,height: 29,cord: {y: 400}},
+    volume: {x:34,y:33,width: 45,height: 29,cord: {x: 334,y: 250}},
+    loopOff: {x: 82,y: 33,width:29,height: 29,cord: {x: 380,y: 250}},
+    loopOn: {x:115,y:33,width:29,height:29,cord: {x: 380,y: 250}}
   }
+  var trackerArray = {
+    progress: {x:130,y: 250},
+    volume: {x:334, y: 250}
+  };
+  var drawArray = ['pause','progressBar','volume','loopOff'];
+
   function itemsLoad(callback){
     this.count = 0;
     this.start = null;
@@ -48,24 +54,137 @@
   }
 
   var loader = new itemsLoad(function(){
-    init();
+    loadInit();
   });
   loader.loadAdd(controlImg);
   controlImg.addEventListener('load',function(){
     loader.loadTrigger(this);
   });
-  
+  init();
+  function init(){
+    initAudio();
+    bindEvent();
+  }
+
 
   // init();
-  function init(){
+  function loadInit(){
     reset();
-    // initAudio();
+    drawControl();
+    audio.play();
+    timer(function(){
+      trackStatus();
+      calculate();
+      drawControl();
+    });
   }
-  function initControl(){
+  function bindEvent(){
+    var isMoused = false;
 
+    canvas.addEventListener('click',function(e){
+      var clickX = e.offsetX;
+      var clickY = e.offsetY;
+
+      //playNpause
+      var playCord = controlMap['play'];
+      if(clickX >= playCord.cord.x && clickX<= playCord.cord.x + playCord.width && clickY >= playCord.cord.y && clickY <= playCord.cord.y + playCord.height) {
+        if(audio.paused) {
+          for(var i = 0,len = drawArray.length;i<len;i++) {
+            if(drawArray[i] == 'play') {
+              drawArray.splice(i,1,'pause');
+              break;
+            }
+          }
+          audio.play();
+        }else {
+          for(var i = 0,len = drawArray.length;i<len;i++) {
+            if(drawArray[i] == 'pause') {
+              drawArray.splice(i,1,'play');
+              break;
+            }
+          }
+          audio.pause();
+        }
+      }
+      //loop
+      var loopCord = controlMap['loopOn'];
+      if(clickX >= loopCord.cord.x && clickX<= loopCord.cord.x + loopCord.width && clickY >= loopCord.cord.y && clickY <= loopCord.cord.y + loopCord.height) {
+        if(audio.loop) {
+          for(var i = 0,len = drawArray.length;i<len;i++) {
+            if(drawArray[i] == 'loopOn') {
+              drawArray.splice(i,1,'loopOff');
+              break;
+            }
+          }
+          audio.loop = false;
+        }else {
+          for(var i = 0,len = drawArray.length;i<len;i++) {
+            if(drawArray[i] == 'loopOff') {
+              drawArray.splice(i,1,'loopOn');
+              break;
+            }
+          }
+          audio.loop = true;
+        }
+      }
+    });
+    canvas.addEventListener('mousedown',function(e){
+      var clickX = e.offsetX;
+      var clickY = e.offsetY;
+      isMoused = true;
+      //progressBar
+      var progressBarCord = controlMap['progressBar'];
+      var tracker = controlMap['tracker'];
+
+      if(clickX >= progressBarCord.cord.x && clickX<= progressBarCord.cord.x + progressBarCord.width && clickY >= progressBarCord.cord.y && clickY <= progressBarCord.cord.y + progressBarCord.height) {
+        audio.currentTime = (clickX - progressBarCord.cord.x - tracker.width/2)/(progressBarCord.width - tracker.width) * audio.duration;
+      }
+      //volume
+      var volumeCord = controlMap['volume'];
+      if(clickX >= volumeCord.cord.x && clickX<= volumeCord.cord.x + volumeCord.width && clickY >= volumeCord.cord.y && clickY <= volumeCord.cord.y + volumeCord.height) {
+        audio.volume = (clickX - volumeCord.cord.x - tracker.width/2)/(volumeCord.width - tracker.width) * 1;
+      }
+    });
+    canvas.addEventListener('mousemove',function(e){
+      var clickX = e.offsetX;
+      var clickY = e.offsetY;
+
+      //progressBar
+      var progressBarCord = controlMap['progressBar'];
+      var tracker = controlMap['tracker'];
+      //volume
+      var volumeCord = controlMap['volume'];
+
+      if(isMoused) {
+        if(clickX >= progressBarCord.cord.x && clickX<= progressBarCord.cord.x + progressBarCord.width && clickY >= progressBarCord.cord.y && clickY <= progressBarCord.cord.y + progressBarCord.height) {
+          audio.currentTime = (clickX - progressBarCord.cord.x - tracker.width/2)/(progressBarCord.width - tracker.width) * audio.duration;
+        }
+        if(clickX >= volumeCord.cord.x && clickX<= volumeCord.cord.x + volumeCord.width && clickY >= volumeCord.cord.y && clickY <= volumeCord.cord.y + volumeCord.height) {
+          audio.volume = (clickX - volumeCord.cord.x - tracker.width/2)/(volumeCord.width - tracker.width) * 1;
+        }
+      }
+    });
+    canvas.addEventListener('mouseup',function(e){
+      isMoused = false;
+    });
+  }
+
+  function calculate(){
+    trackerArray['progress'].x = (controlMap['progressBar'].width - controlMap['tracker'].width)*(audio.currentTime/audio.duration) + 130;
+    trackerArray['volume'].x = (controlMap['volume'].width - controlMap['tracker'].width)*(audio.volume/1) + 334;
+  }
+  function drawControl(){
+    for(var i = 0,len = drawArray.length;i<len;i++) {
+      var drawProp = controlMap[drawArray[i]];
+      ctx.drawImage(controlImg,drawProp.x,drawProp.y,drawProp.width,drawProp.height,drawProp.cord.x,drawProp.cord.y,drawProp.width,drawProp.height);
+    }
+    var trackerEl = controlMap['tracker'];
+    for(var tracker in trackerArray) {
+      var trackerProp = trackerArray[tracker];
+      ctx.drawImage(controlImg,trackerEl.x,trackerEl.y,trackerEl.width,trackerEl.height,trackerProp.x,trackerProp.y,trackerEl.width,trackerEl.height);
+    }
   }
   function trackStatus(){
-
     var startX = 20;
     var startY = 20;
     var increaseX = 200;
@@ -106,9 +225,9 @@
     }
     audio.src = './audio/song1.' + initType;
     document.body.appendChild(audio);
+    loader.loadAdd(audio);
     audio.addEventListener('canplaythrough',function(){
-      this.play();
-      timer(trackStatus);
+      loader.loadTrigger(audio);
     });
   }
 
