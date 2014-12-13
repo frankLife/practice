@@ -16,6 +16,26 @@
   imgMap['missile'].src = "./spaceRes/missile.png";
   imgMap['player'] = new Image();
   imgMap['player'].src = "./spaceRes/player.png";
+  var audioType = supportType();
+  var audioMap = {};
+  audioMap['explode'] = document.createElement('audio');
+  audioMap['explode'].src = "./spaceRes/explode" + audioType;
+
+  function supportType(){
+    var returnExtension = '';
+    var audioForType = document.createElement('audio');    
+    var checkTypeArray = ['ogg','wav','mp3'];
+    for(var i = 0,len = checkTypeArray.length;i<len;i++) {
+      var itemType = checkTypeArray[i];
+      if(audio.canPlayType('audio/'+ itemType) == 'probably' ||audio.canPlayType('audio/'+itemType) == 'maybe' ) {
+        returnExtension = 'audio/' + itemType
+        break;
+      }
+    }
+
+    return returnExtension;
+  }
+
 
   function itemsLoad(callback){
     this.count = 0;
@@ -42,6 +62,10 @@
     this.sourceEl.push({el:el,isLoaded:false});
     this.count++;
   }
+  var loader = new itemsLoad(function(){
+
+  });
+
 })()
 </script>
 </body>
