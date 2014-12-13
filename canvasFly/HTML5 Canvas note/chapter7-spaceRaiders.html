@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>chapetr7</title>
+</head>
+<body>
+<canvas width="960" height="500"></canvas>
+<script>
+(function(){
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var ctx = canvas.getContext('2d');
+  var imgMap = {};
+  imgMap['alien'] = new Image();
+  imgMap['alien'].src = "./spaceRes/alien.png";
+  imgMap['missile'] = new Image();
+  imgMap['missile'].src = "./spaceRes/missile.png";
+  imgMap['player'] = new Image();
+  imgMap['player'].src = "./spaceRes/player.png";
+
+  function itemsLoad(callback){
+    this.count = 0;
+    this.start = null;
+    this.callback = callback;
+    this.sourceEl = [];
+  }
+  itemsLoad.prototype.loadTrigger = function(el){
+    this.count--;
+    for(var i = 0,len = this.sourceEl.length;i<len;i++) {
+      if(this.sourceEl[i]['el'] == el) {
+        this.sourceEl[i]['isLoaded'] = true;
+        break;
+      }
+    }
+    if(i == len ){
+      throw '加载资源出错';
+    }
+    if(this.count == 0) {
+      this.callback();
+    }
+  }
+  itemsLoad.prototype.loadAdd = function(el){
+    this.sourceEl.push({el:el,isLoaded:false});
+    this.count++;
+  }
+})()
+</script>
+</body>
+</html>
