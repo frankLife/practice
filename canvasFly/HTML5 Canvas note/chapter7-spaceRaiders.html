@@ -4,7 +4,8 @@
 <title>chapetr7</title>
 </head>
 <body>
-<canvas width="960" height="500"></canvas>
+<canvas style="margin:50px;" width="500" height="500"></canvas>
+<script src="./spaceRaiders-alien.js"></script>
 <script>
 (function(){
   var canvas = document.getElementsByTagName('canvas')[0];
@@ -23,6 +24,7 @@
   audioMap['shoot'] = document.createElement('audio');
   audioMap['shoot'].src = "./spaceRes/explode1" + audioType;
   
+
   function itemsLoad(callback){
     this.count = 0;
     this.start = null;
@@ -52,6 +54,7 @@
   function loadInit(){
     var loader = new itemsLoad(function(){
       console.log('resoure load done');
+      reset();
     });
     for(var img in imgMap) {
       loader.loadAdd(imgMap[img]);
@@ -67,6 +70,15 @@
     }
   }
 
+  function reset(){
+    ctx.save();
+    ctx.fillStyle = "#000";
+    ctx.strokeStyle = "#aaa";
+    ctx.lineWidth = 1;
+    ctx.fillRect(0,0,500,500);
+    ctx.strokeRect(5,5,490,490);
+    ctx.restore();
+  }
   function supportType(){
     var returnExtension = '';
     var audioForType = document.createElement('audio');   
