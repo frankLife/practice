@@ -10,12 +10,13 @@ function Alien(opt){
   this.isAlive = true;
 }
 Alien.prototype.move = function(){
+  if(this.y + this.height >= this.maxHeight) {
+    this.clear();
+    return;
+  }
   if(this.x + this.width + this.speed >= this.maxWidth || this.x + this.speed <= this.minWidth) {
     this.speed *= -1;
     this.y += 25;
-  }
-  if(this.y + this.height >= this.maxHeight) {
-    this.clear();
   }
   this.x = this.x + this.speed;
 }
@@ -28,8 +29,7 @@ function Missile(opt){
   this.x = opt.x;
   this.y = opt.y;
   this.speed = opt.speed;
-  this.width = opt.width;
-  this.height = opt.height;
+  this.isNotOut = true;
   this.objArray = opt.objArray;
 }
 Missile.prototype.isHit = function(objArray) {
@@ -39,17 +39,26 @@ Missile.prototype.isHit = function(objArray) {
   }
   for(var i = 0,len = objArray.length;i<len;i++) {
     var obj = objArray[i];
+    if(!obj.isAlive) {
+      continue;
+    }
     if(!(this.x > obj.x + obj.width || 
        this.x+ this.width < obj.x || 
        this.y + this.height  > obj.y ||
        this.y > obj.y + obj.height) ) {
        obj.clear();
+       this.clear();
     }
   }
 }
-
+Missile.prototype.clear = function(){
+  this.isNotOut = false; 
+}
 Missile.prototype.move = function(){
-  this.y += this.speed;
+  if(this.y + this.height <= 0) {
+    return;
+  }
+  this.y -= this.speed;
 }
 
 function Fly(opt){
