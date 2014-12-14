@@ -1,44 +1,69 @@
-function Alien(){
-  this.speed = 1;
-  this.x = -1;
-  this.y = -1;
-  this.width = -1;
-  this.height = -1;
+function Alien(opt){
+  this.speed = opt.speed;
+  this.x = opt.x;
+  this.y = opt.y;
+  this.width = opt.width;
+  this.height = opt.height;
+  this.maxWidth = opt.maxWidth;
+  this.minWidth = opt.minWidth;
+  this.maxHeight = opt.maxHeight;
   this.isAlive = true;
-  this.maxWidth = -1;
-  this.minWidth = -1;
-  this.obj = null;
 }
-
-Alien.prototype.isHit = function(obj){
-  obj = obj || this.obj;
-  if(obj == undefined) {
-    return;
+Alien.prototype.move = function(){
+  if(this.x + this.width + this.speed >= this.maxWidth || this.x + this.speed <= this.minWidth) {
+    this.speed *= -1;
+    this.y += 25;
   }
-  var isHit = true;
-  if(this.x > obj.x + obj.width || 
-     this.x+ this.width < obj.x || 
-     this.y + this.height  > obj.y ||
-     this.y > obj.y + obj.height ) {
-    
-    isHit = false;
+  if(this.y + this.height >= this.maxHeight) {
+    this.clear();
   }
-
-  return isHit;
+  this.x = this.x + this.speed;
 }
 Alien.prototype.clear = function(){
   this.isAlive = false;
 }
-Alien.prototype.move = function(){
-  if(this.x + this.width + this.speed >= this.maxWidth || this.x - this.speed <= this.minWidth) {
-    this.speed *= -1;
-    this.y += 25;
-  }
-  this.x = this.x + this.speed;
+
+
+function Missile(opt){
+  this.x = opt.x;
+  this.y = opt.y;
+  this.speed = opt.speed;
+  this.width = opt.width;
+  this.height = opt.height;
+  this.objArray = opt.objArray;
 }
-Alien.prototype.run = function(){
-  if(this.isHit()) {
-    this.clear();
+Missile.prototype.isHit = function(objArray) {
+  objArray = this.objArray || objArray;
+  if(objArray == undefined) {
+    return;
   }
-  this.move();
+  for(var i = 0,len = objArray.length;i<len;i++) {
+    var obj = objArray[i];
+    if(!(this.x > obj.x + obj.width || 
+       this.x+ this.width < obj.x || 
+       this.y + this.height  > obj.y ||
+       this.y > obj.y + obj.height) ) {
+       obj.clear();
+    }
+  }
+}
+
+Missile.prototype.move = function(){
+  this.y += this.speed;
+}
+
+function Fly(opt){
+  this.x = opt.x;
+  this.y = opt.y;
+  this.width = opt.width;
+  this.height = opt.height;
+  this.canvas = opt.canvas;
+  this.bindMove();
+}
+Fly.prototype.bindMove = function(){
+  var self = this;
+  this.canvas.addEventListener('mousemove',function(e){
+    self.x = e.offsetX - self.width/2 ;
+    self.y = e.offsetY - self.height/2;
+  });
 }

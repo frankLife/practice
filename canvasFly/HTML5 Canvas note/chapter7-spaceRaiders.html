@@ -4,7 +4,7 @@
 <title>chapetr7</title>
 </head>
 <body>
-<canvas style="margin:50px;" width="500" height="500"></canvas>
+<canvas style="margin:50px;cursor: pointer;" width="500" height="500"></canvas>
 <script src="./spaceRaiders-alien.js"></script>
 <script>
 (function(){
@@ -23,7 +23,16 @@
   audioMap['explode'].src = "./spaceRes/explode1" + audioType;
   audioMap['shoot'] = document.createElement('audio');
   audioMap['shoot'].src = "./spaceRes/explode1" + audioType;
-  
+  var alienRows = 5;
+  var alienCols = 8;
+  var alienArray = [];
+  var player = new Fly({
+    x: canvas.width/2 - 13,
+    y: canvas.height - 32,
+    width: 26,
+    height: 32,
+    canvas: canvas
+  });
 
   function itemsLoad(callback){
     this.count = 0;
@@ -53,8 +62,9 @@
   loadInit();
   function loadInit(){
     var loader = new itemsLoad(function(){
-      console.log('resoure load done');
-      reset();
+      init();
+      drawPlayer();
+      timer(drawScreen);
     });
     for(var img in imgMap) {
       loader.loadAdd(imgMap[img]);
@@ -67,6 +77,43 @@
       audioMap[audio].addEventListener('canplaythrough',function(){
         loader.loadTrigger(this);
       });
+    }
+  }
+  function drawScreen(){
+    reset();
+    drawAliens();
+    drawPlayer();
+  }
+  function drawAliens(){
+    for(var i = 0,len = alienArray.length;i<len;i++) {
+      var alien = alienArray[i];
+      if(!alien.isAlive) {
+        return;
+      }
+      ctx.drawImage(imgMap['alien'],0,0,33,21,alien.x,alien.y,33,21);
+      alien.move();
+    }
+  }
+  function drawPlayer(){
+    ctx.drawImage(imgMap['player'],0,0,26,32,player.x,player.y,26,32);
+  }
+  function init(){
+    initAliens();
+  }
+  function initAliens(){
+    for(var i = 0,len = alienRows;i<len;i++) {
+      for(var j = 0,jLen = alienCols;j<jLen;j++) {
+        alienArray.push(new Alien({
+          speed: 0.5,
+          x: 38 * j + 10,
+          y: 26 * i + 10,
+          width: 33,
+          height: 21,
+          maxWidth: canvas.width,
+          minWidth: 0,
+          maxHeight: canvas.height
+        }));
+      }
     }
   }
 
@@ -92,6 +139,23 @@
     }
 
     return returnExtension;
+  }
+  function timer(func,time){
+    if(time == undefined) {
+      (function _pollFunc(){
+        window.requestAnimationFrame(function(){
+          func();
+          _pollFunc();
+        });
+      })();
+    }else {
+      (function _pollFunc(){
+        setTimeout(function(){
+          func();
+          _pollFunc();
+        },time);
+      })();
+    }
   }
 
 
