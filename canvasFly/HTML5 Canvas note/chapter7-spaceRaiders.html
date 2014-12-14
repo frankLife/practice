@@ -82,9 +82,9 @@
   }
   function drawScreen(){
     reset();
-    drawAliens();
-    drawPlayer();
     drawMissile();
+    drawPlayer();
+    drawAliens();
   }
   function drawAliens(){
     for(var i = 0,len = alienArray.length;i<len;i++) {
@@ -92,23 +92,25 @@
       if(!alien.isAlive) {
         continue;
       }
-      ctx.drawImage(imgMap['alien'],0,0,33,21,alien.x,alien.y,33,21);
       alien.move();
+      ctx.drawImage(imgMap['alien'],0,0,33,21,alien.x,alien.y,33,21);
+      
     }
   }
   function drawPlayer(){
     ctx.drawImage(imgMap['player'],0,0,26,32,player.x,player.y,26,32);
   }
   function drawMissile(){
+
     for(var i = 0,len = missileArray.length;i<len;i++) {
       var missile = missileArray[i];
       if(!missile.isNotOut) {
         continue;
       }
-
+      missile.move();
+      missile.isHit();
       ctx.drawImage(imgMap['missile'],0,0,4,16,missile.x,missile.y,4,16);
 
-      missile.move();
     }
   }
   function init(){
@@ -133,11 +135,12 @@
   }
   function initMissile(){
     canvas.addEventListener('mouseup',function(e){
-      console.log('add')
       missileArray.push(new Missile({
         x: player.x + 11, //1px problem
         y: e.offsetY - 32,
-        speed: 3,
+        width: 4,
+        height: 16,
+        speed: 2,
         objArray: alienArray
       }));
     });

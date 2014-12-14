@@ -29,6 +29,8 @@ function Missile(opt){
   this.x = opt.x;
   this.y = opt.y;
   this.speed = opt.speed;
+  this.width = opt.width;
+  this.height = opt.height;
   this.isNotOut = true;
   this.objArray = opt.objArray;
 }
@@ -44,7 +46,7 @@ Missile.prototype.isHit = function(objArray) {
     }
     if(!(this.x > obj.x + obj.width || 
        this.x+ this.width < obj.x || 
-       this.y + this.height  > obj.y ||
+       this.y + this.height  < obj.y ||
        this.y > obj.y + obj.height) ) {
        obj.clear();
        this.clear();
@@ -56,6 +58,7 @@ Missile.prototype.clear = function(){
 }
 Missile.prototype.move = function(){
   if(this.y + this.height <= 0) {
+    this.clear();
     return;
   }
   this.y -= this.speed;
