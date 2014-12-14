@@ -19,24 +19,10 @@
   var audioType = supportType();
   var audioMap = {};
   audioMap['explode'] = document.createElement('audio');
-  audioMap['explode'].src = "./spaceRes/explode" + audioType;
-
-  function supportType(){
-    var returnExtension = '';
-    var audioForType = document.createElement('audio');    
-    var checkTypeArray = ['ogg','wav','mp3'];
-    for(var i = 0,len = checkTypeArray.length;i<len;i++) {
-      var itemType = checkTypeArray[i];
-      if(audio.canPlayType('audio/'+ itemType) == 'probably' ||audio.canPlayType('audio/'+itemType) == 'maybe' ) {
-        returnExtension = 'audio/' + itemType
-        break;
-      }
-    }
-
-    return returnExtension;
-  }
-
-
+  audioMap['explode'].src = "./spaceRes/explode1" + audioType;
+  audioMap['shoot'] = document.createElement('audio');
+  audioMap['shoot'].src = "./spaceRes/explode1" + audioType;
+  
   function itemsLoad(callback){
     this.count = 0;
     this.start = null;
@@ -62,9 +48,40 @@
     this.sourceEl.push({el:el,isLoaded:false});
     this.count++;
   }
-  var loader = new itemsLoad(function(){
+  loadInit();
+  function loadInit(){
+    var loader = new itemsLoad(function(){
+      console.log('resoure load done');
+    });
+    for(var img in imgMap) {
+      loader.loadAdd(imgMap[img]);
+      imgMap[img].addEventListener('load',function(){
+        loader.loadTrigger(this);
+      });
+    }
+    for(var audio in audioMap) {
+      loader.loadAdd(audioMap[audio]);
+      audioMap[audio].addEventListener('canplaythrough',function(){
+        loader.loadTrigger(this);
+      });
+    }
+  }
 
-  });
+  function supportType(){
+    var returnExtension = '';
+    var audioForType = document.createElement('audio');   
+    var checkTypeArray = ['ogg','wav','mp3'];
+    for(var i = 0,len = checkTypeArray.length;i<len;i++) {
+      var itemType = checkTypeArray[i];
+      if(audioForType.canPlayType('audio/'+ itemType) == 'probably' ||audioForType.canPlayType('audio/'+itemType) == 'maybe' ) {
+        returnExtension = '.' + itemType
+        break;
+      }
+    }
+
+    return returnExtension;
+  }
+
 
 })()
 </script>
