@@ -22,7 +22,7 @@
   audioMap['explode'] = document.createElement('audio');
   audioMap['explode'].src = "./spaceRes/explode1" + audioType;
   audioMap['shoot'] = document.createElement('audio');
-  audioMap['shoot'].src = "./spaceRes/explode1" + audioType;
+  audioMap['shoot'].src = "./spaceRes/shoot1" + audioType;
   var alienRows = 5;
   var alienCols = 8;
   var alienArray = [];
@@ -141,8 +141,12 @@
         width: 4,
         height: 16,
         speed: 2,
-        objArray: alienArray
+        objArray: alienArray,
+        audio: audioMap['explode']
       }));
+      audioMap['shoot'].pause();
+      audioMap['shoot'].currentTime = 0;
+      audioMap['shoot'].play();
     });
   }
   function reset(){

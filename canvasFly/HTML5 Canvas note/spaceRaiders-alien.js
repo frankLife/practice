@@ -33,6 +33,7 @@ function Missile(opt){
   this.height = opt.height;
   this.isNotOut = true;
   this.objArray = opt.objArray;
+  this.audio = opt.audio;
 }
 Missile.prototype.isHit = function(objArray) {
   objArray = this.objArray || objArray;
@@ -50,6 +51,9 @@ Missile.prototype.isHit = function(objArray) {
        this.y > obj.y + obj.height) ) {
        obj.clear();
        this.clear();
+       this.audio.pause();
+       this.audio.currentTime = 0;
+       this.audio.play();
     }
   }
 }
