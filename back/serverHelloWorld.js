@@ -35,6 +35,7 @@ stream.on('end',function(){
   console.log('stream finish read');
 });
 */
+
 /* use pipe to copy file
 var fs = require('fs');
 var stream = fs.createReadStream('./ignore/seeyouagain.mp3');
