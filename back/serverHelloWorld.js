@@ -25,6 +25,7 @@ server.listen(3000)
 console.log('Server Start on 127.0.0.1:3000');
 */
 
+/* use stream to read a big file
 var fs = require('fs');
 var stream = fs.createReadStream('./ignore/test.mov');
 stream.on('data',function(chunk){
@@ -33,3 +34,9 @@ stream.on('data',function(chunk){
 stream.on('end',function(){
   console.log('stream finish read');
 });
+*/
+/* use pipe to copy file
+var fs = require('fs');
+var stream = fs.createReadStream('./ignore/seeyouagain.mp3');
+stream.pipe(fs.createWriteStream('./ignore/seeyouagaincopy.mp3'));
+*/
