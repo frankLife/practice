@@ -28,4 +28,33 @@
   elems.find('body');
   elems.find('div');
   console.log('after find elems: ',elems);
-})()
+})();
+
+/* overload based on increament style */
+(function(){
+  function addMethod(obj,name,fn,ctx){
+    var oldFn = obj[name];
+    obj[name] = function(){
+      if(fn.length == arguments.length) {
+        return fn.apply(ctx,arguments);
+      }else {
+        return oldFn.apply(ctx,arguments);
+      }
+    }
+  }
+
+  var testObj = {};
+  addMethod(testObj,'test',function(){
+    console.log(arguments.length,' :0');
+  });
+  addMethod(testObj,'test',function(param){
+    console.log(arguments.length,' :1');
+  });
+  addMethod(testObj,'test',function(param,param2){
+    console.log(arguments.length,' :2');
+  });
+
+  testObj['test']();
+  testObj['test'](1);
+  testObj['test'](1,2);
+})();
