@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Minimalist multi-room chart server",
   "dependencies": {
-    "socket.io": "~0.9.6",
-    "mime": "~1.2.7"
+    "socket.io": "~1.2.1",
+    "mime": "~1.2.11"
   }
 }
