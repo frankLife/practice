@@ -23,6 +23,7 @@
 // });
 
 /* create client */
+
 // var client = net.connect({port: 3000,host: 'localhost'},
 //   function() { //'connect' listener
 //   console.log('connected to server!');
@@ -62,12 +63,18 @@ channel.on('join',function(id,c){
 });
 
 var server = net.createServer(function(c){
-  var id = c.remoteAddress + ':' + c.remotePort;
+  //=============
+  c.on('connect',function(){
+    console.log('connect event emit');
+  });
+  //============== didn't excute 
 
+  var id = c.remoteAddress + ':' + c.remotePort;
   // c.on('connection',function(){
     console.log(c.remoteAddress + ':' + c.remotePort);
     channel.emit('join',id,c);
   // });
+  
   c.on('data',function(data){
     channel.emit('broadcast',id,data);
   });
