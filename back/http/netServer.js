@@ -16,7 +16,7 @@ server.on('connection',function(c){
     console.log('content: ' + content);
     content = content.toString();
     if(content != '') {
-      c.write('server: '+ content + '\n\r');
+      c.write('server: '+ content + '\r\n');
     }
   });
 });
