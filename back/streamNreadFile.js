@@ -8,8 +8,14 @@ function readByReadFile(path){
       console.log('readFile error');
       return;
     }
-    console.log('cost time: ', Date.now() - oldTime);
-    console.log("readByReadFile: ",data.toString());
+    console.log('readByReadFile cost time: ', Date.now() - oldTime);
+    try {
+      // console.log("readByReadFile: ",data.toString());
+      // console.log("readByReadFile: ",data);
+    }catch(e) {
+      console.log("data can't translate");
+    }
+
   });
 }
 
@@ -20,18 +26,21 @@ function readByReadStream(path){
   // If you attach a data event listener, then it will switch the stream into flowing mode, 
   // and data will be passed to your handler as soon as it is available.
   dataStream.on('data',function(chunk){
-    data += chunk;
+    // data += chunk;
     // console.log(chunk);
   });
   dataStream.on('end',function(){
-    console.log('cost time: ', Date.now() - oldTime);
-    console.log('readByReadStream: ',data);
+    console.log('readByReadStream cost time: ', Date.now() - oldTime);
+    // console.log('readByReadStream: ',data);
   });
 
   // console.log('readByReadStream: ',data);
 }
 
-readByReadFile('./ignore/entries.json');
-readByReadStream('./ignore/entries.json');
+// readByReadFile('./ignore/entries.json');
+// readByReadStream('./ignore/entries.json');
+
+readByReadFile('./ignore/seeyouagain.mp3');
+readByReadStream('./ignore/seeyouagain.mp3');
 
 
