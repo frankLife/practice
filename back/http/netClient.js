@@ -1,11 +1,13 @@
 var net = require('net');
+var sendTimes = 0;
+var client = net.connect({port: 3000,host: 'localhost'});
 
-var client = net.connect({port: 3000,host: 'localhost'},
-  function() { //'connect' listener
+client.on('connect',function(){
   console.log('connected to server!');
   client.write('world!\r\n');
-});
-client.on('connect',function(client){
+  setInterval(function(){
+    client.write('sendTimes: '+ (++sendTimes));
+  },1000);
   console.log('client connect');
 });
 client.on('data', function(data) {
@@ -15,3 +17,5 @@ client.on('data', function(data) {
 client.on('end', function() {
   console.log('disconnected from server');
 });
+
+
