@@ -34,6 +34,8 @@ watcher.on('process',function(){
       console.log(files[i]);
       // /* cut file from watch directory to done directory */
       // fs.rename(self.watchDir + '/' + files[i],self.doneDir + '/' + files[i].toUpperCase());
+
+      /* copy using stream */
       fs.createReadStream(self.watchDir + '/' + files[i] ).pipe( fs.createWriteStream(self.doneDir + '/' + files[i].toUpperCase()));
     }
   });
