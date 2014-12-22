@@ -59,7 +59,7 @@
   testObj['test'](1,2);
 })();
 
-/* bind excute(shim) */
+/* bind & curry excute(shim) */
 (function(){
   Function.prototype.bind = function(){                           
     var self = this;
@@ -70,4 +70,11 @@
     }
   };
 
+  Function.prototype.curry = function(){
+    var self = this;
+    var args = Array.prototype.slice.call(arguments);
+    return function(){
+      return self.apply(this,args.concat(Array.prototype.slice.call(arguments)));
+    }
+  }
 })()
