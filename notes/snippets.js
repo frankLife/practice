@@ -58,3 +58,10 @@
   testObj['test'](1);
   testObj['test'](1,2);
 })();
+
+/* bind excute(shim) */
+(function(){
+  Function.prototype.bind = function(){                           
+
+}; 
+})()
