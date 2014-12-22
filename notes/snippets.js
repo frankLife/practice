@@ -62,6 +62,12 @@
 /* bind excute(shim) */
 (function(){
   Function.prototype.bind = function(){                           
-    
-}; 
+    var self = this;
+    var args = Array.prototype.slice.call(arguments);
+    var ctx = args.shift();
+    return function(){
+      return self.apply(ctx,args.concat(Array.prototype.slice.call(arguments)));
+    }
+  };
+
 })()
