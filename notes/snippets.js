@@ -62,6 +62,6 @@
 /* bind excute(shim) */
 (function(){
   Function.prototype.bind = function(){                           
-
+    
 }; 
 })()
