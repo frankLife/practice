@@ -78,3 +78,20 @@
     }
   }
 })()
+/* partial */
+(function(){
+  Function.prototype.partial = function(){
+    var self = this;
+    var args = Array.prototype.slice.call(arguments);
+    return function(){
+      var argIndex = 0;
+      for(var i = 0,len = args.length;i<len;i++) {
+        if(args[i] == undefined) {
+          args[i] = arguments[argIndex];
+        }
+      }
+
+      return self.apply(this,args);
+    }
+  }
+})()
