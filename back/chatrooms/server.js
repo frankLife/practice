@@ -12,6 +12,8 @@ function send404(response){
 /* use fileContents due to there is a file content cache */
 function sendFile(response,filePath,fileContents){
   console.log('fileContents: ',fileContents);
+  console.log('Content-Type: ',mine.lookup(path.basename(filePath)));
+  
   response.writeHead('200',{'Content-Type': mine.lookup(path.basename(filePath))});
   response.write(fileContents);
   response.end();
@@ -38,12 +40,12 @@ function serveStatic(response, cache, absPath) {
 }
 
 var server = http.createServer();
-server.on('request',function(request,response){
+server.on('request',function(request,response){ 
   console.log('request.url: ',request.url);
   if(request.url == '/') {
     serveStatic(response,cache,'public/index.html');
   }else {
-    serveStatic(response,cache, './'+request.url);
+    serveStatic(response,cache, 'public/'+request.url);
   }
 });
 server.listen(3000,function(){
