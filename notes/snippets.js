@@ -95,3 +95,39 @@
     }
   }
 })()
+/* memorize */
+(function(){
+  Function.prototype.memorized = function(key){
+    var _values = this._values || {};
+    if(_values[key] == undefined) {
+      _values[key] = this.apply(undefined,arguments);
+    }
+
+    return _values[key];
+  }
+  Function.prototype.memorize = function(){
+    var self = this;
+    return function(){
+      //context set to self due to 'this.apply' invoke in memorized
+      return self.memorized.apply(self,arguments);
+    };
+  }
+  function primeCheck(num){
+    var isPrime = true;
+
+    for(var i = 2;i<num;i++) {
+      if(num%2 == 0) {
+        isPrime = false;
+        break;
+      }
+    }
+    if(num == 1) {
+      isPrime = false;
+    }
+    return isPrime;
+  }
+
+  var isPrime = primeCheck.memorize();
+  isPrime(1);
+
+})();
