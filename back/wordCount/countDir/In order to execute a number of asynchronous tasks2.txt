@@ -1,0 +1,11 @@
+In order to execute a number of asynchronous tasks in parallel, we again need to
+put the tasks in an array, but this time the order of the tasks is unimportant. Each
+task should, once asynchronous logic is complete, call a handler function that will
+increment the number of completed tasks. Once all tasks are complete, the handler
+function, when called, should perform some subsequent logic.
+To show an example of an implementation of parallel control flow, we're going
+to make a simple application that will read the contents of a number of text files
+and output a count of the frequency of word use throughout the files. Reading the
+contents of the text files will be done using the asynchronous   function readFile
+so,  conceptually,  a  number  of  file  reads  could  be  done  in  parallel.  How  this
+application works is shown visually in figure 3.12.
