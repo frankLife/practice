@@ -117,9 +117,25 @@ h1 {
 .fadeInUpBig {
   -webkit-animation: fadeInUpBig 1s;
 }
+@-webkit-keyframes jump {
+
+        0% {
+            -webkit-transform: translate3d(0,0,0);
+        }
+        50% {
+            -webkit-transform: translate3d(0,100px,0);
+        }
+        100% {
+            -webkit-transform: translate3d(0,0,0);
+        }
+    }
+.test {
+-webkit-animation: jump 1s;
+}
+
 </style>
 <body>
-<h1 class="fadeIn">fadeIn</h1>
+<h1 class="test">fadeIn</h1>
 <br style="clear:both" />
 <div>
   <select>

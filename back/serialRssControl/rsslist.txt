@@ -1,0 +1,4 @@
+http://kayosite.com/feed
+http://www.zhihu.com/rss
+http://www.guokr.com/rss/
+http://xianguo.com/service/dailyshare
