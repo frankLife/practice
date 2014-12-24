@@ -41,3 +41,6 @@ var fs = require('fs');
 var stream = fs.createReadStream('./ignore/seeyouagain.mp3');
 stream.pipe(fs.createWriteStream('./ignore/seeyouagaincopy.mp3'));
 */
+
+
+// console.log(__dirname);
