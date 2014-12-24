@@ -45,6 +45,12 @@ var getAPI = {
 //special situation
 function upload(req,res){
   //upload file
+  if(req.headers['content-type'].indexOf('multipart/form-data')!= 0) {
+    res.statusCode = 400;
+    res.end('Bad Request: expecting multipart/form-data');
+    return;
+  }
+
   var form = new formidable.IncomingForm();
   form.encoding = "utf-8";
   form.uploadDir = '../../ignore';
@@ -58,8 +64,9 @@ function upload(req,res){
   form.on('file',function(name,file){
     console.log(name + ': ');
     console.log(file);
-    console.log(typeof file.path);
+    console.log('path: ',file.path);
     var newPath = file.path.replace(/(?!\/)\w+\.\w+/,file.name);
+    console.log('newPath: ',newPath);
     fs.rename(file.path,newPath,function(err) {
       if(err) {
         res.statusCode = 500;
@@ -70,7 +77,6 @@ function upload(req,res){
   form.on('end',function(){
     res.statusCode = 200;
     res.end('upload ok');
-
   });
   form.on('error',function(err){
     if(err) {
