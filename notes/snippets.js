@@ -131,3 +131,27 @@
   isPrime(1);
 
 })();
+/* wrap */
+(function(){
+  function wrap(obj,methodName,wrapper){
+    var origin = obj[methodName];
+    obj[methodName] = function(){
+      //use apply to form a parameter form
+      return wrapper.apply(this,[origin.bind(this)].concat(Array.prototype.slice.call(arguments)));
+    }
+    return obj[methodName];
+  }
+
+  var obj = {
+    ok: function(){
+          console.log('ok');
+        }
+  }
+  wrap(obj,'ok',function(originFn,who){
+    console.log(who + ' say: ');
+    originFn();
+  });
+
+  obj['ok']('dog');
+
+})()

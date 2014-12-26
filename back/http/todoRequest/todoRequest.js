@@ -3,6 +3,7 @@ var url = require('url');
 var path = require('path');
 var querystring = require('querystring');
 var fs = require('fs');
+var formidable = require('formidable');
 
 var server = http.createServer();
 var postData = [];
@@ -41,8 +42,56 @@ var getAPI = {
     res.end(html);
   }
 };
+//special situation
+function upload(req,res){
+  //upload file
+  if(req.headers['content-type'].indexOf('multipart/form-data')!= 0) {
+    res.statusCode = 400;
+    res.end('Bad Request: expecting multipart/form-data');
+    return;
+  }
 
+  var form = new formidable.IncomingForm();
+  form.encoding = "utf-8";
+  form.uploadDir = '../../ignore';
+  form.keepExtensions = true;
+  form.on('progress',function(bytesRecieved,bytesExpected){
+    // console.log( 'uploaded ' + Math.floor(bytesRecieved/bytesExpected * 100 )+ ' %');    
+  });
+  form.on('field',function(name,value){
+    console.log(name + ' : ' + value);
+  });
+  form.on('file',function(name,file){
+    console.log(name + ': ');
+    console.log(file);
+    console.log('path: ',file.path);
+    var newPath = file.path.replace(/(?!\/)\w+\.\w+/,file.name);
+    console.log('newPath: ',newPath);
+    fs.rename(file.path,newPath,function(err) {
+      if(err) {
+        res.statusCode = 500;
+        res.end('internal error rename function');
+      }
+    });
+  });
+  form.on('end',function(){
+    res.statusCode = 200;
+    res.end('upload ok');
+  });
+  form.on('error',function(err){
+    if(err) {
+      res.statusCode = 500;
+      res.end('upload error');
+    }
+  });
+  form.parse(req);
+}
 routerRes['POST'] = function(req,res){
+  //special handling
+  if(url.parse(req.url).pathname.slice(1) == 'upload.html') {
+    upload(req,res);
+    return;
+  }
   var item = '';
   req.setEncoding('utf-8');
   req.on('data',function(chunk){
