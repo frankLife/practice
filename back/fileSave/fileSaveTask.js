@@ -7,10 +7,14 @@ var filePath = path.join(process.cwd(),'/.tasks');
 var args = process.argv.splice(2);
 var command = args.shift();
 var taskDescription = args;
+console.log(taskDescription);
 var methodMap = {
   add: function(){
     taskReadFile(filePath,function(fileTasksArray){
-      var resultTasksArray = JSON.stringify(fileTasksArray.concat(taskDescription));
+      var resultTasksArray = fileTasksArray.concat(taskDescription);
+      console.log('resultTasksArray: ')
+      console.log(resultTasksArray);
+      console.log(JSON.stringify(resultTasksArray));
       fs.writeFile(filePath,JSON.stringify(resultTasksArray),function(err){
         if(err) {
           throw err;
@@ -31,6 +35,10 @@ function taskReadFile(filePath,cb) {
           throw err;
         }
         data = data.toString();
+        if(data == '') {
+          cb([]);
+          return;
+        }
         var fileTasksArray = JSON.parse(data);
         cb(fileTasksArray);
       }); 
