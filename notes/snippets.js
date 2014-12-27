@@ -155,3 +155,17 @@
   obj['ok']('dog');
 
 })()
+/* all DOM elements inherit from an HTMLElement constructor
+   extend constructor
+ */
+
+(function(){
+  HTMLElement.prototype.remove = function(){
+    if(this.parentNode) {
+      this.parentNode.removeChild(this);
+    }else {
+      throw "html node can't be removed";
+    }
+  }
+})()
+
