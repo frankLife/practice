@@ -7,7 +7,6 @@ var filePath = path.join(process.cwd(),'/.tasks');
 var args = process.argv.splice(2);
 var command = args.shift();
 var taskDescription = args;
-console.log(taskDescription);
 var methodMap = {
   add: function(){
     taskReadFile(filePath,function(fileTasksArray){
@@ -23,8 +22,13 @@ var methodMap = {
       });
     });
   },
-  list: function(tasks){
-
+  list: function(){
+    taskReadFile(filePath,function(fileTasksArray){
+      console.log(fileTasksArray.length);
+      for(var i = 0,len = fileTasksArray.length;i<len;i++) {
+        console.log(fileTasksArray[i]);
+      }
+    });
   }
 }
 function taskReadFile(filePath,cb) {
@@ -48,7 +52,7 @@ function taskReadFile(filePath,cb) {
   });
 }
 function routerMethod(command){
-  methodMap[command]();
+  methodMap[command] && methodMap[command]();
 }
 
 
