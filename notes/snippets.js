@@ -169,3 +169,42 @@
   }
 })()
 
+/* Simulating Array functionality but without the true sub-classing 
+(sub-classing will come cross some problems in ie) */
+(function(){
+  function MyArray(){
+    this.length = 0 ;
+  }
+  methodsToInherit = ['slice','push','shift','pop','splice'];
+  for(var i = 0,len = methodsToInherit.length;i<len;i++) {
+    MyArray.prototype[methodsToInherit[i]] =(function(method){
+      return function(){
+        //this will being refered excute object context
+        Array.prototype[method].apply(this,arguments);
+      }
+    })(methodsToInherit[i])
+  }
+
+  var mine = new MyArray();                                   
+  mine.push(1, 2, 3);
+  console.log(mine);
+
+/*
+this can't be passed on via wrap function to inner function
+function Test(){}
+Test.prototype.speak = function(){
+
+console.log(this);
+xx();
+function xx(){
+console.log(this);
+}
+}
+var test = new Test();
+test.speak()
+Test {speak: function}
+Window {top: Window, window: Window, location: Location, external: Object, chrome: Object…}
+*/
+
+})()
+
