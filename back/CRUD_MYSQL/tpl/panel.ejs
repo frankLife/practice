@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>panel</title>
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+  font-family: impact,\5b8b\4f53;
+}
+#panel {
+  padding: 20px;
+  margin: 30px auto;
+  width: 80%;
+  background-color: rgba(189, 239, 245, 0.30);
+}
+.panel-form {
+  margin-top: 20px;
+}
+.panel-form label {
+  margin-right: 20px;
+  vertical-align: middle;
+}
+.panel-form div {
+  margin-bottom: 10px;
+}
+.panel-form [type=submit] {
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+<article id="panel">
+<h1>Work Track</h1>
+<section class="panel-record"></section>
+<form class="panel-form">
+  <div><label for="workDate">Date (YYYY-MM-DD):</label><input id="workDate" name="workDate" type="date" /></div>
+  <div><label for="workHours">Hours Worked:</label><input id="workHours" name="workHours" type="number" /></div>
+  <div><label for="workDes">Descriptions:</label><input type="workDes" name="workDes" type="text" /></div>
+  <div><input type="submit" value="Add" /></div>
+</form>
+</article>
+</body>
+</html>
