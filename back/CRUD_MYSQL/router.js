@@ -10,13 +10,17 @@ getMap['/'] = function(req,res){
   console.log('html: ',html);
   tool.sendHTML(html,res);
 }
+postMap['/add'] = function(req,res){
 
+}
 function route(req,res){
   if(req.method == 'GET') {
     var entrance = url.parse(req.url)['pathname'];
     console.log('entrance: ',entrance);
     if(getMap[entrance] != undefined) {
       getMap[entrance](req,res);
+    }else {
+      getMap['/'](req,res);
     }
   }
 }

@@ -20,7 +20,9 @@ function getPanelHTML(){
   return html;
   // return html;
 }
-
+function insertRecord(){
+  
+}
 
 exports.sendHTML = sendHTML;
 exports.getPanelHTML = getPanelHTML;
