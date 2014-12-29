@@ -1,27 +1,42 @@
 var url = require('url');
-var tool =  require('./tool.js');
-
+var querystring = require('querystring');
+var tool = require('./tool.js');
+var dbfn = require('./dbfn.js');
 var getMap = {};
 var postMap = {};
 
-getMap['/'] = function(req,res){
+getMap['/'] = function(req,res,opt){
   var html = '';
-  html = tool.getPanelHTML();
-  console.log('html: ',html);
+  html = tool.getPanelHTML(opt);
+  // console.log('html: ',html);
   tool.sendHTML(html,res);
 }
 postMap['/add'] = function(req,res){
-
+  var queryStr = ''
+  req.setEncoding('utf-8');
+  req.on('data',function(data){
+    queryStr += data;
+  });
+  req.on('end',function(){
+    var paramObj = querystring.parse(queryStr);
+    console.log('paramObj: ');
+    console.log(paramObj);
+    dbfn.insertTable(paramObj,function(){
+      getMap['/'](req,res,{addstr: paramObj['description'] + '  Added Successfully!'});
+    });
+  });
 }
 function route(req,res){
+  var entrance = url.parse(req.url)['pathname'];
+  console.log('entrance: ',entrance);
   if(req.method == 'GET') {
-    var entrance = url.parse(req.url)['pathname'];
-    console.log('entrance: ',entrance);
     if(getMap[entrance] != undefined) {
       getMap[entrance](req,res);
     }else {
       getMap['/'](req,res);
     }
+  }else if(req.method == 'POST') {
+    postMap[entrance](req,res)
   }
 }
 

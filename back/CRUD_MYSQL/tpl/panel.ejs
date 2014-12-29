@@ -27,16 +27,20 @@
 .panel-form [type=submit] {
   padding: 5px;
 }
+#panel h1 strong {
+  margin-left: 20px;
+  color: #f00;
+}
 </style>
 </head>
 <body>
 <article id="panel">
-<h1>Work Track</h1>
+<h1>Work Track <strong><%= addstr %></strong></h1>
 <section class="panel-record"></section>
-<form class="panel-form">
-  <div><label for="workDate">Date (YYYY-MM-DD):</label><input id="workDate" name="workDate" type="date" /></div>
-  <div><label for="workHours">Hours Worked:</label><input id="workHours" name="workHours" type="number" /></div>
-  <div><label for="workDes">Descriptions:</label><input type="workDes" name="workDes" type="text" /></div>
+<form method="post" action="add" class="panel-form">
+  <div><label for="workDate">Date (YYYY-MM-DD):</label><input id="workDate" name="date" type="date" /></div>
+  <div><label for="workHours">Hours Worked:</label><input id="workHours" name="hours" type="number" /></div>
+  <div><label for="workDes">Descriptions:</label><input type="workDes" name="description" type="text" /></div>
   <div><input type="submit" value="Add" /></div>
 </form>
 </article>

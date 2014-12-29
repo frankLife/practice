@@ -1,12 +1,15 @@
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+
+var db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: '',
+  database: 'timetrack_node'
 });
 
+buildDB();
 function buildDB(){
-  connection.connect(function(err) {
+  db.connect(function(err) {
   if(err) {
     throw err;
   }
@@ -16,7 +19,7 @@ function buildDB(){
 
 
 function createTable(){
-  db.query("CREATE TABLE IF NOT EXISTS timetrack_node (" 
+  db.query("CREATE TABLE IF NOT EXISTS work (" 
   + "id INT(10) NOT NULL AUTO_INCREMENT, "
   + "hours DECIMAL(5,2) DEFAULT 0, "
   + "date DATE, "
@@ -29,12 +32,16 @@ function createTable(){
     console.log('table created');
   });
 }
-function insertTable(hours,date,description,cb){
-  db.query('insert into timetrack_node(hours,date,description) values(?,?,?) ',
-    [hours,date,description],function(err) {
+function insertTable(opt,cb){
+  console.log('opt: ');
+  console.log(opt);
+  db.query('insert into work(hours,date,description) values(?,?,?) ',
+    [opt.hours,opt.date,opt.description],function(err) {
       if(err) {
         throw err;
       }
-      cb();
+      cb && cb();
     });
 }
+
+exports.insertTable = insertTable;
