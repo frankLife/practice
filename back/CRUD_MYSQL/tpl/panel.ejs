@@ -31,10 +31,15 @@
   margin-left: 20px;
   color: #f00;
 }
+table {
+  text-align: center;
+  margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
 <article id="panel">
+<% include list %>
 <h1>Work Track <strong><%= addstr %></strong></h1>
 <section class="panel-record"></section>
 <form method="post" action="add" class="panel-form">

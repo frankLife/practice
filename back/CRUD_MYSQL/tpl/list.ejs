@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <td>id</td>
+    <td>hours</td>
+    <td>date</td>
+    <td>archived</td>
+    <td>description</td>
+  </tr>
+<% for(var i = 0,len = rows.length;i<len;i++) { %>
+  <tr>
+    <td><%=rows[i]['id']%></td>
+    <td><%=rows[i]['hours']%></td>
+    <td><%=rows[i]['date']%></td>
+    <td><%=rows[i]['archived']%></td>
+    <td><%=rows[i]['description']%></td>
+  </tr>
+<% } %>
+</table> 

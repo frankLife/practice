@@ -12,12 +12,9 @@ function getPanelHTML(opt){
   // var tpl = fs.readFileSync('./tpl/panel.ejs').toString();
   // var html = ejs.render(tpl);
   var html = ''
-  if(opt == undefined) {
-    opt  = {addstr: ''}
-  }else if(opt.addstr == undefined) {
-    opt.addstr = '';
-  }
-  //renderFile use readFileSync ,so is a Synchronous process
+
+  //renderFile use readFileSync ,so is a Synchronous process;
+  //renderFile doesn't need config filename when using include function
   ejs.renderFile('./tpl/panel.ejs',opt,function(err,str){
     html = str;
   })

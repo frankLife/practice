@@ -43,5 +43,14 @@ function insertTable(opt,cb){
       cb && cb();
     });
 }
+function selectTable(isArchived,cb) {
+  db.query('select * from work where archived = ? order by date desc',[isArchived?1:0],function(err,rows) {
+    if(err) {
+      throw err;
+    }
+    cb(rows);
+  });
+}
 
 exports.insertTable = insertTable;
+exports.selectTable = selectTable;

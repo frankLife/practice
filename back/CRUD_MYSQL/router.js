@@ -7,9 +7,20 @@ var postMap = {};
 
 getMap['/'] = function(req,res,opt){
   var html = '';
-  html = tool.getPanelHTML(opt);
-  // console.log('html: ',html);
-  tool.sendHTML(html,res);
+
+  if(opt == undefined) {
+    opt  = {addstr: ''}
+  }else if(opt.addstr == undefined) {
+    opt.addstr = '';
+  }
+  dbfn.selectTable(false,function(rows){
+    opt.rows = rows;
+    html = tool.getPanelHTML(opt);
+    tool.sendHTML(html,res);
+  });
+}
+getMap['/archived'] = function(){
+
 }
 postMap['/add'] = function(req,res){
   var queryStr = ''
@@ -26,6 +37,7 @@ postMap['/add'] = function(req,res){
     });
   });
 }
+
 function route(req,res){
   var entrance = url.parse(req.url)['pathname'];
   console.log('entrance: ',entrance);

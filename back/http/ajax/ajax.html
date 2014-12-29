@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ajax</title>
+</head>
+<body>
+<script src="http://g.alicdn.com/kissy/k/1.4.8/seed-min.js"></script>
+<script>
+KISSY.use('io',function(S,IO){
+  new IO({
+    url: 'http://localhost:3000',
+    type: 'post',
+    dataType:'json',
+    data: {
+      year: 22
+    },
+    success: function(data){
+      console.log(data);
+    }
+  });
+});
+</script>
+</body>
