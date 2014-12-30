@@ -35,7 +35,7 @@ describe('memdb',function(){
       var pet = {name: 'cat'}
       memdb.doAsyncSave(pet,function(){
         assert(pet == memdb.first({name:'cat'}));
-        done();
+        done(); //asynchronous frame test method 
       })
     })
   });
