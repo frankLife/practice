@@ -207,4 +207,17 @@ Window {top: Window, window: Window, location: Location, external: Object, chrom
 */
 
 })()
+/* Fixing call constructor without new operator */
+(function(){
+  function User(first, last) {
+    if(!this instanceof User) {
+      return new User(first,last);
+    }
+    this.name = first + ' ' + last;
+  }
+  var name = 'frank'
+  var user = new User('frank','life');
+  console.log('name: ',name);
+  console.log('user.name: ',user.name);
+})()
 
