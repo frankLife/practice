@@ -12,3 +12,12 @@ exports.first = function(obj) {
     return true;
   }).shift();
 }
+exports.clear = function(){
+  db = [];
+}
+exports.doAsyncSave = function(obj,db){
+  setTimeout(function(){
+    db.push(obj);
+    db();
+  },1000);
+}
