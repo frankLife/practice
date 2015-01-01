@@ -221,3 +221,35 @@ Window {top: Window, window: Window, location: Location, external: Object, chrom
   console.log('user.name: ',user.name);
 })()
 
+/* sub-class  simplified */
+(function(){
+  Object.subClass = function(fns){
+    var proto = new this();
+    for(var i in fns) {
+      if(typeof fns[i] == 'function' || 
+         typeof proto[i] == 'function' ||
+         /_super/.test(fns[i]) ) {
+          proto[i] = (function(i){
+            return function(){
+              var temp = this._super;
+              this._super = proto[i];
+              var ret = this._super.apply(this)
+              this._super = temp;
+              return ret;
+            }
+          })(i)
+      }else {
+        proto[i] = fns[i];
+      }
+    }
+
+    function Class() {
+      this['init'] && this['init'](arguments);
+    }
+    Class.constructor = this;
+    Class.prototype = proto;
+    Class.subClass = Object.subClass;
+    return Class;
+  }
+})()
+
