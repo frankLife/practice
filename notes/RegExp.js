@@ -24,4 +24,25 @@ function getElsByClassName(className) {
   return ret;
 
 }
+// foo=1&foo=2&blah=a&blah=b&foo=3 => foo=1,2,3&blah=a,b
+function replaceTraverse(src){
+  var regExp = /(\w+)=(\w+)/g;
+  var keyVal = {}
+
+  src.replace(regExp,function(str,key,val){
+    if(keyVal[key]) {
+      keyVal[key] = keyVal[key] + ',' + val;
+    }else {
+      keyVal[key] = val;
+    }
+
+    return '';
+  });
+
+  var ret = [];
+  for(var key in keyVal) {
+    ret.push(key+'='+keyVal[key]);
+  }
+  return ret.join('&');
+}
 
