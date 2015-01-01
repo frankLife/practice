@@ -222,29 +222,29 @@ Window {top: Window, window: Window, location: Location, external: Object, chrom
 })()
 
 /* sub-class  simplified */
-(function(){
+ (function(){
   Object.subClass = function(fns){
     var proto = new this();
     for(var i in fns) {
-      if(typeof fns[i] == 'function' || 
-         typeof proto[i] == 'function' ||
+      if(typeof fns[i] == 'function' && 
+         typeof proto[i] == 'function' &&
          /_super/.test(fns[i]) ) {
-          proto[i] = (function(i){
+          proto[i] = (function(fn){
             return function(){
-              var temp = this._super;
-              this._super = proto[i];
-              var ret = this._super.apply(this)
-              this._super = temp;
+              // var temp = this._super;
+              this._super = fn;
+              var ret = fns[i].apply(this,arguments)
+              // this._super = temp;
               return ret;
             }
-          })(i)
+          })(proto[i],i)
       }else {
         proto[i] = fns[i];
       }
     }
 
     function Class() {
-      this['init'] && this['init'](arguments);
+      this['init'] && this['init'].apply(this,arguments);
     }
     Class.constructor = this;
     Class.prototype = proto;

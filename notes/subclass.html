@@ -9,25 +9,25 @@
   Object.subClass = function(fns){
     var proto = new this();
     for(var i in fns) {
-      if(typeof fns[i] == 'function' || 
-         typeof proto[i] == 'function' ||
+      if(typeof fns[i] == 'function' && 
+         typeof proto[i] == 'function' &&
          /_super/.test(fns[i]) ) {
-          proto[i] = (function(i){
+          proto[i] = (function(fn){
             return function(){
-              var temp = this._super;
-              this._super = proto[i];
-              var ret = this._super.apply(this)
-              this._super = temp;
+              // var temp = this._super;
+              this._super = fn;
+              var ret = fns[i].apply(this,arguments)
+              // this._super = temp;
               return ret;
             }
-          })(i)
+          })(proto[i],i)
       }else {
         proto[i] = fns[i];
       }
     }
 
     function Class() {
-      this['init'] && this['init'](arguments);
+      this['init'] && this['init'].apply(this,arguments);
     }
     Class.constructor = this;
     Class.prototype = proto;
@@ -43,6 +43,23 @@
       return this.dancing; 
     } 
   });
+  var Ninja = Person.subClass({                           
+    init: function() { 
+      this._super(false);                                 
+    }, 
+    dance: function() { 
+      // Ninja-specific stuff here 
+      return this._super(); 
+    }, 
+    swingSword: function() { 
+      return true; 
+    } 
+  }); 
+ var person = new Person(true);
+ var ninja = new Ninja();
+ console.log(person.dance());
+ console.log(ninja.dance());
+ console.log(ninja.swingSword());
 </script>
 </body>
 </html>
