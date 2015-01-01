@@ -38,11 +38,13 @@ function replaceTraverse(src){
 
     return '';
   });
-
+ 
   var ret = [];
   for(var key in keyVal) {
     ret.push(key+'='+keyVal[key]);
   }
   return ret.join('&');
 }
+//"<b>Hello</b>\n<i>world!</i>" -> /[\s\S]*/  or /[.\s]*/
+
 
