@@ -7,6 +7,11 @@
 </head>
 <body>
 <article id="panel">
+<%if(!isArchived) { %>
+<a href="/archived">archived</a>
+<% }else{ %>
+<a href="/">not archived</a>
+<% } %>
 <% include list %>
 <h1>Work Track <strong><%= addstr %></strong></h1>
 <section class="panel-record"></section>

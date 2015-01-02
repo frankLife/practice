@@ -27,11 +27,15 @@ function getPanelHTML(opt){
 }
 function selectRecord(req,res,opt){
   if(opt == undefined) {
-    opt  = {addstr: ''}
-  }else if(opt.addstr == undefined) {
+    opt  = {addstr: '',isArchived: false}
+  }
+  if(opt.addstr == undefined) {
     opt.addstr = '';
   }
-  dbfn.selectTable(false,function(rows){
+  if(opt.isArchived == undefined) {
+    opt.isArchived = false;
+  }
+  dbfn.selectTable(opt.isArchived,function(rows){
     opt.rows = rows;
     html = getPanelHTML(opt);
     sendHTML(html,res);
@@ -54,7 +58,6 @@ function insertRecord(req,res){
   });
 }
 function deleteRecord(req,res){
-  var queryStr = [];
   var paramObj = querystring.parse(url.parse(req.url)['search'].slice(1));
   console.log(paramObj);
   dbfn.deleteTable(paramObj,function(){
@@ -62,7 +65,16 @@ function deleteRecord(req,res){
   });
 }
 function archivedRecord(req,res) {
-  
+  var queryStr = [];
+  req.on('data',function(data){
+    queryStr.push(data);
+  });
+  req.on('end',function(){
+    var paramObj = querystring.parse(queryStr.join(''));
+    dbfn.updateTable(paramObj,function(){
+      res.end('{"status":1}');
+    });
+  });
 }
 function serveStatic(req,res,pathname){
   var isCss = /.css(\?.*)?$/;
@@ -102,4 +114,5 @@ exports.getPanelHTML = getPanelHTML;
 exports.selectRecord = selectRecord;
 exports.insertRecord = insertRecord;
 exports.deleteRecord = deleteRecord;
+exports.archivedRecord = archivedRecord;
 exports.serveStatic = serveStatic;

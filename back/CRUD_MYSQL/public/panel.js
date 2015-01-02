@@ -41,7 +41,7 @@ $(function(){
         },
         success: function(d){
           if(d.status == 1) {
-            parentTr.fadeOut();
+            parentTr.css('opacity','0.5');
           }else {
             console.log('delete error');
           }

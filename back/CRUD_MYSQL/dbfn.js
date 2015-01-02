@@ -57,9 +57,18 @@ function deleteTable(opt,cb){
     if(err) {
       throw err;
     }
-    cb & cb();
+    cb && cb();
+  });
+}
+function updateTable(opt,cb){
+  db.query('update work set archived = 1 where id = ?',[parseInt(opt.id,10)],function(err){
+    if(err) {
+      throw err;
+    }
+    cb && cb();
   });
 }
 exports.insertTable = insertTable;
 exports.selectTable = selectTable;
 exports.deleteTable = deleteTable;
+exports.updateTable = updateTable;
