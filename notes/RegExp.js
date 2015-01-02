@@ -45,6 +45,6 @@ function replaceTraverse(src){
   }
   return ret.join('&');
 }
-//"<b>Hello</b>\n<i>world!</i>" -> /[\s\S]*/  or /[.\s]*/
+//"<b>Hello</b>\n<i>world!</i>" -> /[\s\S]*/  or /(.|\s)*/
 
 
