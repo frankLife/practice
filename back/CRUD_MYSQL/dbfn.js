@@ -7,12 +7,13 @@ var db = mysql.createConnection({
   database: 'timetrack_node'
 });
 
-buildDB();
-function buildDB(){
+buildDB(createTable);
+function buildDB(cb){
   db.connect(function(err) {
   if(err) {
     throw err;
   }
+  cb();
   console.log('database connect');
   });
 }

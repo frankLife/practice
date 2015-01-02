@@ -6,36 +6,13 @@ var getMap = {};
 var postMap = {};
 
 getMap['/'] = function(req,res,opt){
-  var html = '';
-
-  if(opt == undefined) {
-    opt  = {addstr: ''}
-  }else if(opt.addstr == undefined) {
-    opt.addstr = '';
-  }
-  dbfn.selectTable(false,function(rows){
-    opt.rows = rows;
-    html = tool.getPanelHTML(opt);
-    tool.sendHTML(html,res);
-  });
+  tool.selectRecord(req,res,opt);
 }
 getMap['/archived'] = function(){
 
 }
-postMap['/add'] = function(req,res){
-  var queryStr = ''
-  req.setEncoding('utf-8');
-  req.on('data',function(data){
-    queryStr += data;
-  });
-  req.on('end',function(){
-    var paramObj = querystring.parse(queryStr);
-    console.log('paramObj: ');
-    console.log(paramObj);
-    dbfn.insertTable(paramObj,function(){
-      getMap['/'](req,res,{addstr: paramObj['description'] + '  Added Successfully!'});
-    });
-  });
+postMap['/add'] = function(req,res,cb){
+  tool.insertRecord(req,res);
 }
 
 function route(req,res){

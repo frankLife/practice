@@ -13,6 +13,7 @@
     <td><%=rows[i]['date']%></td>
     <td><%=rows[i]['archived']%></td>
     <td><%=rows[i]['description']%></td>
+    <td><button class="J_del">delete</button><% if(rows[i]['archived'] == 0) {%><button class="J_archived">archive</button><%} %></td>
   </tr>
 <% } %>
 </table> 
