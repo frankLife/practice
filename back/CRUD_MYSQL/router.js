@@ -9,10 +9,14 @@ getMap['/'] = function(req,res,opt){
   tool.selectRecord(req,res,opt);
 }
 getMap['/archived'] = function(){
-
+  
 }
 postMap['/add'] = function(req,res,cb){
   tool.insertRecord(req,res);
+}
+getMap['/delete'] = function(req,res){
+  console.log('into delete');
+  tool.deleteRecord(req,res);
 }
 
 function route(req,res){
@@ -22,7 +26,8 @@ function route(req,res){
     if(getMap[entrance] != undefined) {
       getMap[entrance](req,res);
     }else {
-      getMap['/'](req,res);
+   //    getMap['/'](req,res);
+      tool.serveStatic(req,res,entrance);
     }
   }else if(req.method == 'POST') {
     postMap[entrance](req,res)

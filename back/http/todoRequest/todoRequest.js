@@ -150,7 +150,7 @@ function serverStatic(res,requestUrl){
   res.setHeader('Content-Type','text/html; charset="utf-8"');
   fs.stat(requestUrl,function(err,stats){
     if(err) {
-      if(err,code = 'ENOENT'){
+      if(err.code = 'ENOENT'){
         res.statusCode = 404;
         res.end('Not Found: '+ requestUrl);
       }else {

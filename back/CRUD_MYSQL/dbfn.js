@@ -52,6 +52,14 @@ function selectTable(isArchived,cb) {
     cb(rows);
   });
 }
-
+function deleteTable(opt,cb){
+  db.query('delete from work where id = ? ',[parseInt(opt.id,10)],function(err){
+    if(err) {
+      throw err;
+    }
+    cb & cb();
+  });
+}
 exports.insertTable = insertTable;
 exports.selectTable = selectTable;
+exports.deleteTable = deleteTable;

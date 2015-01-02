@@ -1,4 +1,6 @@
 var fs = require('fs');
+var path = require('path');
+var url = require('url');
 var querystring = require('querystring');
 var ejs = require('ejs');
 var dbfn = require('./dbfn.js');
@@ -51,8 +53,53 @@ function insertRecord(req,res){
     });
   });
 }
+function deleteRecord(req,res){
+  var queryStr = [];
+  var paramObj = querystring.parse(url.parse(req.url)['search'].slice(1));
+  console.log(paramObj);
+  dbfn.deleteTable(paramObj,function(){
+    res.end('{"status":1}');
+  });
+}
+function archivedRecord(req,res) {
+  
+}
+function serveStatic(req,res,pathname){
+  var isCss = /.css(\?.*)?$/;
+  var isJs = /.js(\?.*)?$/;
+  var root = __dirname;
+  if(isCss.test(pathname)) {
+    _readFileNServe('text/css')
+  }else if(isJs.test(pathname)) {
+    _readFileNServe('text/javascript');
+  }else {
+    selectRecord(req,res);
+  }
 
+  function _readFileNServe(ContentType){
+    var requestUrl = path.join(root,pathname);
+    console.log('requestUrl: ',requestUrl);
+    fs.stat(requestUrl,function(err,stats){
+      if(err) {
+        if(err.code = 'ENOENT') {
+          res.statusCode = 404;
+          res.end('Not Found: ' + requestUrl);
+        }else {
+          res.statusCode = 500
+          res.end('Internal Error');
+        }
+      }else {
+        fs.readFile(requestUrl,function(err,data){
+          res.setHeader('Content-Type',ContentType);
+          res.end(data);
+        });
+      }
+    });
+  }
+}
 exports.sendHTML = sendHTML;
 exports.getPanelHTML = getPanelHTML;
 exports.selectRecord = selectRecord;
 exports.insertRecord = insertRecord;
+exports.deleteRecord = deleteRecord;
+exports.serveStatic = serveStatic;
