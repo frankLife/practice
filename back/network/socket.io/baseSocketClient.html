@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>baseSocketClient</title>
+</head>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io(/*'http://localhost:3000'*/) //io.connect();
+socket.on('news',function(data){
+  console.log(data);
+});
+socket.emit('news',{hello:'hello again'});
+</script>
+</body>
+</html>
