@@ -1,6 +1,9 @@
+/* bad case */
 var tobi = require('tobi');
 var browser = tobi.createBrowser(3000,'127.0.0.1');
 browser.get('/', function(res, $){ 
+  console.log('fill: ')
+  console.log($('form').fill);
     $('form')
       .fill({ 
         date: '2015-01-04',
