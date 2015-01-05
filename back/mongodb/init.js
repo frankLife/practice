@@ -1,4 +1,5 @@
 var mongodb = require('mongodb');
+/*
 var server = new mongodb.Server('127.0.0.1',27017,{});
 var client = new mongodb.Db('mtest', server);
 
@@ -20,4 +21,24 @@ client.open(function(err) {
 );
   });
 });
-// console.log(server);
+*/
+
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect("mongodb://localhost:27017/mtest", function(err, db) {
+  if(err) { return console.dir(err); }
+  // console.log(db);
+  db.collection('test_insert').insert({
+    'title': 'hi frank!'
+  },
+  /*
+    here,w == safe,
+    The biggest reason is that the new class will have acknowledged writes on by default,
+    or expressed in deprecated wording: MongoClient has safe mode on by default.
+  */
+  // {w:1}, {safe:true}
+  function(err,result){
+    console.log(result);
+  });
+  
+
+});
