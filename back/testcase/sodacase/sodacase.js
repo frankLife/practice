@@ -4,7 +4,7 @@
     host: '127.0.0.1',
     port: 4444,
     url: 'http://www.reddit.com',
-    browser: 'chrome'
+    browser: 'firefox'
   });
 
   browser.on('command', function(cmd, args){
