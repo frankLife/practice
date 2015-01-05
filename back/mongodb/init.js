@@ -30,7 +30,7 @@ MongoClient.connect("mongodb://localhost:27017/mtest", function(err, db) {
   db.collection('test_insert').insert({
     'title': 'hi frank!'
   },
-  /*
+  /* 
     here,w == safe,
     The biggest reason is that the new class will have acknowledged writes on by default,
     or expressed in deprecated wording: MongoClient has safe mode on by default.
