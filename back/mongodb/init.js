@@ -28,7 +28,7 @@ MongoClient.connect("mongodb://localhost:27017/mtest", function(err, db) {
   if(err) { return console.dir(err); }
   // console.log(db);
   db.collection('test_insert').insert({
-    'title': 'hi frank!@_@'
+    'title': 'hi frank!@_'
   },
   /* 
     here,w == safe,
