@@ -58,13 +58,21 @@ MongoClient.connect("mongodb://localhost:27017/mtest", function(err, db) {
   // });
 
   //Update
-  collection.update({title: /frank/},{$set: {"year":22}}).toArray(function(err,result){
+  //By default, update() updates a single document. To update multiple documents, use the multi option.
+  // collection.update({title: /frank/},{$set: {"year":22}},{multi: true},function(err,result){
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log(result);
+  // });
+  
+  //Delete
+  collection.remove({title: /frank/},function(err,result){
     if(err) {
       throw err;
     }
     console.log(result);
   });
-
 
   
 
