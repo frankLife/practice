@@ -26,19 +26,46 @@ client.open(function(err) {
 var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect("mongodb://localhost:27017/mtest", function(err, db) {
   if(err) { return console.dir(err); }
+  var collection = db.collection('test_insert');
   // console.log(db);
-  db.collection('test_insert').insert({
-    'title': 'hi frank!@_'
-  },
-  /* 
-    here,w == safe,
-    The biggest reason is that the new class will have acknowledged writes on by default,
-    or expressed in deprecated wording: MongoClient has safe mode on by default.
-  */
-  // {w:1}, {safe:true}
-  function(err,result){
+  //Create
+  // db.collection('test_insert').insert({
+  //   'title': 'hi frank!@_'
+  // },
+ 
+  //   // here,w == safe,
+  //   // The biggest reason is that the new class will have acknowledged writes on by default,
+  //   // or expressed in deprecated wording: MongoClient has safe mode on by default.
+
+  // // {w:1}, {safe:true}
+  // function(err,result){
+  //   console.log(result);
+  // });
+  
+  //Read
+  // var collection = db.collection('test_insert');
+  // // collection.find({title: 'hi frank'},function(err,result){
+  // //   if(err) {
+  // //     throw err;
+  // //   }
+  // //   console.log(result);
+  // // });
+  // collection.find({title: /frank/}).toArray(function(err,result){
+  //   if(err) {
+  //     throw err;
+  //   }
+  //   console.log(result);
+  // });
+
+  //Update
+  collection.update({title: /frank/},{$set: {"year":22}}).toArray(function(err,result){
+    if(err) {
+      throw err;
+    }
     console.log(result);
   });
+
+
   
 
 });
