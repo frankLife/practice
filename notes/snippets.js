@@ -253,3 +253,35 @@ Window {top: Window, window: Window, location: Location, external: Object, chrom
   }
 })()
 
+/* central timer */
+(function(){
+  var timer = {
+    id : 0,
+    task : [],
+
+    add: function(fn){
+      this.task.push(fn);
+    },
+    start: function(){
+      var self = this;
+      var task = this.task;
+      if(this.id != 0) {
+        return;
+      }
+      function pollFn(){
+        for(var i = 0;i<task.length;i++) {
+          if(task[i]() == false) {
+            task.splice(i,1);
+            i --;
+          }
+        }
+        self.id = setTimeout(pollFn,0);
+      }
+      pollFn();
+    },
+    stop: function(){
+      clearTimeout(this.id);
+    }
+  }
+})()
+
