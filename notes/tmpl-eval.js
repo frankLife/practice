@@ -1,3 +1,4 @@
+var assert = require('assert');
 (function(){ 
   var cache = {}; 
    
@@ -31,3 +32,9 @@
     return data ? fn( data ) : fn; 
   }; 
 })(); 
+assert( tmpl("Hello, <%= name %>!", {name: "world"}) == 
+  "Hello, world!", "Do simple variable inclusion." ); 
+ 
+var hello =  tmpl("Hello, <%= name %>!"); 
+assert( hello({name: "world"}) == "Hello, world!", 
+  "Use a pre-compiled template." ); 

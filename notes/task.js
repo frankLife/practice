@@ -33,17 +33,29 @@ function next(req,res){
 
 //pass a next parameter due to clouser will binding the next when task was being defined
 function logger(req,res,next){
-  console.log(2);
-  console.log('%s %s',req.method,req.url);
+  console.log('%s \n %s',req.method,req.url);
 }
 function hello(req,res,next){
   res.setHeader('Content-Type','text/html');
   res.statusCode = 200;
-  res.end('hello world');
+  // res.end('hello world');
   next();
+}
+function configLogger(configStr){
+  var filterReg = /:(\w+)/g;
+  var props = configStr.match(filterReg);
+  return function(req,res,next){
+    for(var i = 0,len = props.length;i<len;i++) {
+      var prop = props[i].slice(1);
+      res.write(prop + ': ' + req[prop] + '</br>');
+    }
+    res.end();
+    next();
+  }
 }
 
 task.use(hello);
+task.use(configLogger(':url :method'));
 task.use(logger);
 task.listen();
 
