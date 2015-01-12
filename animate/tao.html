@@ -10,19 +10,48 @@
 #wrap {
   margin-left: auto;
   margin-right: auto;
+  margin-top: 10px;
   width: 1000px;
   height: 1000px;
   background-color: #eee;
 }
 .head {
-  width: 255px;
-  height: 125px;
+  position: absolute;
+  top: 100px;
+  left: 27px;
+  width: 410px;
+  height: 330px;
   background-color: #fd7c28;
+  border-radius: 227px 237px 175px 167px;
+  border: 6px solid #a73104;
+  transform: rotateZ(4deg);
+  z-index: 2;
+}
+.head-top {
+  position: absolute;
+  top: 70px;
+  left: 223px;
+  width: 163px;
+  height: 66px;
+  background-color: #fd7c28;
+  border: 6px solid #a73104;
+  z-index: 1;
+  transform: skewX(-47deg) rotateZ(18deg);
+  border-radius: 95px 22px 83px 10px;
+}
+.top-1 {
+  width: 50px;
+  height: 50px;
+  background-color: #fd7c28;
+  border: 6px solid #a73104;
 }
 </style>
 <body>
 <div id="wrap">
   <div class="head"></div>
+    <div class="head-top">
+    </div>
+      <div class="top-1"></div>
 </div>
 </body>
 </head>
