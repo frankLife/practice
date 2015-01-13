@@ -8,6 +8,7 @@
  padding: 0px;
 }
 #wrap {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
@@ -40,18 +41,106 @@
   border-radius: 95px 22px 83px 10px;
 }
 .top-1 {
-  width: 50px;
-  height: 50px;
+  position: absolute;
+  top: 66px;
+  left: 331px;
+  width: 67px;
+  height: 30px;
   background-color: #fd7c28;
   border: 6px solid #a73104;
+  border-radius: 11px 56px 12px 10px;
+  z-index: 2;
+  transform: rotateZ(6deg);
+}
+.top-2 {
+  position: absolute;
+  top: 72px;
+  left: 329px;
+  width: 74px;
+  height: 36px;
+  background-color: #fd7c28;
+  /* border: 6px solid #a73104; */
+  border-radius: 11px 56px 12px 10px;
+  z-index: 2;
+  transform: rotateZ(6deg);
+}
+.head-eye-left {
+  width: 60px;
+  height: 29px;
+  background-color: #652809;
+  border-radius: 23px 23px 23px 23px / 8px 6px 8px 9px;
+  position: absolute;
+  left: 106px;
+  top: 209px;
+  z-index: 3;
+  transform: rotateZ(-26deg);
+}
+.head-eye-left2 {
+  width: 60px;
+  height: 29px;
+  background-color: #652809;
+  border-radius: 23px 23px 23px 23px / 8px 6px 8px 9px;
+  position: absolute;
+  left: 148px;
+  top: 205px;
+  z-index: 3;
+  transform: rotateZ(16deg);
+}
+.head-eye-left-1 {
+position: absolute;
+top: 224px;
+left: 119px;
+background-color: #FD7C28;
+width: 92px;
+height: 50px;
+z-index: 3;
+border-radius: 50%;
+}
+.head-eye-right {
+  width: 60px;
+  height: 29px;
+  background-color: #652809;
+  border-radius: 23px 23px 23px 23px / 8px 6px 8px 9px;
+  position: absolute;
+  left: 266px;
+  top: 209px;
+  z-index: 3;
+  transform: rotateZ(-26deg);
+}
+.head-eye-right2 {
+  width: 60px;
+  height: 29px;
+  background-color: #652809;
+  border-radius: 23px 23px 23px 23px / 8px 6px 8px 9px;
+  position: absolute;
+  left: 308px;
+  top: 205px;
+  z-index: 3;
+  transform: rotateZ(16deg);
+}
+.head-eye-right-1 {
+  position: absolute;
+  top: 224px;
+  left: 275px;
+  background-color: #FD7C28;
+  width: 92px;
+  height: 50px;
+  z-index: 3;
+  border-radius: 50%;
 }
 </style>
 <body>
 <div id="wrap">
   <div class="head"></div>
-    <div class="head-top">
-    </div>
+    <div class="head-top"></div>
       <div class="top-1"></div>
+      <div class="top-2"></div>
+    <div class="head-eye-left"></div>
+    <div class="head-eye-left2"></div>
+      <div class="head-eye-left-1"></div>
+    <div class="head-eye-right"></div>
+    <div class="head-eye-right2"></div>
+      <div class="head-eye-right-1"></div>
 </div>
 </body>
 </head>
