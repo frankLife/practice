@@ -54,7 +54,7 @@
   position: absolute;
   top: 116px;
   left: 144px;
-  -webkit-animation: blinkEye 1.5s;
+  -webkit-animation: blinkEye 2.5s;
   -webkit-animation-iteration-count: infinite;
 }
 .right-blink {
@@ -64,25 +64,27 @@
   position: absolute;
   top: 113px;
   left: 188px;
+  -webkit-animation: blinkEye 2.5s;
+  -webkit-animation-iteration-count: infinite;
 }
 @-webkit-keyframes blinkEye {
   0% {
     height: 0px;
     -webkit-animation-timing-function: ease-in;
   }
+  12.5% {
+    height: 50px;
+    -webkit-animation-timing-function: ease-out;
+  }
   25% {
+    height: 0px;
+    -webkit-animation-timing-function: ease-in;
+  }
+  37.5% {
     height: 50px;
     -webkit-animation-timing-function: ease-out;
   }
   50% {
-    height: 0px;
-    -webkit-animation-timing-function: ease-in;
-  }
-  75% {
-    height: 50px;
-    -webkit-animation-timing-function: ease-out;
-  }
-  100% {
     height: 0px;
   }
 }
