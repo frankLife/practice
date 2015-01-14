@@ -4,7 +4,8 @@
 <title>index</title>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var socket = io('http://localhost:3000');
+// omit connect method & parameter
+var socket = io();
 socket.emit('user:enter');
 </script>
 </head>
