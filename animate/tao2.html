@@ -2,8 +2,59 @@
 <html lang="en">
 <head>
 <title>tao2</title>
+<style type="text/css">
+* {
+  margin: 0;
+  padding: 0;
+}
+.head {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 170px;
+  height: 170px;
+  background-color: #ccc;
+  border-radius: 137px 132px 100px 148px / 140px 88px 75px 132px;
+}
+.head-top {
+  position: absolute;
+  left: 120px;
+  top: 39px;
+  width: 37px;
+  height: 19px;
+  background-color: #ccc;
+  border-bottom-left-radius: 62px 16px;
+  border-top-left-radius: 68px 21px;
+  transform: rotateZ(53deg) scale(1.8);
+}
+.eye-left {
+  position: absolute;
+  top: 117px;
+  left: 144px;
+  width: 20px;
+  height: 42px;
+  background-color: #fff;
+  border: 2px solid #aaa;
+  border-radius: 10px 10px 10px 10px/18px 10px 10px 17px;
+}
+.eye-right {
+  position: absolute;
+  top: 114px;
+  left: 193px;
+  width: 16px;
+  height: 38px;
+  background-color: #fff;
+  border: 2px solid #aaa;
+  border-radius: 8px 8px 8px 8px/12px 8px 8px 12px;
+}
+</style>
 </head>
 <body>
-
+<div class="head"></div>
+<div class="head-top"></div>
+<div class="eye-left"></div>
+<div class="eye-right"></div>
+<div class="left-blink"></div>
+<div class="right-blink"></div>
 </body>
 </html>
