@@ -16,19 +16,19 @@ app.use(function(req,res,next){
 /* match mounting path 
 that can even doesn't exists with static middleware parameter
 (default is '/') */
-app.use('/app',staticServe('public',{'index':['./html/login.html']}));
-
+app.use('/app',staticServe('public',{'index':['login.html']}));
 // app.use(function(req,res,next){
 //   res.write('hello myroom');
 //   res.end();
 // })
 server = http.createServer(app);
-io = socket(server);
-io.on('connection',function(socket){
-  socket.on('user:enter',function(){
-    console.log('a person has enter myroom');
-  });
-});
+
+// io = socket(server);
+// io.on('connection',function(socket){
+//   socket.on('user:enter',function(){
+//     console.log('a person has enter myroom');
+//   });
+// });
 
 
 

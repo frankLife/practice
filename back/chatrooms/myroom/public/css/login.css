@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('OpenSans-Bold.woff');
+}
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('PoiretOne-Regular.woff');
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -8,6 +21,8 @@ html {
 }
 h1 {
   font-family: 'Poiret One', cursive;
+  font-size: 3rem;
+  color: #666;
 }
 h2 {
   margin-top: 10rem;
