@@ -1,7 +1,10 @@
+var path = require('path');
 function route(resMap){
   return function (req,res,next){
-    if(resMap[req.method] != undefined) {
-      if()
+          var reqPathName = path.parse(req.url)['pathname'];
+    if(resMap[req.method] != undefined &&
+    resMap[req.method][reqPathName] != undefined) {
+      resMap[req.method][reqPathName](req,res);
     }else {
       serve404(res);
     }
