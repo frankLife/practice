@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>hello <%= username%>!</title>
+<link href="/css/index.css" rel="stylesheet" type="text/css" />
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// omit connect method & parameter
+var socket = io();
+socket.emit('user:enter');
+</script>
+</head>
+<body>
+</body>
+</html>
