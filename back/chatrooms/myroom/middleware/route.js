@@ -1,8 +1,8 @@
-var path = require('path');
+var url = require('url');
 var models = require('../models');
 function route(resMap){
   return function (req,res,next){
-          var reqPathName = path.parse(req.url)['pathname'];
+    var reqPathName = url.parse(req.url)['pathname'];
     if(resMap[req.method] != undefined &&
     resMap[req.method][reqPathName] != undefined) {
       models[resMap[req.method][reqPathName]](req,res);
