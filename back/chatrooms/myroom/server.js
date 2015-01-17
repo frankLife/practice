@@ -28,7 +28,7 @@ app.use(session({
 /* match mounting path 
 that can even doesn't exists with static middleware parameter
 (default is '/') */
-app.use('/app',staticServe('public',{'index':['login.html']}));
+app.use(/*'/app',*/staticServe('public',{'index':['login.html']}));
 app.use(midRoute.route(newRouter.resMap));
 server = http.createServer(app);
 socketControl.init(server);
