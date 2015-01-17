@@ -21,6 +21,7 @@ var resMap = {
 function getRouter (resMap) { 
   return new Router(resMap);
 }
+
 function Router(resMap){
   this.resMap = resMap;
 }
