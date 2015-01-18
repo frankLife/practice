@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>hello <%= username%>!</title>
-<link href="/css/index.css" rel="stylesheet" type="text/css" />
+<title>hello <%= session.username%>!</title>
+<link href="/css/home.css" rel="stylesheet" type="text/css" />
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/jq1.8.js"></script>
 <script>
 // omit connect method & parameter
-var socket = io();
-socket.emit('user:enter');
+// var socket = io();
+// socket.emit('user:enter');
 </script>
 </head>
 <body>
+<article id="roomWrap">
+<section class="room-friends">
+  <h2><span class="J_username"><%= session.username%></span>'s Friends</h2>
+  <ul class="fn-clear J_friendsList">
+    <%for(var i = 0,len = friends.length;i<len;i++) {%>
+      <li class="<%if (friends[i].isOnline) {%>online<%}%>"><%= friends[i]['username']%></li>
+    <%}%>
+  </ul>
+</section>
+<section class="room-messageBox">
+  <h2>Message Box</h2>
+  <ul></ul>
+</section>
+<section class="room-writeBox">
+  <h2>Write Box</h2>
+  <textarea class="writeBox-content J_writeBox"></textarea>
+  <button class="J_sendBtn">send</button>
+</section>
+</article>
 </body>
+<script src="/js/talk.js"></script>
 </html>

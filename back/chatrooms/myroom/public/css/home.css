@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('OpenSans-Bold.woff');
+}
+@font-face {
+  font-family: 'Poiret One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('PoiretOne-Regular.woff');
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+.fn-clear:after {
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    content:" ";
+    clear:both;
+    height:0;
+}
+.fn-clear {
+    zoom:1; /* for IE6 IE7 */
+}
+ul {
+  list-style-type: none;
+}
+#roomWrap {
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  padding: 80px;
+  background: rgba(176, 224, 230, 0.16);
+}
+.room-friends {
+  min-height: 80px;
+}
+.room-friends h2 {
+  font: bold 24px/1 'Poiret One' sans-serif;
+  margin-bottom: 10px;
+}
+.room-friends li {
+  margin-left: 10px;
+  float: left;
+  cursor: pointer;
+  font: bold 20px/1 'Poiret One' sans-serif;
+}
+.room-friends li:first-child {
+  margin-left: 0;
+}
+.room-friends li.online {
+  color: rgb(27, 183, 211);
+}
+.room-friends li.selected {
+  border-bottom: 2px dashed;
+}
+.room-messageBox {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 320px;
+  background-color: #fff;
+  box-shadow: #96D1DA 0 0px 18px -2px;
+}
+.room-messageBox h2 {
+  font: bold 20px/1 'Poiret One' sans-serif;
+}
+.room-writeBox {
+  padding-top: 20px;
+}
+.room-writeBox h2 {
+  margin-bottom: 5px;
+  font: bold 20px/1 'Poiret One' sans-serif;
+}
+.room-writeBox .writeBox-content {
+  display: block;
+  padding: 10px;
+  margin-bottom: 15px;
+  min-height: 80px;
+  background-color: #fff;
+  box-shadow: #96D1DA 0 0px 18px -2px;
+  border: 0;
+  resize: none;
+  box-sizing: border-box;
+  width: 100%;
+  font: bold 16px/1.2 'Open Sans' sans-serif;
+}
+.room-writeBox button {
+  font: bold 16px/1.2 'Open Sans' sans-serif;
+  padding: 5px;
+  float: right;
+}

@@ -6,8 +6,8 @@ function renderTpl(tpl,data,cb){
     if(err) {
       throw err;
     }
-    console.log('str: ');
-    console.log(str);
+    // console.log('str: ');
+    // console.log(str);
     html = str;
     cb(html)
   });

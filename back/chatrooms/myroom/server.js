@@ -31,13 +31,9 @@ that can even doesn't exists with static middleware parameter
 app.use(/*'/app',*/staticServe('public',{'index':['login.html']}));
 app.use(midRoute.route(newRouter.resMap));
 server = http.createServer(app);
+/* socket */
 socketControl.init(server);
-// io = socket(server);
-// io.on('connection',function(socket){
-//   socket.on('user:enter',function(){
-//     console.log('a person has enter myroom');
-//   });
-// });
+
 
 
 

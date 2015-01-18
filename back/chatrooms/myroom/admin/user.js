@@ -13,7 +13,8 @@ function initConnect(){
       userId:2,
       username:'tom',
       password:'1',
-      friends: ['franklife']
+      friends: ['franklife'],
+      isOnline: false
     });
   });
 }

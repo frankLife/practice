@@ -16,7 +16,7 @@ var dbFn = {
       }
       cb(result);
     });
-  }
+  },
 };
 
 function initConnect(){

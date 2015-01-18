@@ -5,11 +5,11 @@ var fs = require('fs');
 
 
 function login(req,res){
-  console.log('username:req.body.username: '+req.body.username);
+  // console.log('username:req.body.username: '+req.body.username);
   db.findUser({username:req.body.username},function(result){
-    console.log('findUserResult: ');
-    console.log(result);
-    console.log(req.body);
+    // console.log('findUserResult: ');
+    // console.log(result);
+    // console.log(req.body);
     if(result.length > 0 && result[0].password == req.body.password) {
       result = result[0];
       for(var item in result) {
