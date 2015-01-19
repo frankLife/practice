@@ -66,7 +66,21 @@ ul {
   box-shadow: #96D1DA 0 0px 18px -2px;
 }
 .room-messageBox h2 {
+  margin-bottom: 10px;
   font: bold 20px/1 'Poiret One' sans-serif;
+}
+.room-messageBox li span {
+  font: bold 18px/1 'Poiret One' sans-serif;
+}
+.room-messageBox li span em {
+  font-style: normal;
+  color: #FF0202;
+}
+.room-messageBox li.msgReceive span{
+  float: left;
+}
+.room-messageBox li.msgSend span{
+  float: right;
 }
 .room-writeBox {
   padding-top: 20px;

@@ -3,7 +3,9 @@ $(function(){
   var user = $('.J_username').text()
   var writeBox = $('.J_writeBox');
   var sendBtn = $('.J_sendBtn');
+  var messageBox = $('.J_messageBox');
   var sendTo = null;
+
 
   function bindSocketEvent(){
     /* link event */
@@ -18,7 +20,9 @@ $(function(){
 
     /* get message */
     socket.on('user:getMessage',function(opt){
-      console.log(opt.msg);
+      var message =  '<li class="msgReceive fn-clear">' + 
+      '<span><em>'+opt.from+' :</em>'+opt.msg+'</span></li>';
+      messageBox.append(message);
     });
   }
   function bindEvent() {
