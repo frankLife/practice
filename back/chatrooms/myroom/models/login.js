@@ -21,13 +21,7 @@ function login(req,res){
       // req.session = result;
       tool.direct(res,'/');
     }else {
-      /* 
-      connect realize the redirect function,
-      but api documentation dosen't exists
-      */
-
-      // res.redirect('/app/html/login.html');
-      tool.direct(res,'/app/html/login.html');
+      tool.direct(res,'/html/login.html');
     }
   });
 }

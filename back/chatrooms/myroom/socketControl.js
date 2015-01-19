@@ -17,7 +17,9 @@ function u2uSend(socket){
     if(sockets[opt.to] == undefined) {
       throw 'sendTo error';
     }
+    console.log(opt);
     sockets[opt.to].emit('user:getMessage',opt);
+    sockets[opt.from].emit('user:sendMessage',opt);
   });
 }
 function found(server){
