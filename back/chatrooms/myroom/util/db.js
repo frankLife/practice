@@ -26,7 +26,8 @@ var dbFn = {
       if(err) {
         throw err;
       }
-      cb && typeof db == 'function' && cb(result);
+      
+      cb && typeof cb == 'function' && cb(result);
     }));
   }
 };

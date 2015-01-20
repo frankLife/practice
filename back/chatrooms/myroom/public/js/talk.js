@@ -34,7 +34,25 @@ $(function(){
     });
     /* friends login */
     socket.on('user:login',function(loginPerson){
-      
+      if(loginPerson != user) {
+        var liEls = $('.J_friendsList li');
+        for(var i = 0 ,len = liEls.length;i<len;i++) {
+          if($(liEls[i]).text() == loginPerson) {
+            $(liEls[i]).addClass('online');
+          }
+        } 
+      }
+    });
+    /* friends logout */
+    socket.on('user:logout',function(logoutPerson){
+      if(logoutPerson != user) {
+        var liEls = $('.J_friendsList li');
+        for(var i = 0 ,len = liEls.length;i<len;i++) {
+          if($(liEls[i]).text() == logoutPerson) {
+            $(liEls[i]).removeClass('online');
+          }
+        } 
+      }
     });
   }
   function bindEvent() {

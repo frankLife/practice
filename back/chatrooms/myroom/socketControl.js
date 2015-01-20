@@ -26,19 +26,26 @@ function u2uSend(socket){
 function found(server){
   var io = socket(server);
   io.on('connection',function(socket){
-    db.updateUser({username: username},{$set: {isOnline:true}},function(result) {
-      
-      io.sockets.emit('')
-    });
-    socket.on('disconnect',function(){
-      // console.log(username+' disconnect emitted');
-      delete sockets[username];
-      db.updateUser({username: username},{$set: {isOnline:false}},function(result) {});
-    });
+
+
     // console.log('socket: ',socket.id);
     socket.on('user:enter',function(username){
+      db.updateUser({username: username},{$set: {isOnline:true}},function(result) {
+        if(result >= 1) {
+          io.sockets.emit('user:login',username);
+        }
+      });
+      socket.on('disconnect',function(){
+        delete sockets[username];
+        db.updateUser({username: username},{$set: {isOnline:false}},function(result) {
+          if(result >= 1) {
+            io.sockets.emit('user:logout',username);
+          }
+        });
+      });
       sockets[username] = socket;
       console.log('a person has enter myroom: '+ username);
+
     });
 
     u2uLink(socket);
