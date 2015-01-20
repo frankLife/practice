@@ -1,4 +1,5 @@
 var socket = require('socket.io');
+var db = require('./util/db');
 var sockets = {};
 
 //user to user link build
@@ -25,7 +26,15 @@ function u2uSend(socket){
 function found(server){
   var io = socket(server);
   io.on('connection',function(socket){
-
+    db.updateUser({username: username},{$set: {isOnline:true}},function(result) {
+      
+      io.sockets.emit('')
+    });
+    socket.on('disconnect',function(){
+      // console.log(username+' disconnect emitted');
+      delete sockets[username];
+      db.updateUser({username: username},{$set: {isOnline:false}},function(result) {});
+    });
     // console.log('socket: ',socket.id);
     socket.on('user:enter',function(username){
       sockets[username] = socket;
@@ -35,6 +44,7 @@ function found(server){
     u2uLink(socket);
     u2uSend(socket);
   });
+
 }
 
 

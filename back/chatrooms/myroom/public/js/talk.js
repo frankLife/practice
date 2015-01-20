@@ -32,6 +32,10 @@ $(function(){
       messageBox.append(myMessage);
       writeBox.val('');
     });
+    /* friends login */
+    socket.on('user:login',function(loginPerson){
+      
+    });
   }
   function bindEvent() {
     /* link friend */

@@ -17,6 +17,18 @@ var dbFn = {
       cb(result);
     });
   },
+  updateUser: function(){
+    var userCol = db.collection('user');
+    var arg = Array.prototype.slice.call(arguments);
+    var cb = arg.pop();
+
+    userCol.update.apply(userCol,arg.concat(function(err,result){
+      if(err) {
+        throw err;
+      }
+      cb && typeof db == 'function' && cb(result);
+    }));
+  }
 };
 
 function initConnect(){
