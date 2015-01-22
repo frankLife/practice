@@ -1,4 +1,4 @@
-var MongoClient = require('mongodb').mongoClient;
+var MongoClient = require('mongodb').MongoClient;
 
 function initConnect(){
   MongoClient.connect('mongodb://localhost:27017/myroom',function(err,db){

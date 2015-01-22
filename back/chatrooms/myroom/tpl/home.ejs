@@ -21,6 +21,14 @@
     <%}%>
   </ul>
 </section>
+<section class="room-groups">
+  <h2><span class="J_username"><%= session.username%></span>'s Groups</h2>
+  <ul class="fn-clear J_friendsList">
+    <%for(var i = 0,len = friends.length;i<len;i++) {%>
+      <li class="<%if (friends[i].isOnline) {%>online<%}%>"><%= friends[i]['username']%></li>
+    <%}%>
+  </ul>
+</section>
 <section class="room-messageBox">
   <h2>Message Box</h2>
   <ul class="J_messageBox">

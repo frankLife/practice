@@ -32,29 +32,34 @@ ul {
   margin-left: auto;
   margin-right: auto;
   width: 800px;
-  padding: 80px;
+  padding: 10px 20px;
   background: rgba(176, 224, 230, 0.16);
 }
-.room-friends {
+.room-friends,.room-groups {
   min-height: 80px;
 }
-.room-friends h2 {
+.room-friends h2,
+.room-groups h2 {
   font: bold 24px/1 'Poiret One' sans-serif;
   margin-bottom: 10px;
 }
-.room-friends li {
+.room-friends li,
+.room-groups li {
   margin-left: 10px;
   float: left;
   cursor: pointer;
   font: bold 20px/1 'Poiret One' sans-serif;
 }
-.room-friends li:first-child {
+.room-friends li:first-child,
+.room-groups li:first-child {
   margin-left: 0;
 }
-.room-friends li.online {
+.room-friends li.online,
+.room-groups li.online {
   color: rgb(27, 183, 211);
 }
-.room-friends li.selected {
+.room-friends li.selected,
+.room-groups li.selected {
   border-bottom: 2px dashed;
 }
 .room-messageBox {
