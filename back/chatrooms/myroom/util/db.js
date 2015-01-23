@@ -29,6 +29,15 @@ var dbFn = {
       
       cb && typeof cb == 'function' && cb(result);
     }));
+  },
+  findGroup: function(opt,cb){
+    var groupCol = db.collection('group');
+    groupCol.find(opt).toArray(function(err,result){
+      if(err) {
+        throw err;
+      }
+      cb && typeof cb == 'function' && cb(result);
+    });
   }
 };
 

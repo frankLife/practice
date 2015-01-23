@@ -26,8 +26,6 @@ function u2uSend(socket){
 function found(server){
   var io = socket(server);
   io.on('connection',function(socket){
-
-
     // console.log('socket: ',socket.id);
     socket.on('user:enter',function(username){
       db.updateUser({username: username},{$set: {isOnline:true}},function(result) {

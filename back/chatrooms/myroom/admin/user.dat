@@ -1,1 +1,2 @@
-{ "_id" : { "$oid" : "54b9cf9e1c0c00593c589ec5" }, "userId" : 1, "username" : "franklife", "password" : "1" }
+{ "_id" : { "$oid" : "54bb63a9e5c20de426b2e2cf" }, "friends" : [ "tom" ], "groupId" : 1, "isOnline" : false, "password" : "1", "userId" : 1, "username" : "franklife" }
+{ "_id" : { "$oid" : "54bb63db49e081c40a60b609" }, "friends" : [ "franklife" ], "groupId" : 1, "isOnline" : false, "password" : "1", "userId" : 2, "username" : "tom" }

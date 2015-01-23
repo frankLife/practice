@@ -21,10 +21,13 @@ function dbImport(db,collection,file,cb){
     cb&&cb();
   });
 }
+/* export */
+//dbExport('myroom','user','user.dat');
+dbExport('myroom','group','group.dat')
 
-// dbExport('myroom','user','user.dat');
-dbImport('myroom','user','user.dat',function(){
-  console.log('insert ok');
-})
+ /* import */
+// dbImport('myroom','user','user.dat',function(){
+//   console.log('insert ok');
+// })
 
 
