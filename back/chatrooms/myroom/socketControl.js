@@ -30,7 +30,8 @@ function u2gSend(socket){
       throw new Error('sendTo group error');
     }
     console.log(opt);
-    sockets[opt.from].emit('user:sendMessage'.opt);
+
+    sockets[opt.from].emit('user:sendMessage',opt);
     socket.to(opt.to).emit('user:getMessage',opt);
     
   });
