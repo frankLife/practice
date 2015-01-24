@@ -25,7 +25,7 @@
   <h2><span class="J_username"><%= session.username%></span>'s Groups</h2>
   <ul class="fn-clear J_friendsList">
     <%for(var i = 0,len = session.groups.length;i<len;i++) {%>
-      <li><%= session.groups[i]%></li>
+      <li><%= session.groups[i]['groupName']%></li>
     <%}%>
   </ul>
 </section>

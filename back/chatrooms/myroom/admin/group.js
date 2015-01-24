@@ -9,7 +9,7 @@ function initConnect(){
     }
 
     // insertGroup(db,{
-    //   groupId:1,
+    //   groupId:[1],
     //   members: ['franklife','tom']
     // })
     
