@@ -12,7 +12,7 @@ function home(req,res){
   }
 
   db.findUser({username: {$in: req.session.friends}},function(friends){
-    db.findGroup({group: {$in:{req.session.group}}},function(groups){
+    db.findGroup([{groupId: {$in:req.session.groupId}},{groupName:1,_id:0}],function(groups){
       tool.renderTpl('home',{session: req.session,friends: friends,groups:groups},function(html){
         tool.sendHTML(res,html);
       });

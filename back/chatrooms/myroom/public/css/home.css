@@ -50,6 +50,9 @@ ul {
   cursor: pointer;
   font: bold 20px/1 'Poiret One' sans-serif;
 }
+.room-groups li {
+  border-bottom: 2px dashed transparent;
+}
 .room-friends li:first-child,
 .room-groups li:first-child {
   margin-left: 0;
@@ -60,7 +63,23 @@ ul {
 }
 .room-friends li.selected,
 .room-groups li.selected {
-  border-bottom: 2px dashed;
+  border-bottom: 2px dashed rgb(27, 183, 211);
+}
+.groups-members  {
+  margin: 10px 0;
+  min-height: 17px;
+}
+.groups-members li{
+  font-size: 15px;
+  font-family: 'Open Sans';
+  border-right: 2px solid #5F91BB;
+  padding-right: 10px;
+  color: #5F91BB;
+  cursor: default;
+}
+.groups-members li:last-child {
+  border-right: 0;
+  padding-right: 0;
 }
 .room-messageBox {
   padding-top: 20px;

@@ -16,7 +16,7 @@ function initConnect(){
     //   friends: ['franklife'],
     //   isOnline: false
     // });
-    updateUser(openDB,[{username:{ $in: ['franklife','tom']}},{$set:{groupId:1}},{multi:true},function(err,result){
+    updateUser(openDB,[{username:{ $in: ['franklife','tom']}},{$set:{groupId:[1]}},{multi:true},function(err,result){
       if(err) {
         throw err;
       }

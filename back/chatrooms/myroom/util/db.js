@@ -32,7 +32,8 @@ var dbFn = {
   },
   findGroup: function(opt,cb){
     var groupCol = db.collection('group');
-    groupCol.find(opt).toArray(function(err,result){
+
+    groupCol.find.apply(groupCol,opt).toArray(function(err,result){
       if(err) {
         throw err;
       }
