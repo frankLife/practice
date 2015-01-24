@@ -143,7 +143,7 @@ $(function(){
   
   function init(){
     getGroups();
-    socket.emit('user:enter',{username:user,groups:groups});
+    socket.emit('user:enter',{username:user,groupsName:groups});
     bindSocketEvent();
     bindEvent();
   }

@@ -17,7 +17,7 @@ function u2uLink(socket){
 function u2uSend(socket){
   socket.on('user:send',function(opt){
     if(sockets[opt.to] == undefined) {
-      throw 'sendTo error';
+      throw new Error('sendTo error');
     }
     console.log(opt);
     sockets[opt.to].emit('user:getMessage',opt);
@@ -27,22 +27,26 @@ function u2uSend(socket){
 function u2gSend(socket){
   socket.on('group:send',function(opt){
     if(groups[opt.to] == undefined) {
-      throw 'sendTo group error';
+      throw new Error('sendTo group error');
     }
     console.log(opt);
-    // socket.to(opt.to).emit('user:getMessage',opt);
-    // sockets[opt.from].emit('user:sendMessage'.opt);
+    sockets[opt.from].emit('user:sendMessage'.opt);
+    socket.to(opt.to).emit('user:getMessage',opt);
+    
   });
+
 }
-function joinGroup(socket,groups){
-  for(var i = 0,len =groups.length;i<len;i++) {
-    var groupName = groups[i];
+function joinGroup(socket,groupsName){
+  for(var i = 0,len =groupsName.length;i<len;i++) {
+    var groupName = groupsName[i];
     if(groups[groupName] == undefined) {
       groups[groupName] = [];
     }
     groups[groupName].push(socket);
     socket.join(groupName);
   }
+  console.log('existing groups:');
+  console.log(groups);
 }
 
 
@@ -53,9 +57,9 @@ function found(server){
     // console.log('socket: ',socket.id);
     socket.on('user:enter',function(opt){
       var username = opt.username;
-      var groups = opt.groups;
+      var groupsName = opt.groupsName;
 
-      joinGroup(socket,groups);
+      joinGroup(socket,groupsName);
       db.updateUser({username: username},{$set: {isOnline:true}},function(result) {
         if(result >= 1) {
           io.sockets.emit('user:login',username);
