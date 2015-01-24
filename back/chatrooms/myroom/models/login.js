@@ -1,8 +1,5 @@
 var db = require('../util/db');
 var tool = require('../util/tool');
-var fs = require('fs');
-
-
 
 function login(req,res){
   // console.log('username:req.body.username: '+req.body.username);
@@ -19,6 +16,7 @@ function login(req,res){
       /*can't no change reference to session,
       there are some assist properties upon it */
       // req.session = result;
+
       tool.direct(res,'/');
     }else {
       tool.direct(res,'/html/login.html');

@@ -5,6 +5,7 @@ var staticServe = require('serve-static');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var session = require('express-session');
+var serveFavicon = require('serve-favicon');
 
 var socketControl = require('./socketControl')
 var router = require('./util/router');
@@ -17,8 +18,9 @@ var server = null;
 
 var newRouter = new router();
 newRouter.addRouteBySchema(config.resMap);
+app.use(compression({threshold: 512}));
 app.use(morgan('dev'));
-app.use(compression());
+app.use(serveFavicon(__dirname + '/public/maybe.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: 'myroom',

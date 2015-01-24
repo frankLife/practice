@@ -22,11 +22,21 @@
   </ul>
 </section>
 <section class="room-groups">
+<<<<<<< HEAD
   <h2><span class="J_username"><%= session.username%></span>'s Groups</h2>
   <ul class="fn-clear J_friendsList">
     <%for(var i = 0,len = session.groups.length;i<len;i++) {%>
       <li><%= session.groups[i]['groupName']%></li>
+=======
+  <h2><span><%= session.username%></span>'s Groups</h2>
+  <ul class="fn-clear J_groupsList">
+    <%for(var i = 0,len = groups.length;i<len;i++) {%>
+      <li class="online"><%= groups[i]['groupName']%></li>
+>>>>>>> 82e03b3d599142e4ab19cf948ebdf4b9d896e525
     <%}%>
+  </ul>
+  <ul class="groups-members fn-clear J_groupsMembers">
+    <!-- <li>franklife</li><li>tom</li> -->
   </ul>
 </section>
 <section class="room-messageBox">

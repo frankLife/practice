@@ -1,6 +1,7 @@
 exports.resMap = {
   'POST': {
-    '/login': 'login'
+    '/login': 'login',
+    '/getGroupMembers':'getGroupMembers'
   },
   'GET': {
     '/': 'home',

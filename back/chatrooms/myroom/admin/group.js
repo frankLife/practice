@@ -37,7 +37,7 @@ function updateGroup(db,param){
       paramFn = param.pop();
       fn = function(err,result){
         if(err) {
-          throw fn;
+          throw err;
         }
        paramFn(result);
       }

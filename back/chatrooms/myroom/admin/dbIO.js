@@ -22,12 +22,31 @@ function dbImport(db,collection,file,cb){
   });
 }
 /* export */
-//dbExport('myroom','user','user.dat');
-dbExport('myroom','group','group.dat')
+// dbExport('myroom','user','user.dat');
+// dbExport('myroom','group','group.dat')
 
  /* import */
 // dbImport('myroom','user','user.dat',function(){
-//   console.log('insert ok');
+//   console.log('user import ok');
 // })
+// dbImport('myroom','group','group.dat',function(){
+//   console.log('group import ok');
+// });
 
+exports.exportDB = function(){
+  dbExport('myroom','user','user.dat',function(){
+    console.log('group export ok');
+  });
+  dbExport('myroom','group','group.dat',function(){
+    console.log('group export ok')
+  });
+}
+exports.importDB = function(){
+  dbImport('myroom','user','user.dat',function(){
+  console.log('user import ok');
+  })
+  dbImport('myroom','group','group.dat',function(){
+    console.log('group import ok');
+  });
+}
 
