@@ -8,7 +8,11 @@
 5.	终端输入的时机，cmd是输入任何字符就会发送消息，xshell输入时发送输入内容之后再发送一次0d0a
 6.  util.inherits(ChildClass,SuperClass) 相当于  ChildClass.prototype =  new SuperClass(),如果需要继承属性的话，还是需要SuperClass.call(this,[parameters]);
 7.  rename可以通过指定不同的文件夹进行文件移动(剪切)以及本身可以进行重命名
-8. mongodb不能传递undefined
+8.  mongodb不能传递undefined
+9.  Another feature that Connect provides is the concept of "mounting", a simple yet
+powerful organizational tool that allows you to define a path prefix that is required
+in order for the middleware to be called.**the point is that the mouting part means the prefix of url**
+
 ?:
 0.net 模块的clinet 的connect事件触发   ->不是通过server端建立的时候在异步回调的client中绑定，是在client端，通过connect方法建立的client中绑定,server端可以通过connection事件
 1. post请求用data事件传递参数，get请求通过url解析(url.parse(url).search得到参数)
