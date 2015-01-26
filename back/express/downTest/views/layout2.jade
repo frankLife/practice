@@ -1,5 +1,7 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet',href="/stylesheet/" )
+    title #{title}
+    link(rel='stylesheet',href="/stylesheet/#{title}" )
+  body
+    block content
