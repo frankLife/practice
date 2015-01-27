@@ -1,0 +1,16 @@
+body {
+  /*background-color: red;*/
+}
+div.photo-wrap {
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  overflow: hidden;
+}
+h1.photo-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+p.photo-desc {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
