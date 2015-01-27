@@ -2,8 +2,13 @@ extends layout2
 
 block content
   div(class="photo-wrap")
-    h1(class="photo-title") Photos
+    h1(class="photo-title") Photos #{title}
     p(class="photo-desc") Express stock photo application
+    ul(class="photo-list")
+      - for(var i = 0,len=3;i<len;i++)
+        li
+          img
+      
 
 
   
