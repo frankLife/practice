@@ -28,11 +28,17 @@ router.post('/upload',function(req,res,next){
     if(err) {
       throw err;
     }
-    // console.log(util.inspect({fields: fields, files: files}))
+    console.log(util.inspect({fields: fields, files: files}))
     console.dir(files);
-    var dirPath = path.join(root,'/ignore/',fields.photoName);
-    cut.cut(files.photoImages[0].path,dirPath,false,function(){
+    var dirPath = path.join(root,'../ignore/',fields.photoName[0]);
+    console.log('dirPath: ',dirPath);
+    cut.cut(files.photoImage[0].path,dirPath,false,function(){
       var tempPhoto = new Photo({name:fields.photoName,path:dirPath});
+      tempPhoto.save(function(err){
+        if(err) {
+          throw err;
+        }
+      });
       console.log('upload success: ');
       console.log(tempPhoto.name);
       console.log(tempPhoto.path);

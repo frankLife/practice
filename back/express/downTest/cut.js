@@ -16,7 +16,7 @@ function cut(oldPath,newPath,isKeepExt,cb) {
   });
 }
 function transport(oldPath,newPath,cb){
-  var readStream = fs.createReadSteam(oldPath);
+  var readStream = fs.createReadStream(oldPath);
   var writeStream = fs.createWriteStream(newPath);
 
   readStream.pipe(writeStream);
