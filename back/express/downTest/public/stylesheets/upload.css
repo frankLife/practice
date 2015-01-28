@@ -1,0 +1,10 @@
+* {
+
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.upload-wrap {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  width: 800px;
+}
