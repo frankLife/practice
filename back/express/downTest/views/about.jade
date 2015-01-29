@@ -7,7 +7,8 @@ block content
     ul(class="photo-list fn-clear")
        each val, index in photos
         li
-          img(src= val['path'])
+          a(target="_blank" href="/download/" + val['path'])
+            img(src= val['path'])
       
 
 

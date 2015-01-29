@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 // var users = require('./routes/users');
 
 var routes = require('./routes/route');
-
+var download = require('./routes/download');
 
 var app = express();
 
@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'ignore')));
 // app.use('/', routes);
 // app.use('/users', users);
 app.use(routes);
+app.use('/download',download);
 
 
 

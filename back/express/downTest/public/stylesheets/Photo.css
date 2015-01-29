@@ -32,6 +32,9 @@ ul.photo-list {
 ul.photo-list li{
   float: left;
 }
+ul.photo-list a {
+  display: block;
+}
 ul.photo-list img {
   width: 125px;
 }
