@@ -17,7 +17,14 @@ var photoSchema = mongoose.Schema({
 var Photo = mongoose.model('Photo',photoSchema);
 
 router.get(/^\/$|^\/about$/,function(req,res,next){
-  res.render('about',{title:'Photo'});
+  Photo.find({},function(err,photos){
+    if(err) {
+      throw err;
+    }
+    console.log(photos);
+    res.render('about',{title:'Photo',photos:photos});
+  });
+  
 });
 router.get('/upload',function(req,res,next){
   res.render('upload',{title:'upload'});
@@ -33,7 +40,9 @@ router.post('/upload',function(req,res,next){
     var dirPath = path.join(root,'../ignore/',fields.photoName[0]);
     console.log('dirPath: ',dirPath);
     cut.cut(files.photoImage[0].path,dirPath,false,function(){
-      var tempPhoto = new Photo({name:fields.photoName,path:dirPath});
+      //ignore folder are being served static files,
+      //so path should be filename
+      var tempPhoto = new Photo({name:fields.photoName,path: fields.photoName[0]});
       tempPhoto.save(function(err){
         if(err) {
           throw err;
