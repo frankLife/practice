@@ -2,7 +2,8 @@
 process.stdout.write('What do you think of node.js? ');
 process.stdin.setEncoding('utf-8');
 // process.stdin.on('readable',function(){
-      // 'process.stdin.read()' can get data from stream,if you use it to get data ,the data event will not be triggered.
+      // 'process.stdin.read()' can get data from stream,
+      // if you use it to get data ,the data event will not be triggered.
 //   var chunk = process.stdin.read(); 
 //   var index = -1;
 //   if(chunk && (index = chunk.indexOf('\r\n')) >= 0 ) {

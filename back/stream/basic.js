@@ -1,7 +1,7 @@
 /*
 readable stream basic
  
-
+//we could regard invoking push method as preparing stream data
 var stream = require('stream');
 var Readable = stream.Readable;
 var rs = new Readable;
