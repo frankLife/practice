@@ -1,6 +1,7 @@
 extends layout2
 
 block content
+
   div(class="photo-wrap")
     h1(class="photo-title") Photos #{title}
     p(class="photo-desc") Express stock photo application
@@ -10,6 +11,7 @@ block content
           a(target="_blank" href="/download/" + val['path'])
             img(src= val['path'])
       
+
 
 
   
