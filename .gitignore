@@ -3,6 +3,8 @@ canvasFly/HTML5 Canvas note/audio
 canvasFly/HTML5 Canvas note/spaceRes
 node_modules
 back/ignore
+back/gulp/src
 back/fileSave/.tasks
 *.psd
 *.gif
+ignore

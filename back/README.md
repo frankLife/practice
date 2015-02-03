@@ -14,8 +14,9 @@ powerful organizational tool that allows you to define a path prefix that is req
 in order for the middleware to be called.**the point is that the mouting part means the prefix of url**
 
 ?:
-0.net 模块的clinet 的connect事件触发   ->不是通过server端建立的时候在异步回调的client中绑定，是在client端，通过connect方法建立的client中绑定,server端可以通过connection事件
+0. net 模块的clinet 的connect事件触发   ->不是通过server端建立的时候在异步回调的client中绑定，是在client端，通过connect方法建立的client中绑定,server端可以通过connection事件
 1. post请求用data事件传递参数，get请求通过url解析(url.parse(url).search得到参数)
+2. res.locals -> app.locals貌似可以用来做打底数据？
 
 
 

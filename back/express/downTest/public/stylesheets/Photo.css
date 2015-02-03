@@ -1,0 +1,40 @@
+.fn-clear:after {
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    content:" ";
+    clear:both;
+    height:0;
+}
+.fn-clear {
+    zoom:1; /* for IE6 IE7 */
+}
+body {
+  /*background-color: red;*/
+}
+div.photo-wrap {
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  overflow: hidden;
+}
+h1.photo-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+p.photo-desc {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+ul.photo-list {
+  padding: 0;
+  list-style-type: none;
+}
+ul.photo-list li{
+  float: left;
+}
+ul.photo-list a {
+  display: block;
+}
+ul.photo-list img {
+  width: 125px;
+}
