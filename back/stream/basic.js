@@ -43,28 +43,49 @@ rs.pipe(process.stdout);
  */
 
 
-/*
- _read 2
- */
+// /*
+//  _read 2
+//  */
 
-var Readable = require('stream').Readable;
-var rs = Readable();
+// var Readable = require('stream').Readable;
+// var rs = Readable();
 
-var c = 97 - 1;
-var readTimes = 0;
-rs._read = function () {
-  // once the put data is fetched , onece read operate excute again. (?)
-  console.log('\nreadTimes: ',++readTimes);
-    if (c >= 'z'.charCodeAt(0)) return rs.push(null);
+// var c = 97 - 1;
+// var readTimes = 0;
+// rs._read = function () {
+//   // once the put data is fetched , onece read operate excute again. (?)
+//   console.log('\nreadTimes: ',++readTimes);
+//     if (c >= 'z'.charCodeAt(0)) return rs.push(null);
 
-    setTimeout(function () {
-        rs.push(String.fromCharCode(++c));
-    }, 500);
-};
+//     setTimeout(function () {
+//         rs.push(String.fromCharCode(++c));
+//     }, 500);
+// };
 
-rs.pipe(process.stdout);
+// rs.pipe(process.stdout);
 
-process.on('exit', function () {
-    console.error('\n_read() called ' + (c - 97) + ' times');
+// process.on('exit', function () {
+//     console.error('\n_read() called ' + (c - 97) + ' times');
+// });
+// process.stdout.on('error', process.exit);
+
+
+// When a chunk of data can be read from the stream, it will emit a 'readable' event.
+process.stdin.on('readable',function(){
+  // //The read() method pulls some data out of the internal buffer and returns it. If there is no data available, then it will return null.
+  // //This method should only be called in non-flowing mode. In flowing-mode, this method is called automatically until the internal buffer is drained.
+  // var buf = process.stdin.read();
+  
+  var buf = process.stdin.read(3);
+  //we need to give node a "kick" to tell it that we are interested in more data past the 3 bytes that we've already read
+  process.stdin.read(0);
+
+  //When the stream is finished, .read() returns null because there are no more bytes to fetch
+  console.dir(buf);
 });
-process.stdout.on('error', process.exit);
+
+// (echo abc; sleep 1; echo def; sleep 1; echo ghi) | node remote.js 
+
+
+
+
