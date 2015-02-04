@@ -26,7 +26,7 @@
 
 var Writable = require('stream').Writable;
 var ws = new Writable({
-  highWaterMark: 1
+  highWaterMark: 1 //? highWaterMark Number Buffer level when write() starts returning false. Default=16kb
 })
 
 ws._write = function(chunk, encoding, cb){
@@ -38,6 +38,8 @@ var index = 0;
 while(ws.write('a')) {
   console.log(index++)
 }
+//how stream handle the memory with write & _write,
+//what is memory state when the drain trigger 
 ws.on('drain',function(){
   console.log('drained!');
 });
