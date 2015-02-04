@@ -12,7 +12,7 @@
 9.  Another feature that Connect provides is the concept of "mounting", a simple yet
 powerful organizational tool that allows you to define a path prefix that is required
 in order for the middleware to be called.**the point is that the mouting part means the prefix of url**
-
+10. If a writable.write(chunk) call returns false, then the drain event will indicate when it is appropriate to begin writing more data to the stream. if writable.write(chunk) will returns true if the entire data was flushed successfully to the kernel buffer, returns false if all or part of the data was queued in user memory. 'drain' will be emitted when the buffer is again free.
 ?:
 0. net 模块的clinet 的connect事件触发   ->不是通过server端建立的时候在异步回调的client中绑定，是在client端，通过connect方法建立的client中绑定,server端可以通过connection事件
 1. post请求用data事件传递参数，get请求通过url解析(url.parse(url).search得到参数)
