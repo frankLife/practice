@@ -19,5 +19,6 @@ var Canvas = {
                     canvas.width-halfBorderWidth,canvas.height-halfBorderWidth);
     ctx.restore();
 
-  }
+  },
+  drawImage: function(){}
 }
