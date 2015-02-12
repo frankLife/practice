@@ -30,9 +30,9 @@ Promise.prototype.then = function(resolveFn,rejectFn){
 
   self.initFn &&self.initFn();
   if(self.resolveVal != null) {
-    var resolveVal = resolveFn.apply(self,self.resolveVal);
+    var resolveVal = resolveFn.apply(self,self.resolveVal) || 'success';
   }else {
-    var rejectVal = rejectFn.apply(self,self.rejectVal);
+    var rejectVal = rejectFn.apply(self,self.rejectVal) || 'false';
   }
 
   return new Promise({
@@ -42,7 +42,9 @@ Promise.prototype.then = function(resolveFn,rejectFn){
 }
 
 var promise = new Promise(function(resolve, reject) {
-  resolve(1);
+  setTimeout(function(){
+    resolve(1);
+  },1000);
 });
 promise.then(function(val) {
   console.log(val); // 1
