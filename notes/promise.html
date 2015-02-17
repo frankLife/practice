@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>promise test</title>
+</head>
+<body>
+<script>
+function Promise(fn){
+  var self = this;
+  self.resolveVal = null;
+  self.rejectVal = null;
+  self.initFn = null;
+  var resolve = function(){
+    self.resolveVal = arguments
+  }
+  var reject = function(){
+    self.rejectVal = arguments;
+  }
+  if(fn != undefined&&typeof fn == 'function') {
+    self.initFn = function(){
+      fn(resolve,reject) 
+    }
+  }else {
+    self.resolveVal = fn['resolveVal'];
+    self.rejectVal = fn['rejectVal'];
+  }
+}
+Promise.prototype.then = function(resolveFn,rejectFn){
+  var self = this;
+
+  self.initFn &&self.initFn();
+  if(self.resolveVal != null) {
+    var resolveVal = resolveFn.apply(self,self.resolveVal) || 'success';
+  }else {
+    var rejectVal = rejectFn.apply(self,self.rejectVal) || 'false';
+  }
+
+  return new Promise({
+    resolveVal :[].concat(resolveVal),
+    rejectVal: [].concat(rejectVal)
+  });
+}
+
+var promise = new Promise(function(resolve, reject) {
+  setTimeout(function(){
+    resolve(1);
+  },1000);
+});
+promise.then(function(val) {
+  console.log(val); // 1
+  return val + 2;
+}).then(function(val) {
+  console.log(val); // 3
+});
+
+
+
+</script>
+</body>
+</html>
