@@ -16,8 +16,9 @@ in order for the middleware to be called.**the point is that the mouting part me
 11. 一个模块中的JS代码仅在模块第一次被使用时执行一次，并在执行过程中初始化模块的导出对象。之后，缓存起来的导出对象被重复利用。
 ?:
 0. net 模块的clinet 的connect事件触发   ->不是通过server端建立的时候在异步回调的client中绑定，是在client端，通过connect方法建立的client中绑定,server端可以通过connection事件
-1. post请求用data事件传递参数，get请求通过url解析(url.parse(url).search得到参数)
+1. post请求用data事件传递参数，get请求通过url解析(url.parse(url).search得到参数 || express 中找req.query)
 2. res.locals -> app.locals貌似可以用来做打底数据？
+3. koa中 yield next 与 yield* next为啥效果一样?(代码: ./koa/yieldNnext.js)
 
 
 
