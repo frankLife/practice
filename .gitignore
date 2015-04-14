@@ -8,3 +8,4 @@ back/fileSave/.tasks
 *.psd
 *.gif
 ignore
+bower_components
