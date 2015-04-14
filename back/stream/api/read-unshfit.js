@@ -7,15 +7,25 @@ var StringDecoder = require('string_decoder').StringDecoder;
 function parseHeader(stream, callback) {
   stream.on('error', callback);
   stream.on('readable', onReadable);
+
   var decoder = new StringDecoder('utf8');
   var header = '';
   function onReadable() {
+    console.log('trigger readable event');
     var chunk;
     while (null !== (chunk = stream.read())) {
       var str = decoder.write(chunk);
 
       // console.log(str);
       if (str.match(/\r\n/)) {
+        // unshift will trigger readable event,
+        // so it need off handler beforehand
+        // 
+        // ( ps: When you call stream.
+        // unshift() if will emit the data event immediately if the stream is in flowing mode.)
+        // 
+        stream.removeListener('error', callback);
+        stream.removeListener('readable', onReadable);
         // found the header boundary
         var split = str.split(/\r\n/);
         header += split.shift();
@@ -23,17 +33,16 @@ function parseHeader(stream, callback) {
         // console.log(remaining);
         var buf = new Buffer(remaining, 'utf8');
         if (buf.length) {
-          console.log(chunk)
-          console.log(buf);
-          stream.unshift(buf);
+          // console.log(chunk)
+          // console.log(buf);
+          stream.unshift(chunk);
         }
 
-        stream.removeListener('error', callback);
-        stream.removeListener('readable', onReadable);
+       
         // now the body of the message can be read from the stream.
         // console.log(stream.read());
-        // callback(null, header, stream);
-        // break;
+        callback(null, header, stream);
+        break;
       } else {
         // still reading the header.
         header += str;
@@ -54,22 +63,16 @@ parseHeader(readable,function(err,header,stream){
   console.log('header: ');
   console.log(header);
   
-  stream.on('data',function(data){
-    console.log(data);
-  });
-  stream.on('end',function(){
-    console.log('end')
-  })
-  // console.log(stream.read())
-  // console.log('body: ');
-  // stream.pipe(process.stdout);
+
+  console.log('body: ');
+  stream.pipe(process.stdout);
 })
 
 
 
 
-
 /*
+
 var fs = require('fs');
 var StringDecoder = require('string_decoder').StringDecoder;
 var readable = fs.createReadStream('./unshift.txt');
