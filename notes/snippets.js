@@ -286,3 +286,9 @@ Window {top: Window, window: Window, location: Location, external: Object, chrom
 })()
 
 
+/* random string */
+(function(){
+  function uid() {
+    return Math.random().toString(36).slice(2);
+  }
+})()
