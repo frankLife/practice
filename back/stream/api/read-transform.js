@@ -32,14 +32,15 @@ reduceLetter.prototype._read = function(){
     return;
   }
   console.log(chunk)
+  var outChunk = [];
+  
   for(var i = 0,len = chunk.length;i<len;i++) {
     console.log('chunk[i]: ',chunk[i])
-    if(chunk[i] == this.code) {
-      console.log('catch');
-      chunk = chunk.slice(0,i) + chunk.slice(i);
+    if(chunk[i] != this.code) {
+      outChunk.push(chunk.slice(i,i+1));
     }
   }
-  this.push(chunk);
+  this.push(Buffer.concat(outChunk));
 }
 
 var stream = new reduceLetter(fs.createReadStream('./transform.txt'),'a');
