@@ -33,10 +33,10 @@ reduceLetter.prototype._read = function(){
   }
   console.log(chunk)
   var outChunk = [];
-  
+  //TODO: use buffer write method
   for(var i = 0,len = chunk.length;i<len;i++) {
     console.log('chunk[i]: ',chunk[i])
-    if(chunk[i] != this.code) {
+    if(chunk[i] != this.code) { 
       outChunk.push(chunk.slice(i,i+1));
     }
   }
