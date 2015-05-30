@@ -9,3 +9,4 @@ back/fileSave/.tasks
 *.gif
 ignore
 bower_components
+npm-debug.log
