@@ -6,7 +6,7 @@ var readFile = function (fileName){
     fs.readFile(fileName, function(error, data){
       if (error) reject(error);
       console.log(1);
-      console.log(data);
+      // console.log(data.toString());
       resolve(data);
     });
   });
@@ -20,4 +20,5 @@ var gen = function* (){
   console.log(f2.toString());
 }
 var fn = gen();
-console.log(fn.next());
+console.log(fn.next().value.then(function(result){console.log(result.toString())}));
+// console.log(fn.next());
