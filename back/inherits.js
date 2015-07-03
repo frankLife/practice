@@ -14,7 +14,7 @@ var util = require('util');
 // });
 
 // dog.emit('bark','hello human~');
-
+//
 /* inherits custome class */
 function Animal(name){
   this.name = name;
