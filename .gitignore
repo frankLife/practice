@@ -10,3 +10,5 @@ back/fileSave/.tasks
 ignore
 bower_components
 npm-debug.log
+react/react-0.13.3
+.DS_Store

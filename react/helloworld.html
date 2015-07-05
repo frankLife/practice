@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hello React!</title>
+		<script src="./react-0.13.3/build/react.js"></script>
+		<script src="./react-0.13.3/build/JSXTransformer.js" ></script>
+	</head>
+	<body>
+		<div class="J_container"></div>
+		<script type="text/jsx">
+			var Text = React.createClass({
+				render: function(){
+					return (
+						<div>{this.props.text}</div>
+					)
+				}
+			})
+			React.render(<Text text="Hello React!" />,document.getElementsByClassName('J_container')[0]);
+		</script>
+	</body>
+</html>
