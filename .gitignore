@@ -12,3 +12,7 @@ bower_components
 npm-debug.log
 react/react-0.13.3
 .DS_Store
+react/react-tutorial-master
+*.DS_Store
+.DS_Store?
+react/.DS_Store
