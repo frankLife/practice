@@ -1,12 +1,15 @@
 var Comment = React.createClass({
 	render: function(){
+		var rawHTML = marked(this.props.children.toString(),{sanitize: true});
+		var time = new Date(parseInt(this.props.time));
+		console.log(time)
 		return (
-			<div className="commentWrap">
-				<div>
+			<div >
+				<div className="commentWrap">
 					<div className='comment-name'>{this.props.name}</div> 
-					<div className="comment-time">{this.props.time}</div>
+					<div className="comment-time">{time.toString()}</div>
 				</div>
-				<div className="comment-content">{this.props.content}</div>
+				<div className="comment-content" dangerouslySetInnerHTML={{__html: rawHTML}}></div>
 			</div>
 		)
 	}
@@ -16,7 +19,7 @@ var CommentList = React.createClass({
 		var commentArr = [];
 		var comments = this.props.comments;
 		comments.forEach(function(comment,index) {
-			commentArr.push( <Comment name={comment.name} time={comment.time} content={comment.content} /> );
+			commentArr.push( <Comment name={comment.name} time={comment.time}>{comment.content}</Comment> );
 		});
 		return (
 			<div className="commentList" >
@@ -29,8 +32,8 @@ var CommentForm = React.createClass({
 	render: function(){
 		return (
 		<form onSubmit={this._handleSubmit}>
-			<input type="text" name="name" ref="name" />
-			<input type="text" name="content" ref="content" />
+			<label>Name:</label><input type="text" name="name" ref="name" /> <br />
+			<label>Content:</label><textarea name="content" ref="content" ></textarea>
 			<button type="submit">submit</button>
 		</form>
 		)
@@ -47,10 +50,31 @@ var CommentForm = React.createClass({
 		this.props.onCommentSubmit(name,content);
 	}
 })
+var CommentFilter = React.createClass({
+	render: function(){
+		return (
+			<div className="filterWrap">
+				<label>Name:</label><input onChange={this._handleChange} type="text" name="name" ref="name" /> 
+				<label>Content:</label><input type="text" name="content" ref="content" />
+			</div>
+		)
+	},
+	_handleChange: function(e){
+		// var target = $(e.currentTarget);
+		// var type = target.attr('name');
+		// var changeValue = target.val();
+		var filterName = this.refs.name.getDOMNode().value;
+		var filterContent = this.refs.content.getDOMNode().value;
+
+		this.props.onFilterChange(filterName,filterContent);
+	}
+})
 var CommentBox = React.createClass({
 	getInitialState: function(){
 		return {
-			comments: []
+			comments: [],
+			filterName:'',
+			filterContent:''
 		}
 	},
 	componentDidMount: function(){
@@ -60,11 +84,15 @@ var CommentBox = React.createClass({
 		return (
 			<div>
 				<h1>Comments</h1>
+				<CommentFilter onFilterChange = {this._handleFilterChange} />
 				<CommentList comments = {this.state.comments} />
 				<CommentForm onCommentSubmit = {this._handleFunc} />
 			</div>
 
 		)
+	},
+	_handleFilterChange: function(type,value){
+		if()
 	},
 	_handleFunc: function(name,content){	
 		var comments = 	this.state.comments.concat({name: name,content:content,time: Date.now()});

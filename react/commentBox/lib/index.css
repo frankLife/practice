@@ -1,0 +1,25 @@
+* {
+	font-family: 宋体, Arial, sans-serif;
+}
+.commentWrap {
+	overflow: hidden;
+}
+.comment-name {
+	float: left;	
+}
+.comment-time {
+	float: left;
+	margin-left: 25px;
+}
+label {
+	display: inline-block;
+	width: 75px;
+}
+.filterWrap {
+	margin-bottom: 20px;	
+}
+textarea {
+	width: 300px;
+	height: 200px;
+	resize: none;
+}

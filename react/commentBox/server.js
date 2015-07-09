@@ -17,7 +17,7 @@ app.get('/comments.json',function(req,res,next){
 	// res.end();
 })
 app.post('/comments.json',function(req,res,next){
-	fs.writeFile('./comments.json', JSON.stringify(req.body.data), function(err){
+	fs.writeFile('./comments.json', JSON.stringify(req.body.data,null,4), function(err){
 		if(err) {
 			res.json({success:false});
 			return;
