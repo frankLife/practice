@@ -2,8 +2,7 @@ var Comment = React.createClass({
 	render: function(){
 		var rawHTML = marked(this.props.children.toString(),{sanitize: true});
 		var time = new Date(parseInt(this.props.time));
-		console.log(time)
-		return (
+			return (
 			<div >
 				<div className="commentWrap">
 					<div className='comment-name'>{this.props.name}</div> 
@@ -16,10 +15,16 @@ var Comment = React.createClass({
 })
 var CommentList = React.createClass({
 	render: function(){
+		var filterName = this.props.filterName;
+		var filterContent = this.props.filterContent;
+		console.log(filterContent);
 		var commentArr = [];
 		var comments = this.props.comments;
 		comments.forEach(function(comment,index) {
-			commentArr.push( <Comment name={comment.name} time={comment.time}>{comment.content}</Comment> );
+			if(filterName!= '' ? comment.name.match(filterName) : true &&
+			  filterContent!= '' ? comment.content.match(filterContent) : true){
+				commentArr.push( <Comment name={comment.name} time={comment.time}>{comment.content}</Comment> );
+			}
 		});
 		return (
 			<div className="commentList" >
@@ -55,7 +60,7 @@ var CommentFilter = React.createClass({
 		return (
 			<div className="filterWrap">
 				<label>Name:</label><input onChange={this._handleChange} type="text" name="name" ref="name" /> 
-				<label>Content:</label><input type="text" name="content" ref="content" />
+				<label>Content:</label><input onChange={this._handleChange} type="text" name="content" ref="content" />
 			</div>
 		)
 	},
@@ -85,14 +90,14 @@ var CommentBox = React.createClass({
 			<div>
 				<h1>Comments</h1>
 				<CommentFilter onFilterChange = {this._handleFilterChange} />
-				<CommentList comments = {this.state.comments} />
+				<CommentList filterContent={this.state.filterContent} filterName={this.state.filterName} comments = {this.state.comments} />
 				<CommentForm onCommentSubmit = {this._handleFunc} />
 			</div>
 
 		)
 	},
-	_handleFilterChange: function(type,value){
-		if()
+	_handleFilterChange: function(filterName,filterContent){
+		this.setState({filterName:filterName,filterContent:filterContent});
 	},
 	_handleFunc: function(name,content){	
 		var comments = 	this.state.comments.concat({name: name,content:content,time: Date.now()});
